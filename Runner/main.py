@@ -10,11 +10,15 @@ testFont = pygame.font.Font('Runner/font/Pixeltype.ttf', 50)
 #Background (and text)
 skySurface = pygame.image.load('Runner/graphics/Sky.png').convert()
 groundSurface = pygame.image.load('Runner/graphics/ground.png').convert()
-textSurface = testFont.render('My Game', False, 'Green').convert()
+
+#Scoreboard
+scoreSurface = testFont.render('My Game', False, (64,64,64))
+scoreRect = scoreSurface.get_rect(center = (400,50))
 
 #Player
 playerSurface = pygame.image.load('Runner/graphics/Player/player_walk_1.png').convert_alpha()
 playerRect = playerSurface.get_rect(midbottom =(80,300))
+playerGravity = 0
 
 #Enemies
 
@@ -29,20 +33,41 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+        #Mouse    
+        if event.type == pygame.MOUSEBUTTONDOWN:
+                print("Down")
+        #KeyDown
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                playerGravity = -20    
+    
 
     #Background
     screen.blit(skySurface,(0,0))
     screen.blit(groundSurface,(0,300))
-    screen.blit(textSurface,(300,50))
-    #Enemies
+    pygame.draw.rect(screen,'#c0e8ec',scoreRect,)
+    pygame.draw.rect(screen, '#c0e8ec', scoreRect, 10)
+    screen.blit(scoreSurface,scoreRect)
 
+    #Enemies
         #Snail
     snailRect.right  -= 5
     if snailRect.left < -50: snailRect.left = 850
     screen.blit(snailSurface,snailRect)
 
     #Player
+    playerGravity += 1
+    playerRect.y += playerGravity
+    if playerRect.bottom >= 300: playerRect.bottom = 300 #Floor
     screen.blit(playerSurface,playerRect)
+    
+        
 
+    #if playerRect.colliderect(snailRect):
+    #    print('collision')
+
+
+
+    #Fps
     pygame.display.update()
     clock.tick(60)
