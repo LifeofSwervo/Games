@@ -6,6 +6,7 @@ screen = pygame.display.set_mode((800,400))
 pygame.display.set_caption('Runner')
 clock = pygame.time.Clock()
 testFont = pygame.font.Font('Runner/font/Pixeltype.ttf', 50)
+gameActive = True
 
 #Background (and text)
 skySurface = pygame.image.load('Runner/graphics/Sky.png').convert()
@@ -38,31 +39,35 @@ while True:
                 print("Down")
         #KeyDown
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE and playerRect.bottom >= 300: 
                 playerGravity = -20    
     
+    if gameActive:
+        #Background
+        screen.blit(skySurface,(0,0))
+        screen.blit(groundSurface,(0,300))
+        pygame.draw.rect(screen,'#c0e8ec',scoreRect,)
+        pygame.draw.rect(screen, '#c0e8ec', scoreRect, 10)
+        screen.blit(scoreSurface,scoreRect)
 
-    #Background
-    screen.blit(skySurface,(0,0))
-    screen.blit(groundSurface,(0,300))
-    pygame.draw.rect(screen,'#c0e8ec',scoreRect,)
-    pygame.draw.rect(screen, '#c0e8ec', scoreRect, 10)
-    screen.blit(scoreSurface,scoreRect)
+        #Enemies
+            #Snail
+        snailRect.right  -= 5
+        if snailRect.left < -50: snailRect.left = 850
+        screen.blit(snailSurface,snailRect)
 
-    #Enemies
-        #Snail
-    snailRect.right  -= 5
-    if snailRect.left < -50: snailRect.left = 850
-    screen.blit(snailSurface,snailRect)
-
-    #Player
-    playerGravity += 1
-    playerRect.y += playerGravity
-    if playerRect.bottom >= 300: playerRect.bottom = 300 #Floor
-    screen.blit(playerSurface,playerRect)
-    
+        #Player
+        playerGravity += 1
+        playerRect.y += playerGravity
+        if playerRect.bottom >= 300: playerRect.bottom = 300 #Floor
+        screen.blit(playerSurface,playerRect)
         
+        #Collision
+        if snailRect.colliderect(playerRect):
+            gameActive = False  
 
+    else:
+        screen.fill()
     #if playerRect.colliderect(snailRect):
     #    print('collision')
 
