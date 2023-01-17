@@ -30,6 +30,7 @@ while True:
     pygame.draw.rect(screen,lightGrey,player)
     pygame.draw.rect(screen,lightGrey,opponent)
     pygame.draw.ellipse(screen,lightGrey,ball)
+    pygame.draw.aaline(screen, lightGrey, (screenWidth/2,0),(screenWidth/2,screenHeight))
 
 
 

@@ -1,6 +1,21 @@
 import pygame
 from sys import exit
 
+def displayScore():
+    pygame.time.get_ticks()
+
+def playerAnimation():
+    global playerSurface, playerIndex
+
+    if playerRect.bottom < 300:
+        playerSurface = playerJump
+    else:
+        playerIndex += 0.1
+        if playerIndex >= len(playerWalk):playerIndex = 0
+        playerSurface = playerWalk[int(playerIndex)]
+    #Player walking animation if the player is on the floor.
+    #Display the jump surface when player is not on floor.
+
 pygame.init()
 screen = pygame.display.set_mode((800,400))
 pygame.display.set_caption('Runner')
@@ -17,7 +32,13 @@ scoreSurface = testFont.render('My Game', False, (64,64,64))
 scoreRect = scoreSurface.get_rect(center = (400,50))
 
 #Player
-playerSurface = pygame.image.load('Runner/graphics/Player/player_walk_1.png').convert_alpha()
+playerWalk1 = pygame.image.load('Runner/graphics/Player/player_walk_1.png').convert_alpha()
+playerWalk2 = pygame.image.load('Runner/graphics/Player/player_walk_2.png').convert_alpha()
+playerWalk = [playerWalk1,playerWalk2]
+playerIndex = 0
+playerJump = pygame.image.load('Runner/graphics/Player/jump.png')
+
+playerSurface = playerWalk[playerIndex]
 playerRect = playerSurface.get_rect(midbottom =(80,300))
 playerGravity = 0
 
@@ -25,7 +46,7 @@ playerGravity = 0
 
     #Snail
 snailSurface = pygame.image.load('Runner/graphics/snail/snail1.png').convert_alpha()
-snailRect = snailSurface.get_rect(midbottom = (600,300))
+snailRect = snailSurface.get_rect(bottomright = (600,300))
 snailXPos = 600
 
 #Game Loop
@@ -34,14 +55,23 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+
+        
+        if gameActive:   
         #Mouse    
-        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 print("Down")
-        #KeyDown
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and playerRect.bottom >= 300: 
-                playerGravity = -20    
-    
+            #KeyDown
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and playerRect.bottom >= 300: 
+                    playerGravity = -20    
+        else:#If game is failed
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                gameActive = True 
+                snailRect.left = 800
+                
+
+
     if gameActive:
         #Background
         screen.blit(skySurface,(0,0))
@@ -60,17 +90,14 @@ while True:
         playerGravity += 1
         playerRect.y += playerGravity
         if playerRect.bottom >= 300: playerRect.bottom = 300 #Floor
+        playerAnimation()
         screen.blit(playerSurface,playerRect)
         
         #Collision
         if snailRect.colliderect(playerRect):
             gameActive = False  
-
     else:
-        screen.fill()
-    #if playerRect.colliderect(snailRect):
-    #    print('collision')
-
+        screen.fill('Purple')
 
 
     #Fps
