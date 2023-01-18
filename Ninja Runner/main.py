@@ -73,6 +73,11 @@ playerSurface = playerRun[playerRunIndex]
 PlayerRect = playerSurface.get_rect(midbottom = (80, 310))
 playerGravity = 0
 
+#Enemies
+
+
+golemSurface = pygame.image.load('Assets/Enemies/Idle/golemIdle0.png')
+golemRect = golemSurface.get_rect(midbottom = (620, 270))
 
 #Game Loop
 while True:
@@ -107,6 +112,9 @@ while True:
 
     playerAnimation() 
     screen.blit(playerSurface, PlayerRect)
+
+    #Golem
+    screen.blit(golemSurface, golemRect)
 
 
     #FPS
