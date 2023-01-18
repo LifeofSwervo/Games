@@ -1,5 +1,12 @@
 import pygame
 
+def golemAnimation():
+    global golemSurface, golemIdleIndex
+    
+    golemIdleIndex += 0.1
+    if golemIdleIndex >= len(golemIdle): golemIdleIndex = 0
+    golemSurface = golemIdle[int(golemIdleIndex)]
+
 def playerAnimation ():
     global playerSurface, playerRunIndex, playerJumpIndex, playerFallIndex, jumping, falling
 
@@ -38,8 +45,8 @@ pygame.display.set_caption('Ninja Run')
 clock = pygame.time.Clock()
 
 #Background
-groundSurface = pygame.image.load('Assets/StraightLand.png')
-skySurface = pygame.image.load('Assets/Sky1.png')
+groundSurface = pygame.image.load('Assets/World/StraightLand.png')
+skySurface = pygame.image.load('Assets/World/Sky1.png')
 
 #Player
     #Run
@@ -74,9 +81,19 @@ PlayerRect = playerSurface.get_rect(midbottom = (80, 310))
 playerGravity = 0
 
 #Enemies
+golemIdle0 = pygame.image.load('Assets/Enemies/Idle/golemIdle0.png')
+golemIdle1 = pygame.image.load('Assets/Enemies/Idle/golemIdle1.png')
+golemIdle2 = pygame.image.load('Assets/Enemies/Idle/golemIdle2.png')
+golemIdle3 = pygame.image.load('Assets/Enemies/Idle/golemIdle3.png')
+golemIdle4 = pygame.image.load('Assets/Enemies/Idle/golemIdle4.png')
+golemIdle5 = pygame.image.load('Assets/Enemies/Idle/golemIdle5.png')
+golemIdle6 = pygame.image.load('Assets/Enemies/Idle/golemIdle6.png')
+golemIdle7 = pygame.image.load('Assets/Enemies/Idle/golemIdle7.png')
+golemIdle = [golemIdle0, golemIdle1, golemIdle2, golemIdle3, golemIdle4, golemIdle5, golemIdle6, golemIdle7]
+golemIdleIndex = 0
 
 
-golemSurface = pygame.image.load('Assets/Enemies/Idle/golemIdle0.png')
+golemSurface = golemIdle[golemIdleIndex]
 golemRect = golemSurface.get_rect(midbottom = (620, 270))
 
 #Game Loop
@@ -114,6 +131,7 @@ while True:
     screen.blit(playerSurface, PlayerRect)
 
     #Golem
+    golemAnimation()
     screen.blit(golemSurface, golemRect)
 
 
