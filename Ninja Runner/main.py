@@ -3,7 +3,7 @@ import pygame
 def golemAnimation():
     global golemSurface, golemIdleIndex
     
-    golemIdleIndex += 0.1
+    golemIdleIndex += 0.2
     if golemIdleIndex >= len(golemIdle): golemIdleIndex = 0
     golemSurface = golemIdle[int(golemIdleIndex)]
 
@@ -31,7 +31,7 @@ def playerAnimation ():
             falling = False
 
     else:
-        playerRunIndex += 0.2
+        playerRunIndex += 0.3
         if playerRunIndex >= len(playerRun): playerRunIndex = 0
         playerSurface = playerRun[int(playerRunIndex)]
 
