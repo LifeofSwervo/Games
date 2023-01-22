@@ -1,5 +1,12 @@
 import pygame
 
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('Assets/Player/Run/NinjaRun0.png')
+        self.rect = self.image.get_rect(midbottom = (80, 310))
+
+
 def golemAnimation():
     global golemSurface, golemIdleIndex
     
