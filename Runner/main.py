@@ -1,105 +1,122 @@
 import pygame
-from sys import exit
 
-def displayScore():
-    pygame.time.get_ticks()
+def playerAnimation ():
+    global playerSurface, playerRunIndex, playerJumpIndex, playerFallIndex, jumping, falling
 
-def playerAnimation():
-    global playerSurface, playerIndex
+    if playerGravity >= 0: 
+        playerFallIndex += 0.2
+        if playerFallIndex >= len(playerFall): playerFallIndex = 0
+        playerSurface = playerFall[int(playerFallIndex)]
 
-    if playerRect.bottom < 300:
-        playerSurface = playerJump
+    elif jumping:
+        playerJumpIndex += 0.2
+        if playerJumpIndex >= len(playerJump): playerJumpIndex = 0
+        playerSurface = playerJump[int(playerJumpIndex)]
+        if playerGravity >= 0:
+            falling = True
+            jumping = False
+
+    elif falling:
+        playerFallIndex += 0.2
+        if playerFallIndex >= len(playerFall): playerFallIndex = 0
+        playerSurface = playerFall[int(playerFallIndex)]
+        if PlayerRect.bottom >= 280:
+            falling = False
+
     else:
-        playerIndex += 0.1
-        if playerIndex >= len(playerWalk):playerIndex = 0
-        playerSurface = playerWalk[int(playerIndex)]
-    #Player walking animation if the player is on the floor.
-    #Display the jump surface when player is not on floor.
+        playerRunIndex += 0.2
+        if playerRunIndex >= len(playerRun): playerRunIndex = 0
+        playerSurface = playerRun[int(playerRunIndex)]
 
+    
+
+
+#Setup
 pygame.init()
 screen = pygame.display.set_mode((800,400))
-pygame.display.set_caption('Runner')
+pygame.display.set_caption('Ninja Run')
 clock = pygame.time.Clock()
-testFont = pygame.font.Font('Runner/font/Pixeltype.ttf', 50)
-gameActive = True
 
-#Background (and text)
-skySurface = pygame.image.load('Runner/graphics/Sky.png').convert()
-groundSurface = pygame.image.load('Runner/graphics/ground.png').convert()
-
-#Scoreboard
-scoreSurface = testFont.render('My Game', False, (64,64,64))
-scoreRect = scoreSurface.get_rect(center = (400,50))
+#Background
+groundSurface = pygame.image.load('Assets/StraightLand.png')
+skySurface = pygame.image.load('Assets/Sky1.png')
 
 #Player
-playerWalk1 = pygame.image.load('Runner/graphics/Player/player_walk_1.png').convert_alpha()
-playerWalk2 = pygame.image.load('Runner/graphics/Player/player_walk_2.png').convert_alpha()
-playerWalk = [playerWalk1,playerWalk2]
-playerIndex = 0
-playerJump = pygame.image.load('Runner/graphics/Player/jump.png')
+    #Run
+playerRun1 = pygame.image.load('Assets/Player/Run/NinjaRun0.png')
+playerRun2 = pygame.image.load('Assets/Player/Run/NinjaRun1.png')
+playerRun3 = pygame.image.load('Assets/Player/Run/NinjaRun2.png')
+playerRun4 = pygame.image.load('Assets/Player/Run/NinjaRun3.png')
+playerRun5 = pygame.image.load('Assets/Player/Run/NinjaRun4.png')
+playerRun6 = pygame.image.load('Assets/Player/Run/NinjaRun5.png')
+playerRun7 = pygame.image.load('Assets/Player/Run/NinjaRun6.png')
+playerRun8 = pygame.image.load('Assets/Player/Run/NinjaRun7.png')
+playerRun = [playerRun1, playerRun2, playerRun3, playerRun4, playerRun5, playerRun6, playerRun7, playerRun8]
+playerRunIndex = 0
 
-playerSurface = playerWalk[playerIndex]
-playerRect = playerSurface.get_rect(midbottom =(80,300))
+    #Jump
+playerJump1 = pygame.image.load('Assets/Player/Jump/Jump0.png')
+playerJump2 = pygame.image.load('Assets/Player/Jump/Jump1.png')
+playerJump = [playerJump1, playerJump2]
+playerJumpIndex = 0
+jumping = False
+
+    #Fall
+playerFall1 = pygame.image.load('Assets/Player/Jump/Fall0.png')
+playerFall2 = pygame.image.load('Assets/Player/Jump/Fall1.png')
+playerFall = [playerFall1, playerFall2]
+playerFallIndex = 0
+falling = False
+
+
+playerSurface = playerRun[playerRunIndex]
+PlayerRect = playerSurface.get_rect(midbottom = (80, 310))
 playerGravity = 0
 
 #Enemies
 
-    #Snail
-snailSurface = pygame.image.load('Runner/graphics/snail/snail1.png').convert_alpha()
-snailRect = snailSurface.get_rect(bottomright = (600,300))
-snailXPos = 600
+
+golemSurface = pygame.image.load('Assets/Enemies/Idle/golemIdle0.png')
+golemRect = golemSurface.get_rect(midbottom = (620, 270))
 
 #Game Loop
 while True:
+    #Input Handler
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
             exit()
-
         
-        if gameActive:   
-        #Mouse    
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                print("Down")
-            #KeyDown
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and playerRect.bottom >= 300: 
-                    playerGravity = -20    
-        else:#If game is failed
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                gameActive = True 
-                snailRect.left = 800
-                
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and PlayerRect.bottom >= 280:
+                jumping = True
+                playerGravity = -20 
+
+    #Background
+    screen.blit(skySurface, (0,0))
+    screen.blit(groundSurface, (0,270))
+    
+
+    #Player    
+    playerGravity += 1
+    PlayerRect.y += playerGravity 
+
+    if PlayerRect.bottom >= 280: 
+        PlayerRect.bottom = 280
+        playerGravity = -1
+        jumping = False
+        falling = False
+
+    if jumping and playerGravity >= 0:
+        falling = False
+        jumping = False
+
+    playerAnimation() 
+    screen.blit(playerSurface, PlayerRect)
+
+    #Golem
+    screen.blit(golemSurface, golemRect)
 
 
-    if gameActive:
-        #Background
-        screen.blit(skySurface,(0,0))
-        screen.blit(groundSurface,(0,300))
-        pygame.draw.rect(screen,'#c0e8ec',scoreRect,)
-        pygame.draw.rect(screen, '#c0e8ec', scoreRect, 10)
-        screen.blit(scoreSurface,scoreRect)
-
-        #Enemies
-            #Snail
-        snailRect.right  -= 5
-        if snailRect.left < -50: snailRect.left = 850
-        screen.blit(snailSurface,snailRect)
-
-        #Player
-        playerGravity += 1
-        playerRect.y += playerGravity
-        if playerRect.bottom >= 300: playerRect.bottom = 300 #Floor
-        playerAnimation()
-        screen.blit(playerSurface,playerRect)
-        
-        #Collision
-        if snailRect.colliderect(playerRect):
-            gameActive = False  
-    else:
-        screen.fill('Purple')
-
-
-    #Fps
+    #FPS
     pygame.display.update()
     clock.tick(60)
