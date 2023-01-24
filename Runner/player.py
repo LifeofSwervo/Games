@@ -1,4 +1,5 @@
 import pygame
+from arrow import Arrow
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -29,6 +30,9 @@ class Player(pygame.sprite.Sprite):
         self.playerFallIndex = 0
         self.falling = False
 
+            #Weapons
+        self.arrows = pygame.sprite.Group()
+
             #Surface & Rectangle
         self.image = self.playerRun[self.playerRunIndex]
         self.rect = self.image.get_rect(midbottom = (190, 280))
@@ -51,6 +55,7 @@ class Player(pygame.sprite.Sprite):
             self.falling = False
     
     def animationState(self):
+        
         if self.gravity > 0:
             self.playerFallIndex += 0.2
             if self.playerFallIndex >= len(self.playerFall): self.playerFallIndex = 0
@@ -86,7 +91,12 @@ class Player(pygame.sprite.Sprite):
             if self.playerRunIndex >= len(self.playerRun): self.playerRunIndex = 0
             self.image = self.playerRun[int(self.playerRunIndex)]
 
+    def shootArrow(self):
+        self.lasers.add(Arrow(self.rect.center))
+
+
     def update(self):
         self.playerInput()
         self.applyGravity()
         self.animationState()
+        self.shootArrow

@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from horse import Horse
+from arrow import Arrow
     
 
 if __name__ == '__main__':
