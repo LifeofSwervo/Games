@@ -38,7 +38,7 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.rect.bottom >= 280:
             self.jumping = True
-            self.gravity = -20
+            self.gravity = -23
             
 
     def applyGravity(self):

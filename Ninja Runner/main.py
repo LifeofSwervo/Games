@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from horse import Horse
+from skull import Skull
     
 
 if __name__ == '__main__':
@@ -21,6 +22,9 @@ if __name__ == '__main__':
     horse = pygame.sprite.Group()
     horse.add(Horse())
 
+    skull = pygame.sprite.Group()
+    skull.add(Skull())
+
 
     #Game Loop
     while True:
@@ -39,6 +43,9 @@ if __name__ == '__main__':
         
         horse.draw(screen)
         horse.update()
+
+        skull.draw(screen)
+        skull.update()
 
         #FPS
         pygame.display.update()

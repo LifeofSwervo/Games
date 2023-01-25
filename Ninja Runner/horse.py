@@ -5,10 +5,10 @@ class Horse(pygame.sprite.Sprite):
         super().__init__()
 
         #Run
-        horseRun0 = pygame.image.load('Assets/Enemies/Run/Gallop0.png')
-        horseRun1 = pygame.image.load('Assets/Enemies/Run/Gallop1.png')
-        horseRun2 = pygame.image.load('Assets/Enemies/Run/Gallop2.png')
-        horseRun3 = pygame.image.load('Assets/Enemies/Run/Gallop3.png')
+        horseRun0 = pygame.image.load('Assets/Enemies/Horse/Run/Gallop0.png')
+        horseRun1 = pygame.image.load('Assets/Enemies/Horse/Run/Gallop1.png')
+        horseRun2 = pygame.image.load('Assets/Enemies/Horse/Run/Gallop2.png')
+        horseRun3 = pygame.image.load('Assets/Enemies/Horse/Run/Gallop3.png')
         self.horseRun = [horseRun0, horseRun1, horseRun2, horseRun3]
         self.horseRunIndex = 0
 
@@ -25,7 +25,7 @@ class Horse(pygame.sprite.Sprite):
 
 
     def movement(self):
-        self.rect.x -= 10
+        self.rect.x -= 5
         if self.rect.x <= -200:
             self.rect.x = 850
 
