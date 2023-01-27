@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from horse import Horse
+from arrow import Arrow
     
 
 if __name__ == '__main__':
@@ -34,9 +35,10 @@ if __name__ == '__main__':
         screen.blit(groundSurface, (0,270))
 
         #Player
-        player.draw(screen)
         player.update()
         
+        player.sprite.arrows.draw(screen)
+        player.draw(screen)
         #Horse
         horse.draw(screen)
         horse.update()

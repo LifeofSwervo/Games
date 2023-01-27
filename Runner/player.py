@@ -1,6 +1,7 @@
 import pygame
 from arrow import Arrow
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -32,17 +33,32 @@ class Player(pygame.sprite.Sprite):
 
             #Weapons
         self.arrows = pygame.sprite.Group()
+        self.ready = True
+        self.arrowTime = 0 
+        self.arrowCooldown = 600
 
             #Surface & Rectangle
         self.image = self.playerRun[self.playerRunIndex]
         self.rect = self.image.get_rect(midbottom = (190, 280))
         self.gravity = 0
 
+
+
     def playerInput(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.rect.bottom >= 280:
             self.jumping = True
             self.gravity = -20
+        if pygame.mouse.get_pressed()[0] and self.ready:
+            self.shootArrow()
+            self.ready = False
+            self.arrowTime = pygame.time.get_ticks()
+
+    def recharge(self):
+        if not self.ready:
+            currentTime = pygame.time.get_ticks()
+            if currentTime - self.arrowTime >= self.arrowCooldown:
+                self.ready = True
             
 
     def applyGravity(self):
@@ -92,11 +108,12 @@ class Player(pygame.sprite.Sprite):
             self.image = self.playerRun[int(self.playerRunIndex)]
 
     def shootArrow(self):
-        self.lasers.add(Arrow(self.rect.center))
+        self.arrows.add(Arrow(self.rect.center))
 
 
     def update(self):
         self.playerInput()
+        self.recharge
         self.applyGravity()
         self.animationState()
         self.shootArrow
