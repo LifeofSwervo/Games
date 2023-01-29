@@ -59,6 +59,7 @@ class Player(pygame.sprite.Sprite):
             currentTime = pygame.time.get_ticks()
             if currentTime - self.arrowTime >= self.arrowCooldown:
                 self.ready = True
+                print('Ready True')
             
 
     def applyGravity(self):
@@ -109,11 +110,12 @@ class Player(pygame.sprite.Sprite):
 
     def shootArrow(self):
         self.arrows.add(Arrow(self.rect.center))
+        
 
 
     def update(self):
         self.playerInput()
-        self.recharge
+        self.recharge()
         self.applyGravity()
         self.animationState()
-        self.shootArrow
+        self.arrows.update()
