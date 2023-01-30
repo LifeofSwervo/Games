@@ -13,4 +13,4 @@ class Arrow(pygame.sprite.Sprite):
         self.rect.x -= self.speed
         self.rect.y += self.y
         if self.rect.y >= 10:
-            self.rect.y = 175
+            self.rect.y = 175                                                 
