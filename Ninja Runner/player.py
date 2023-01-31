@@ -29,6 +29,12 @@ class Player(pygame.sprite.Sprite):
         self.playerFallIndex = 0
         self.falling = False
 
+            #Player Stand
+        self.playerStand0 = pygame.image.load('Assest/Player/Idle/Idle0.png')
+        self.playerStand1 = pygame.image.load('Assest/Player/Idle/Idle1.png')
+        self.playerStand2 = pygame.image.load('Assest/Player/Idle/Idle2.png')
+        self.playerStand3 = pygame.image.load('Assest/Player/Idle/Idle3.png')
+
             #Surface & Rectangle
         self.image = self.playerRun[self.playerRunIndex]
         self.rect = self.image.get_rect(midbottom = (190, 280))

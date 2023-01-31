@@ -17,7 +17,7 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((800,400))
     pygame.display.set_caption('Ninja Run')
     clock = pygame.time.Clock()
-    gameActive = True
+    gameActive = False
     startTime = 0
     font = pygame.font.Font('font\Pixeltype.ttf', 50)
 
@@ -79,7 +79,7 @@ if __name__ == '__main__':
             if horse.sprites()[0].rect.colliderect(player.sprite.rect):
                 gameActive = False
         else:
-            screen.fill('Purple')
+            screen.fill((94, 129, 162))
 
         #FPS
         pygame.display.update()
