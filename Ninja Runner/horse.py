@@ -25,7 +25,7 @@ class Horse(pygame.sprite.Sprite):
 
 
     def movement(self):
-        self.rect.x -= 5
+        self.rect.x -= 8
         if self.rect.x <= -200:
             self.rect.x = 850
 

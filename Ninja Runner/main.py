@@ -2,6 +2,13 @@ import pygame
 from player import Player
 from horse import Horse
 from skull import Skull
+
+def displayScore():
+    currentTime = int(pygame.time.get_ticks() / 100) - startTime
+    scoreSurf = font.render(f'Score: {currentTime}', False, (64, 64, 64))
+    scoreRect = scoreSurf.get_rect(center = (400, 50))
+    screen.blit(scoreSurf, scoreRect)
+
     
 
 if __name__ == '__main__':
@@ -11,6 +18,8 @@ if __name__ == '__main__':
     pygame.display.set_caption('Ninja Run')
     clock = pygame.time.Clock()
     gameActive = True
+    startTime = 0
+    font = pygame.font.Font('font\Pixeltype.ttf', 50)
 
     player = pygame.sprite.GroupSingle()
     player.add(Player())
@@ -44,13 +53,17 @@ if __name__ == '__main__':
             if keys[pygame.K_SPACE]:
                 gameActive = True
                 horse.sprites()[0].rect.x = 800
+                startTime = int(pygame.time.get_ticks() / 100)
                         
         # Game Failed (if statement)
         if gameActive:
 
+            
+
             #Background
             screen.blit(skySurface, (0,0))
             screen.blit(groundSurface, (0,270))
+            displayScore()
 
             #Player
             player.draw(screen)
