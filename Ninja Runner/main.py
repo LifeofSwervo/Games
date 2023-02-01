@@ -9,7 +9,7 @@ def displayScore():
     scoreRect = scoreSurf.get_rect(center = (400, 50))
     screen.blit(scoreSurf, scoreRect)
 
-    
+
 
 if __name__ == '__main__':
     #Setup
