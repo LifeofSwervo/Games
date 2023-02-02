@@ -10,6 +10,12 @@ def displayScore():
     screen.blit(scoreSurf, scoreRect)
 
 
+# Start screen Player Animations
+def playerAnimation():
+    global playerStandIndex, playerSurface
+    playerStandIndex += 0.2
+    if playerStandIndex >= len(playerStand): playerStandIndex = 0
+    playerSurface = playerStand[int(playerStandIndex)]
 
 if __name__ == '__main__':
     #Setup
@@ -23,6 +29,18 @@ if __name__ == '__main__':
 
     player = pygame.sprite.GroupSingle()
     player.add(Player())
+
+
+    #Player Stand
+    playerStand0 = pygame.image.load('Assets/Player/Idle/Idle0.png')
+    playerStand1 = pygame.image.load('Assets/Player/Idle/Idle1.png')
+    playerStand2 = pygame.image.load('Assets/Player/Idle/Idle2.png')
+    playerStand3 = pygame.image.load('Assets/Player/Idle/Idle3.png')
+    playerStand = [playerStand0, playerStand1, playerStand2, playerStand3]
+    playerStandIndex = 0
+    playerSurface = playerStand[playerStandIndex]
+    playerStandRect = playerSurface.get_rect(center = (400, 200))
+    
 
     #Background
     groundSurface = pygame.image.load('Assets/World/StraightLand.png')
@@ -45,6 +63,8 @@ if __name__ == '__main__':
 
          # Update Keys List
         keys = pygame.key.get_pressed()
+
+        playerAnimation()
 
         if gameActive:
             num = 0
@@ -80,6 +100,7 @@ if __name__ == '__main__':
                 gameActive = False
         else:
             screen.fill((94, 129, 162))
+            screen.blit(playerSurface, playerStandRect)
 
         #FPS
         pygame.display.update()
