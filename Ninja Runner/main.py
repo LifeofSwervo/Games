@@ -38,8 +38,11 @@ if __name__ == '__main__':
     playerStand3 = pygame.image.load('Assets/Player/Idle/Idle3.png')
     playerStand = [playerStand0, playerStand1, playerStand2, playerStand3]
     playerStandIndex = 0
+
+
     playerSurface = playerStand[playerStandIndex]
-    playerStandRect = playerSurface.get_rect(center = (400, 200))
+    playerSurface = pygame.transform.scale2x(playerSurface)
+    playerStandRect = playerSurface.get_rect(center = (400, 220))
     
 
     #Background
@@ -52,6 +55,15 @@ if __name__ == '__main__':
 
     skull = pygame.sprite.Group()
     skull.add(Skull())
+
+    #Intro Screen
+    gameName = font.render('Ninja Runner', False, (111, 196, 169))
+    gameNameRect = gameName.get_rect(center = (400, 130))
+
+    gameStartMsg = font.render('Press Space to Start', False, (111, 196, 169))
+    gameStartMsgRect = gameStartMsg.get_rect(center = (400, 280))
+
+
 
 
     #Game Loop
@@ -101,6 +113,8 @@ if __name__ == '__main__':
         else:
             screen.fill((94, 129, 162))
             screen.blit(playerSurface, playerStandRect)
+            screen.blit(gameName, gameNameRect)
+            screen.blit(gameStartMsg, gameStartMsgRect)
 
         #FPS
         pygame.display.update()
