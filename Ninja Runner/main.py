@@ -8,6 +8,7 @@ def displayScore():
     scoreSurf = font.render(f'Score: {currentTime}', False, (64, 64, 64))
     scoreRect = scoreSurf.get_rect(center = (400, 50))
     screen.blit(scoreSurf, scoreRect)
+    return currentTime
 
 
 # Start screen Player Animations
@@ -26,6 +27,7 @@ if __name__ == '__main__':
     gameActive = False
     startTime = 0
     font = pygame.font.Font('font\Pixeltype.ttf', 50)
+    score = 0
 
     player = pygame.sprite.GroupSingle()
     player.add(Player())
@@ -95,7 +97,7 @@ if __name__ == '__main__':
             #Background
             screen.blit(skySurface, (0,0))
             screen.blit(groundSurface, (0,270))
-            displayScore()
+            score = displayScore()
 
             #Player
             player.draw(screen)
@@ -113,8 +115,16 @@ if __name__ == '__main__':
         else:
             screen.fill((94, 129, 162))
             screen.blit(playerSurface, playerStandRect)
+
+            scoreMessage = font.render(f'Your Score: {score}', False, (111, 196, 169))
+            scoreMessageRect = scoreMessage.get_rect(center = (400, 280))
             screen.blit(gameName, gameNameRect)
-            screen.blit(gameStartMsg, gameStartMsgRect)
+            
+            if score == 0:
+                screen.blit(gameStartMsg, gameStartMsgRect)
+            else:
+                screen.blit(scoreMessage, scoreMessageRect)
+            
 
         #FPS
         pygame.display.update()
