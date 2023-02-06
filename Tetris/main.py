@@ -1,4 +1,5 @@
 import pygame as pg
+from tetris import Tetris
 from settings import *
 
 class App:
@@ -6,13 +7,16 @@ class App:
         pg.init()
         pg.display.set_caption('Tetris')
         self.screen = pg.display.set_mode(FIELD_RES)
-        self.clock = pg.time.Clock()
+        self.clock = pg.time.Clock() 
+        self.tetris = Tetris(self)
 
     def update(self):
+        self.tetris.update()
         self.clock.tick(FPS)
 
     def draw(self):
         self.screen.fill(color = FIELD_COLOR)
+        self.tetris.draw()
         pg.display.flip()
 
     def checkEvents(self):
