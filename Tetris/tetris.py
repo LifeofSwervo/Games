@@ -8,6 +8,8 @@ class Tetris:
         self.spriteGroup = pg.sprite.Group()
         self.tetroimino = Tetromino(self)
     
+
+    # Grid
     def drawGrid(self):
         for x in range(FIELD_W):
             for y in range(FIELD_H):

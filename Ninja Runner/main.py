@@ -65,6 +65,9 @@ if __name__ == '__main__':
     gameStartMsg = font.render('Press Space to Start', False, (111, 196, 169))
     gameStartMsgRect = gameStartMsg.get_rect(center = (400, 280))
 
+    #Timer
+    obstacleTimer = pygame.USEREVENT + 1
+    pygame.time.set_timer(obstacleTimer, 900)
 
 
 
@@ -88,6 +91,9 @@ if __name__ == '__main__':
                 gameActive = True
                 horse.sprites()[0].rect.x = 800
                 startTime = int(pygame.time.get_ticks() / 100)
+
+        if event.type == obstacleTimer and gameActive:
+            print('Test')
                         
         # Game Failed (if statement)
         if gameActive:
