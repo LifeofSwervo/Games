@@ -43,11 +43,14 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(midbottom = (190, 280))
         self.gravity = 0
 
+        self.jumpSound = pygame.mixer.Sound('Audio/Jump.wav')
+
     def playerInput(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.rect.bottom >= 280:
             self.jumping = True
             self.gravity = -23
+            self.jumpSound.play()
             
 
     def applyGravity(self):

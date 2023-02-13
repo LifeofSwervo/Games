@@ -28,12 +28,17 @@ if __name__ == '__main__':
     startTime = 0
     font = pygame.font.Font('font\Pixeltype.ttf', 50)
     score = 0
+    bgMusic = pygame.mixer.Sound('Audio/Runaway_-Decibel_Lyrical.wav')
+    bgMusic.play()
 
     player = pygame.sprite.GroupSingle()
     player.add(Player())
 
+    #Obstacles 
+    obstacleRectList = []
 
-    #Player Stand
+    # Intro Screen
+        #Player Stand
     playerStand0 = pygame.image.load('Assets/Player/Idle/Idle0.png')
     playerStand1 = pygame.image.load('Assets/Player/Idle/Idle1.png')
     playerStand2 = pygame.image.load('Assets/Player/Idle/Idle2.png')
@@ -92,8 +97,10 @@ if __name__ == '__main__':
                 horse.sprites()[0].rect.x = 800
                 startTime = int(pygame.time.get_ticks() / 100)
 
+
+        # Obstacle Timer
         if event.type == obstacleTimer and gameActive:
-            print('Test')
+            obstacleRectList.append()
                         
         # Game Failed (if statement)
         if gameActive:
