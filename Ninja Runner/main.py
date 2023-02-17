@@ -67,6 +67,9 @@ if __name__ == '__main__':
     gameName = font.render('Ninja Runner', False, (111, 196, 169))
     gameNameRect = gameName.get_rect(center = (400, 130))
 
+    youLost = font.render('You Lost! Press Space to try again.', False, (111, 196, 169))
+    youLostRect = youLost.get_rect(center = (400, 130))
+
     gameStartMsg = font.render('Press Space to Start', False, (111, 196, 169))
     gameStartMsgRect = gameStartMsg.get_rect(center = (400, 280))
 
@@ -99,8 +102,8 @@ if __name__ == '__main__':
 
 
         # Obstacle Timer
-        if event.type == obstacleTimer and gameActive:
-            obstacleRectList.append()
+        #if event.type == obstacleTimer and gameActive:
+            #obstacleRectList.append()
                         
         # Game Failed (if statement)
         if gameActive:
@@ -131,11 +134,13 @@ if __name__ == '__main__':
 
             scoreMessage = font.render(f'Your Score: {score}', False, (111, 196, 169))
             scoreMessageRect = scoreMessage.get_rect(center = (400, 280))
-            screen.blit(gameName, gameNameRect)
+            #screen.blit(gameName, gameNameRect)
             
             if score == 0:
+                screen.blit(gameName, gameNameRect)
                 screen.blit(gameStartMsg, gameStartMsgRect)
             else:
+                screen.blit(youLost, youLostRect)
                 screen.blit(scoreMessage, scoreMessageRect)
             
 
