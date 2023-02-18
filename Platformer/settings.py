@@ -1,4 +1,4 @@
-level_map = [
+levelMap = [
 '                            ',
 '                            ',
 '                            ',
@@ -13,4 +13,4 @@ level_map = [
 
 tile_size = 64
 screenWidth = 1200
-screenHeight = len(level_map) * tile_size
+screenHeight = len(levelMap) * tile_size
