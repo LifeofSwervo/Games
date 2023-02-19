@@ -11,6 +11,6 @@ levelMap = [
 '    XXXX  XXXXXX  XX  XXXX  ',
 'XXXXXXXX  XXXXXX  XX  XXXX  ']
 
-tile_size = 64
+tileSize = 64
 screenWidth = 1200
-screenHeight = len(levelMap) * tile_size
+screenHeight = len(levelMap) * tileSize

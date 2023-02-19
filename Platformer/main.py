@@ -7,7 +7,7 @@ from level import Level
 pygame.init()
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 clock = pygame.time.Clock()
-testTile = pygame.sprite.Group(Tile((100, 100), 200))
+
 level = Level(levelMap, screen)
 
 while True:
@@ -17,7 +17,6 @@ while True:
 			sys.exit()
 	
 	screen.fill('black')
-	testTile.draw(screen)
 	level.run()
 
 	pygame.display.update()
