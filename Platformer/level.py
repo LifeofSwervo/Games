@@ -54,12 +54,38 @@ class Level:
             self.worldShift = 0
             player.speed = 8
 
+    def horizontalMovementCollision(self):
+        player = self.player.sprite
+        player.rect.x += player.direction.x * player.speed
+
+        for sprite in self.tiles.sprites():
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.x < 0:
+                    player.rect.left = sprite.rect.right
+                elif player.direction.x > 0:
+                    player.rect.right = player.rect.left
+    
+    def verticalMovementCollision(self):
+        player = self.player.sprite
+        player.applyGravity()
+
+
+        for sprite in self.tiles.sprites():
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.y > 0:
+                    player.rect.bottom = sprite.rect.top
+                elif player.direction.y < 0:
+                    player.rect.top = sprite.rect.bottom
+
     def run(self):
         #Tiles
         self.tiles.update(self.worldShift)
         self.tiles.draw(self.displaySurface)
+        self.scrollX()
 
         #Player
         self.player.update()
+        self.horizontalMovementCollision()
+        self.verticalMovementCollision()
         self.player.draw(self.displaySurface)
-        self.scrollX()
+        
