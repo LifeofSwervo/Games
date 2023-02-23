@@ -7,6 +7,7 @@ from level import Level
 pygame.init()
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 clock = pygame.time.Clock()
+pygame.display.set_caption('Platformer')
 
 level = Level(levelMap, screen)
 
