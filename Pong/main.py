@@ -1,30 +1,31 @@
-import pygame
+import pygame as pg
+from settings import *
+from player import Player
+from level import Level
 
 #Setup
-pygame.init()
-width = 800
-height = 400
-screen = pygame.display.set_mode((width,height))
-pygame.display.set_caption('Runner')
-clock = pygame.time.Clock()
+pg.init()
+screen = pg.display.set_mode((width,height))
+pg.display.set_caption('Pong')
+clock = pg.time.Clock()
 
+player = pg.sprite.GroupSingle()
+player.add(Player())
 
-#Divider
-midSurface = pygame.Surface((12,700))
-midSurface.fill('white')
-
+level = Level(screen)
 
 
 #Game Loop
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
             exit()
+
+    level.run()
+
     
-    #Divider        
-    screen.blit(midSurface,(400,200))
-     
+
     #Frame Rate       
-    pygame.display.update()
+    pg.display.update()
     clock.tick(60)
