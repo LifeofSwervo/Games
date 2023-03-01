@@ -22,6 +22,7 @@ while True:
             pg.quit()
             exit()
 
+    screen.fill('black')
     level.run()
 
     
