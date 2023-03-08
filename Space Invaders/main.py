@@ -16,6 +16,7 @@ if __name__ == '__main__':
     screenHeight = 600
     screen = pygame.display.set_mode((screenWidth, screenHeight))
     clock = pygame.time.Clock()
+    game = Game()
 
     while True:
         for event in pygame.event.get():
@@ -24,6 +25,7 @@ if __name__ == '__main__':
                 sys.exit()
 
         screen.fill((30,30,30))
+        game.run()
 
         pygame.display.flip()
         clock.tick(60)
