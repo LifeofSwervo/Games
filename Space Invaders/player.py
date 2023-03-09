@@ -5,3 +5,4 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load()
         self.rect = self.image.get_rect(midbottom = pos)
+        
