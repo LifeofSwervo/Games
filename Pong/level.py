@@ -1,4 +1,5 @@
 import pygame as pg
+from settings import *
 from player import Player
 from enemy import Enemy
 
@@ -13,7 +14,7 @@ class Level:
         self.enemy = pg.sprite.Group()
 
         #Sprites
-        playerSprite = Player()
+        playerSprite = Player(height)
         self.player.add(playerSprite)
 
         enemySprite = Enemy()

@@ -1,12 +1,16 @@
 import pygame, sys
+from player import Player
+
 
 
 class Game:
     def __init__(self):
-        pass
+        playerSprite = Player((screenWidth / 2,screenHeight), screenWidth, 5)
+        self.player = pygame.sprite.GroupSingle(playerSprite)
 
     def run(self):
-        pass
+        self.player.update()
+        self.player.draw(screen)
         # Update all spirte
         # Draw all sprite groups
 
@@ -17,6 +21,7 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((screenWidth, screenHeight))
     clock = pygame.time.Clock()
     game = Game()
+    pygame.display.set_caption('Space Invaders')
 
     while True:
         for event in pygame.event.get():

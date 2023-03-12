@@ -10,7 +10,7 @@ pg.display.set_caption('Pong')
 clock = pg.time.Clock()
 
 player = pg.sprite.GroupSingle()
-player.add(Player())
+player.add(Player(height))
 
 level = Level(screen)
 

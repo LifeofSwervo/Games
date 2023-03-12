@@ -1,7 +1,7 @@
 import pygame as pg
 
 class Player(pg.sprite.Sprite):
-    def __init__(self): # Initilizer 
+    def __init__(self, constraint): # Initilizer 
         super().__init__()
         self.image = pg.Surface((25, 75))
         self.image.fill('blue')
@@ -9,6 +9,8 @@ class Player(pg.sprite.Sprite):
 
         # Movement
         self.speed = 5 
+
+        self.max_y_constraint = constraint
 
 
     def getInput(self):
@@ -19,6 +21,12 @@ class Player(pg.sprite.Sprite):
          elif keys[pg.K_DOWN]:
              self.rect.y += 5
 
+    def constraint(self):
+        if self.rect.top <= 0:
+            self.rect.top = 0
+        if self.rect.bottom >= self.max_y_constraint:
+            self.rect.bottom = self.max_y_constraint
 
     def update(self):
         self.getInput()
+        self.constraint()
