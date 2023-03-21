@@ -11,13 +11,31 @@ class Game:
 
 
         # Obstacle Setup
-        self.shape = obstacle.shape
-        self.blockSize = 6
+        self.shape = obstacle.shape # Shape is defined as Obstacle Shape
+        self.blockSize = 6 # Size of blocks
+        self.blocks = pygame.sprite.Group() # Define Blocks as sprite groups.
+        self.createMultipleObstacles(0, 480, 0, 100, 200)
+
+    def createObstacle(self, xStart, yStart, offsetX):
+        for rowIndex, row in enumerate(self.shape): # Select the rows of shape (Numbered on obstacle.py)
+            for colIndex, col in enumerate(row):
+                if col == 'x':
+                    x = xStart + colIndex * self.blockSize + offsetX
+                    y = yStart + rowIndex * self.blockSize 
+                    block = obstacle.Block(self.blockSize, (241, 79, 80), x, y)
+                    self.blocks.add(block)
+    
+    def createMultipleObstacles(self, xStart, yStart, *offset):
+        for offsetX in offset:
+            self.createObstacle(xStart, yStart, offsetX)
+
 
     def run(self):
         self.player.update()
         self.player.sprite.lasers.draw(screen)
         self.player.draw(screen)
+
+        self.blocks.draw(screen)
         # Update all spirte
         # Draw all sprite groups
 
