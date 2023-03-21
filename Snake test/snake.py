@@ -27,7 +27,7 @@ scoreFont = pygame.font.SysFont("comicsansms", 35)
 
 def gameScore(score): #Score
     value = scoreFont.render("Your Score: " + str(score), True, yellow)
-    display.blit(value, [0, 0])
+    display.blit(value, [200, 0])
 
 def ourSnake(snakeBlock, snakeList): 
     for x in snakeList:
