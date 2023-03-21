@@ -1,6 +1,7 @@
 import pygame, sys
 from player import Player
 import obstacle
+from alien import Alien
 
 
 class Game:
@@ -14,7 +15,15 @@ class Game:
         self.shape = obstacle.shape # Shape is defined as Obstacle Shape
         self.blockSize = 6 # Size of blocks
         self.blocks = pygame.sprite.Group() # Define Blocks as sprite groups.
-        self.createMultipleObstacles(0, 480, 0, 100, 200)
+        self.obstacleAmount = 4
+        self.obstacle_x_postitions = [num * (screenWidth / self.obstacleAmount) for num in range(self.obstacleAmount)]
+        self.createMultipleObstacles(*self.obstacle_x_postitions, xStart = screenWidth / 15, yStart = 480)
+
+        # Alien Setup
+        self.aliens = pygame.sprite.Group()
+        self.alienSetup(rows = 6, cols = 8)
+
+
 
     def createObstacle(self, xStart, yStart, offsetX):
         for rowIndex, row in enumerate(self.shape): # Select the rows of shape (Numbered on obstacle.py)
@@ -25,9 +34,17 @@ class Game:
                     block = obstacle.Block(self.blockSize, (241, 79, 80), x, y)
                     self.blocks.add(block)
     
-    def createMultipleObstacles(self, xStart, yStart, *offset):
+    def createMultipleObstacles(self, *offset, xStart, yStart):
         for offsetX in offset:
             self.createObstacle(xStart, yStart, offsetX)
+
+    def alienSetup(self, rows, cols):
+        for rowIndex, row in enumerate(rows):
+            for colIndex, col in enumerate(cols):
+                x = colIndex
+                y = rowIndex
+                alienSprite = Alien('red', x, y)
+                self.aliens.add(alienSprite)
 
 
     def run(self):
