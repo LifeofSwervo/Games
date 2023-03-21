@@ -1,12 +1,18 @@
 import pygame, sys
 from player import Player
-
+import obstacle
 
 
 class Game:
     def __init__(self):
+        # Player Setup
         playerSprite = Player((screenWidth / 2,screenHeight), screenWidth, 5)
         self.player = pygame.sprite.GroupSingle(playerSprite)
+
+
+        # Obstacle Setup
+        self.shape = obstacle.shape
+        self.blockSize = 6
 
     def run(self):
         self.player.update()
