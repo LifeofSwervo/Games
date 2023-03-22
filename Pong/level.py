@@ -2,6 +2,7 @@ import pygame as pg
 from settings import *
 from player import Player
 from enemy import Enemy
+from ball import Ball
 
 class Level:
     def __init__(self, surface):
@@ -12,6 +13,7 @@ class Level:
     def setupLevel(self):
         self.player = pg.sprite.GroupSingle()
         self.enemy = pg.sprite.Group()
+        self.ball = pg.sprite.Group()
 
         #Sprites
         playerSprite = Player(height)
@@ -20,6 +22,11 @@ class Level:
         enemySprite = Enemy()
         self.enemy.add(enemySprite)
 
+        ballSprite = Ball()
+        self.ball.add(ballSprite)
+
+        # Ball Setup 
+
     
     def run(self):
         self.player.update()
@@ -27,3 +34,4 @@ class Level:
 
         self.enemy.draw(self.displaySurface)
         
+        self.ball.draw.ellipse(self.displaySurface)
