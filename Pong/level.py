@@ -34,4 +34,5 @@ class Level:
 
         self.enemy.draw(self.displaySurface)
         
-        self.ball.draw.ellipse(self.displaySurface)
+        self.ball.update()
+        self.ball.draw(self.displaySurface)
