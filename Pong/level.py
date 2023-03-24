@@ -11,6 +11,15 @@ class Level:
         self.displaySurface = surface
         self.setupLevel() 
 
+        # Sprites
+        playerSprite = Player(height)
+        self.player.add(playerSprite)
+        
+
+
+        enemySprite = Enemy()
+        self.enemy.add(enemySprite)
+
         #Ball Start
             # Ball Trajectory set to random
         self.ballSpeed_x = 7 * random.choice((1, -1)) 
@@ -31,6 +40,14 @@ class Level:
         if self.ballSprite.rect.left <= 0 or self.ballSprite.rect.right >= width: # Left of Screen Constraint & Right of Screen Constraint
             self.ballSpeed_x *= -1
 
+        # Ball Collisions
+            # Player
+        if self.ballSprite.rect.colliderect(self.player.sprite.rect):
+            self.ballSpeed_x *= -1
+        for enemySprites in self.enemy.sprites():
+            if self.ballSprite.rect.colliderect(enemySprites.rect):
+                self.ballSpeed_x *= -1
+
 
 
     def setupLevel(self):
@@ -39,15 +56,11 @@ class Level:
         self.ball = pg.sprite.Group()
 
         #Sprites
-        playerSprite = Player(height)
-        self.player.add(playerSprite)
+        #playerSprite = Player(height)
+        #self.player.add(playerSprite)
 
-        enemySprite = Enemy()
-        self.enemy.add(enemySprite)
-
-        ballSprite = Ball()
-        self.ball.add(ballSprite)
-     
+        #enemySprite = Enemy()
+        #self.enemy.add(enemySprite)
 
     def run(self):
         self.player.update()
