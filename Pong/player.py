@@ -3,8 +3,8 @@ import pygame as pg
 class Player(pg.sprite.Sprite):
     def __init__(self, constraint): # Initilizer 
         super().__init__()
-        self.image = pg.Surface((25, 75))
-        self.image.fill('blue')
+        self.image = pg.Surface((10, 75))
+        self.image.fill((200, 200, 200))
         self.rect = self.image.get_rect(center = (50, 200))
 
         # Movement

@@ -3,6 +3,7 @@ from settings import *
 from player import Player
 from enemy import Enemy
 from ball import Ball
+from centerLine import CenterLine
 import random
 
 class Level:
@@ -19,6 +20,9 @@ class Level:
 
         enemySprite = Enemy()
         self.enemy.add(enemySprite)
+
+        lineSprite = CenterLine()
+        self.line.add(lineSprite)
 
         #Ball Start
             # Ball Trajectory set to random
@@ -54,6 +58,7 @@ class Level:
         self.player = pg.sprite.GroupSingle()
         self.enemy = pg.sprite.Group()
         self.ball = pg.sprite.Group()
+        self.line = pg.sprite.Group()
 
         #Sprites
         #playerSprite = Player(height)
@@ -71,4 +76,6 @@ class Level:
         #self.ball.update()
         self.ball.draw(self.displaySurface)
         self.ballMovement()
+
+        pg.draw.aaline(self.displaySurface, (200, 200, 200), (width / 2, 0), (width / 2, height))
         
