@@ -52,6 +52,13 @@ class Level:
             if self.ballSprite.rect.colliderect(enemySprites.rect):
                 self.ballSpeed_x *= -1
 
+    def enemyAI(self):
+        enemySpeed = 5
+
+        for enemySprites in self.enemy.sprites():
+            if enemySprites.rect.top < self.ballSprite.rect.y:
+                enemySprites.rect.y += enemySpeed
+
 
 
     def setupLevel(self):
@@ -72,6 +79,7 @@ class Level:
         self.player.draw(self.displaySurface)
 
         self.enemy.draw(self.displaySurface)
+        self.enemyAI()
         
         #self.ball.update()
         self.ball.draw(self.displaySurface)
