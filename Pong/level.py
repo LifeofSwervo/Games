@@ -53,26 +53,30 @@ class Level:
                 self.ballSpeed_x *= -1
 
     def enemyAI(self):
-        enemySpeed = 5
+        enemySpeed = 5 # Speed of Enemy 
 
         for enemySprites in self.enemy.sprites():
+            # Setting enemy to follow ball if ball is below enemy.
             if enemySprites.rect.top < self.ballSprite.rect.y:
-                enemySprites.rect.y += enemySpeed
-
-
+                enemySprites.rect.top += enemySpeed
+            # Setting enemy to follow ball if ball is above enemy.      
+            if enemySprites.rect.bottom > self.ballSprite.rect.y:
+                enemySprites.rect.bottom -= enemySpeed
+            # Stop enemy from passing top of screen border. 
+            if enemySprites.rect.top <= 0:
+                enemySprites.rect.top = 0
+            # Stop enemy from passing bottom of screen border. 
+            if enemySprites.rect.bottom >= height:
+                enemySprites.rect.bottom = height
+            
+        
+         
 
     def setupLevel(self):
         self.player = pg.sprite.GroupSingle()
         self.enemy = pg.sprite.Group()
         self.ball = pg.sprite.Group()
         self.line = pg.sprite.Group()
-
-        #Sprites
-        #playerSprite = Player(height)
-        #self.player.add(playerSprite)
-
-        #enemySprite = Enemy()
-        #self.enemy.add(enemySprite)
 
     def run(self):
         self.player.update()
