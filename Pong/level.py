@@ -33,6 +33,12 @@ class Level:
         self.ballSprite = Ball()
         self.ball.add(self.ballSprite)
 
+    def ballRestart(self):
+        # Ball Restart
+        self.ballSprite.rect.center = (width / 2, height / 2)
+        self.ballSpeed_x *= random.choice((1, -1))
+        self.ballSpeed_y *= random.choice((1, -1))
+
     def ballMovement(self):
         # Ball Movement
         self.ballSprite.rect.x += self.ballSpeed_x
@@ -42,7 +48,7 @@ class Level:
         if self.ballSprite.rect.top <= 0 or self.ballSprite.rect.bottom >= height: # Top of Screen Constraint & Bottom of Screen Constraint
             self.ballSpeed_y *= -1
         if self.ballSprite.rect.left <= 0 or self.ballSprite.rect.right >= width: # Left of Screen Constraint & Right of Screen Constraint
-            self.ballSpeed_x *= -1
+            self.ballRestart()
 
         # Ball Collisions
             # Player
@@ -51,6 +57,9 @@ class Level:
         for enemySprites in self.enemy.sprites():
             if self.ballSprite.rect.colliderect(enemySprites.rect):
                 self.ballSpeed_x *= -1
+
+        # Ball Restart
+        
 
     def enemyAI(self):
         enemySpeed = 5 # Speed of Enemy 

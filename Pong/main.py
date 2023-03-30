@@ -26,7 +26,7 @@ player.add(Player(height))
 level = Level(screen)
 
 
-#Game Loop
+# Game Loop
 while True:
     for event in pg.event.get():
         if event.type == pg.QUIT:
