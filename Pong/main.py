@@ -11,19 +11,27 @@ clock = pg.time.Clock()
 font = pg.font.Font('font\Pixeltype.ttf', 50)
 gameActive = False
 
+
+
+
 # Intro Screen 
     # Name
 gameName = font.render('Pong', False, (200, 200, 200))
 gameNameRect = gameName.get_rect(center = (width / 2, height / 3))
 
     # Start Game
-startGame = font.render ('Press Space to start the game. ', False, (200, 200, 200))
+startGame = font.render('Press Space to start the game. ', False, (200, 200, 200))
 startGameRect = startGame.get_rect(center = (width / 2, height - height / 4))
 
 player = pg.sprite.GroupSingle()
 player.add(Player(height))
 
 level = Level(screen)
+
+    #Score
+#scoreString = "Score: " + str(level.playerScore)
+#score = font.render(scoreString, False, (200, 200, 200))
+#scoreRect = score.get_rect(center = (width / 8, height / 8))
 
 
 # Game Loop
@@ -41,9 +49,11 @@ while True:
     if gameActive:
         screen.fill('black')
         level.run()
+        #screen.blit(score, scoreRect)
     else:
         screen.blit(gameName, gameNameRect)
         screen.blit(startGame, startGameRect)
+        
 
 
     

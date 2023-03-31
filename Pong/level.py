@@ -11,6 +11,9 @@ class Level:
         # level setup
         self.displaySurface = surface
         self.setupLevel() 
+        self.enemyScore = 0
+        self.playerScore = 0
+        self.font = pg.font.Font('font\Pixeltype.ttf', 50)
 
         # Sprites
         playerSprite = Player(height)
@@ -47,8 +50,27 @@ class Level:
         # Screen Constraint
         if self.ballSprite.rect.top <= 0 or self.ballSprite.rect.bottom >= height: # Top of Screen Constraint & Bottom of Screen Constraint
             self.ballSpeed_y *= -1
-        if self.ballSprite.rect.left <= 0 or self.ballSprite.rect.right >= width: # Left of Screen Constraint & Right of Screen Constraint
+        if self.ballSprite.rect.left <= 0: # Left of Screen Constraint & Right of Screen Constraint
             self.ballRestart()
+            self.enemyScore += 1
+            print(self.enemyScore)
+        if self.ballSprite.rect.right >= width:
+            self.ballRestart()
+            self.playerScore += 1
+            print(self.playerScore)
+
+        # Player Scoreboard
+        self.scoreString = "Score: " + str(self.playerScore)
+        self.score = self.font.render(self.scoreString, False, (200, 200, 200))
+        self.scoreRect = self.score.get_rect(center = (width / 8, height / 8))
+        self.displaySurface.blit(self.score, self.scoreRect)
+
+        # Enemy Scoreboard
+        self.enemyScoreString = "Score: " + str(self.enemyScore)
+        self.eScore = self.font.render(self.enemyScoreString, False, (200, 200, 200))
+        self.eScoreRect = self.eScore.get_rect(center = (width / 1.2, height / 8))
+        self.displaySurface.blit(self.eScore, self.eScoreRect)
+
 
         # Ball Collisions
             # Player
@@ -86,6 +108,12 @@ class Level:
         self.enemy = pg.sprite.Group()
         self.ball = pg.sprite.Group()
         self.line = pg.sprite.Group()
+
+        #self.scoreString = "Score: " + str(self.playerScore)
+        #self.score = self.font.render(self.scoreString, False, (200, 200, 200))
+        #self.scoreRect = self.score.get_rect(center = (width / 8, height / 8))
+        #self.displaySurface.blit(self.score, self.scoreRect)
+
 
     def run(self):
         self.player.update()
