@@ -74,8 +74,13 @@ class Level:
 
         # Ball Collisions
             # Player
-        if self.ballSprite.rect.colliderect(self.player.sprite.rect):
-            self.ballSpeed_x *= -1
+        if self.ballSprite.rect.colliderect(self.player.sprite.rect) and self.ballSpeed_x < 0:
+            if abs(self.ballSprite.rect.left - self.player.sprite.rect.right) < 10:
+                self.ballSpeed_x *= -1
+            elif abs(self.ballSprite.rect.bottom - self.player.sprite.rect.top) < 10 and self.ballSpeed_y > 0:
+                self.ballSpeed_y *= -1
+            elif abs(self.ballSprite.rect.top - self.player.sprite.rect.bottom) < 10 and self.ballSpeed_y < 0:
+                self.ballSpeed_y *= -1
         for enemySprites in self.enemy.sprites():
             if self.ballSprite.rect.colliderect(enemySprites.rect):
                 self.ballSpeed_x *= -1
