@@ -3,7 +3,7 @@ import pygame as pg
 class Enemy(pg.sprite.Sprite):
     def __init__(self): # Initilizer 
         super().__init__()
-        self.image = pg.Surface((10, 75))
+        self.image = pg.Surface((5, 75))
         self.image.fill('red')
         self.rect = self.image.get_rect(center = (750, 200))
 
