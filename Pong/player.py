@@ -12,7 +12,6 @@ class Player(pg.sprite.Sprite):
 
         self.max_y_constraint = constraint
 
-
     def getInput(self):
          keys = pg.key.get_pressed()
 

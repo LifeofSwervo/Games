@@ -28,12 +28,6 @@ player.add(Player(height))
 
 level = Level(screen)
 
-    #Score
-#scoreString = "Score: " + str(level.playerScore)
-#score = font.render(scoreString, False, (200, 200, 200))
-#scoreRect = score.get_rect(center = (width / 8, height / 8))
-
-
 # Game Loop
 while True:
     for event in pg.event.get():
@@ -50,7 +44,7 @@ while True:
         screen.fill('black')
         level.run()
         #screen.blit(score, scoreRect)
-    else:
+    else:# Start Screen
         screen.blit(gameName, gameNameRect)
         screen.blit(startGame, startGameRect)
         

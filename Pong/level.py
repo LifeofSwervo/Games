@@ -50,17 +50,15 @@ class Level:
         # Screen Constraint
         if self.ballSprite.rect.top <= 0 or self.ballSprite.rect.bottom >= height: # Top of Screen Constraint & Bottom of Screen Constraint
             self.ballSpeed_y *= -1
-        if self.ballSprite.rect.left <= 0: # Left of Screen Constraint & Right of Screen Constraint
+        if self.ballSprite.rect.left <= 0: # Enemy Score (Ball on left of screen)
             self.ballRestart()
             self.enemyScore += 1
-            print(self.enemyScore)
-        if self.ballSprite.rect.right >= width:
+        if self.ballSprite.rect.right >= width: # Player Score (Ball on right screen)
             self.ballRestart()
             self.playerScore += 1
-            print(self.playerScore)
 
         # Player Scoreboard
-        self.scoreString = "Score: " + str(self.playerScore)
+        self.scoreString = "Score: " + str(self.playerScore) 
         self.score = self.font.render(self.scoreString, False, (200, 200, 200))
         self.scoreRect = self.score.get_rect(center = (width / 8, height / 8))
         self.displaySurface.blit(self.score, self.scoreRect)
@@ -75,14 +73,14 @@ class Level:
         # Ball Collisions
             # Player
         if self.ballSprite.rect.colliderect(self.player.sprite.rect) and self.ballSpeed_x < 0:
-            if abs(self.ballSprite.rect.left - self.player.sprite.rect.right) < 10:
+            if abs(self.ballSprite.rect.left - self.player.sprite.rect.right) < 10:# If the left of the ball sprite collides with the right of the player rect.
                 self.ballSpeed_x *= -1
-            elif abs(self.ballSprite.rect.bottom - self.player.sprite.rect.top) < 10 and self.ballSpeed_y > 0:
+            elif abs(self.ballSprite.rect.bottom - self.player.sprite.rect.top) < 10 and self.ballSpeed_y > 0:# If the bottom of the ball sprite collides with the top of the player rect. 
                 self.ballSpeed_y *= -1
-            elif abs(self.ballSprite.rect.top - self.player.sprite.rect.bottom) < 10 and self.ballSpeed_y < 0:
-                self.ballSpeed_y *= -1
+            elif abs(self.ballSprite.rect.top - self.player.sprite.rect.bottom) < 10 and self.ballSpeed_y < 0:# If the top of the ball sprite collides with the bottom of the player rect. 
+                self.ballSpeed_y *= -1                                                                        # -----> Side note - This avoides issues, allowing the ball not to bounce when it is moving away from the player side.
         for enemySprites in self.enemy.sprites():
-            if self.ballSprite.rect.colliderect(enemySprites.rect):
+            if self.ballSprite.rect.colliderect(enemySprites.rect):                                           
                 self.ballSpeed_x *= -1
 
         # Ball Restart
@@ -104,9 +102,6 @@ class Level:
             # Stop enemy from passing bottom of screen border. 
             if enemySprites.rect.bottom >= height:
                 enemySprites.rect.bottom = height
-            
-        
-         
 
     def setupLevel(self):
         self.player = pg.sprite.GroupSingle()
@@ -114,10 +109,6 @@ class Level:
         self.ball = pg.sprite.Group()
         self.line = pg.sprite.Group()
 
-        #self.scoreString = "Score: " + str(self.playerScore)
-        #self.score = self.font.render(self.scoreString, False, (200, 200, 200))
-        #self.scoreRect = self.score.get_rect(center = (width / 8, height / 8))
-        #self.displaySurface.blit(self.score, self.scoreRect)
 
 
     def run(self):
