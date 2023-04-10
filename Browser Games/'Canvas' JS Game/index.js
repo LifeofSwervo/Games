@@ -81,9 +81,17 @@ const projectiles = []
 const enemies = []
 function spawnEnemies() {
     setInterval(() => {
-        const radius = 30
-        const x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius
-        const y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+        const radius = Math.random() * (30 - 4) + 4 // Any value from 4 to 30
+
+        let x
+        let y
+        if (Math.random() < 0.5) {
+            x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius // If random value is less than 0.5 -> 0 - radius (30) is X otherwise ScreenWidth + radius
+            y = Math.random() * canvas.height
+        } else {
+            x = Math.random() * canvas.width // If random value is less than 0.5 -> 0 - radius (30) is X otherwise ScreenWidth + radius
+            y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+        }
         const color = 'green'
         const angle = Math.atan2(canvas.height / 2 - y,canvas.width / 2 - x)
         const velocity = {x: Math.cos(angle), y: Math.sin(angle)}
@@ -100,8 +108,18 @@ function animate() {
         projectile.update()
     })
 
-    enemies.forEach(enemy => {
+    enemies.forEach((enemy, index) => {
         enemy.update()
+
+        projectiles.forEach((projectile, projectileIndex) => {
+            const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)
+            
+
+            if (dist - enemy.radius - projectile.radius < 1) {
+                enemies.splice(index, 1)
+                projectiles.splice(projectileIndex, 1)
+            }
+        })
     })
 }
 
