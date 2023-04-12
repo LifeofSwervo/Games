@@ -1,3 +1,4 @@
+console.log(gsap)
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d') // Canvas Context variable 
 
@@ -67,6 +68,34 @@ class Enemy {
     }
 }
 
+class Particle {
+    constructor(x, y, radius, color, velocity) {
+        this.x = x
+        this.y = y
+        this.radius = radius
+        this.color = color
+        this.velocity = velocity
+        this.alpha = 1
+    }
+
+    draw() {
+        c.save()
+        c.globalAlpha = this.alpha
+        c.beginPath()
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+        c.fillStyle = this.color
+        c.fill()
+        c.restore()
+    }
+
+    update() {
+        this.draw()
+        this.x = this.x + this.velocity.x
+        this.y = this.y + this.velocity.y
+        this.alpha -= 0.0059
+    }
+}
+
 // Player Coordinates
 const x = canvas.width / 2
 const y = canvas.height / 2
@@ -79,6 +108,7 @@ const projectiles = []
 
 // Enemies
 const enemies = []
+const particles = []
 function spawnEnemies() {
     setInterval(() => {
         const radius = Math.random() * (30 - 4) + 4 // Any value from 4 to 30
@@ -96,7 +126,6 @@ function spawnEnemies() {
         const angle = Math.atan2(canvas.height / 2 - y,canvas.width / 2 - x)
         const velocity = {x: Math.cos(angle), y: Math.sin(angle)}
         enemies.push(new Enemy(x, y, radius, color, velocity))
-        console.log(enemies)
     }, 1000)
 }
 
@@ -106,6 +135,13 @@ function animate() {
     c.fillStyle = 'rgba(0, 0, 0, 0.1)'
     c.fillRect(0, 0, canvas.width, canvas.height) // Clear Projectile Trail
     player.draw() // Draw Player after clearing Projectiles
+    particles.forEach((particle, index) => {
+        if (particle.alpha <= 0) {
+            particles.splice(index, 1)
+        } else {
+        particle.update()
+        }
+    })
     projectiles.forEach((projectile, index) => {
         projectile.update()
 
@@ -136,9 +172,16 @@ function animate() {
             
             // Projectile & Object Collision
             if (dist - enemy.radius - projectile.radius < 1) { // Removes white flash upon killing enemy. (Enemy is nested in array)
-                
-                if (enemy.radius > 10) {
-                    enemy.radius -= 10
+               
+                // Particle Explosion
+                for (let i = 0; i < enemy.radius * 2; i++) {
+                    particles.push(new Particle(projectile.x, projectile.y, 3, enemy.color, {x: (Math.random() - 0.5) * (Math.random() * 7.6), y: (Math.random() - 0.5) * (Math.random() * 7.6)})) // Set Math.random() to create positive and negative numbers. 
+                }
+
+                if (enemy.radius - 10 > 5) { // Min height can't be too small.
+                    gsap.to(enemy, {
+                        radius: enemy.radius - 10 
+                    })
                 } else {
                     setTimeout(() => {
                         enemies.splice(index, 1)
