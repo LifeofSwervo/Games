@@ -6,6 +6,8 @@ const c = canvas.getContext('2d') // Canvas Context variable
 canvas.width = innerWidth
 canvas.height = innerHeight
 
+const scoreEl = document.querySelector('#scoreEl')
+
 class Player {
     constructor (x, y, radius, color) {
         this.x = x
@@ -68,6 +70,7 @@ class Enemy {
     }
 }
 
+const friction = 0.99
 class Particle {
     constructor(x, y, radius, color, velocity) {
         this.x = x
@@ -90,6 +93,8 @@ class Particle {
 
     update() {
         this.draw()
+        this.velocity.x *= friction
+        this.velocity.y *= friction // Shrink x and y of particles over time to give them a slow effect. 
         this.x = this.x + this.velocity.x
         this.y = this.y + this.velocity.y
         this.alpha -= 0.0059
@@ -130,6 +135,7 @@ function spawnEnemies() {
 }
 
 let animationId
+let score = 0
 function animate() {
     animationId = requestAnimationFrame(animate)
     c.fillStyle = 'rgba(0, 0, 0, 0.1)'
@@ -173,6 +179,10 @@ function animate() {
             // Projectile & Object Collision
             if (dist - enemy.radius - projectile.radius < 1) { // Removes white flash upon killing enemy. (Enemy is nested in array)
                
+                // Increase Score
+                score += 100
+                scoreEl.innerHTML = score
+
                 // Particle Explosion
                 for (let i = 0; i < enemy.radius * 2; i++) {
                     particles.push(new Particle(projectile.x, projectile.y, 3, enemy.color, {x: (Math.random() - 0.5) * (Math.random() * 7.6), y: (Math.random() - 0.5) * (Math.random() * 7.6)})) // Set Math.random() to create positive and negative numbers. 
@@ -183,6 +193,10 @@ function animate() {
                         radius: enemy.radius - 10 
                     })
                 } else {
+                    // Remove from Canvas
+                    score += 250
+                    scoreEl.innerHTML = score
+                    
                     setTimeout(() => {
                         enemies.splice(index, 1)
                         projectiles.splice(projectileIndex, 1)
