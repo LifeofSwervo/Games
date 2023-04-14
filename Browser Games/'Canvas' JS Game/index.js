@@ -7,6 +7,9 @@ canvas.width = innerWidth
 canvas.height = innerHeight
 
 const scoreEl = document.querySelector('#scoreEl')
+const startGameBtn = document.querySelector('#startGameBtn')
+const modalEl = document.querySelector('#modalEl')
+
 
 class Player {
     constructor (x, y, radius, color) {
@@ -196,7 +199,7 @@ function animate() {
                     // Remove from Canvas
                     score += 250
                     scoreEl.innerHTML = score
-                    
+
                     setTimeout(() => {
                         enemies.splice(index, 1)
                         projectiles.splice(projectileIndex, 1)
@@ -217,5 +220,10 @@ addEventListener('click', (event) => {
     )
 })
 
-animate()
-spawnEnemies()
+startGameBtn.addEventListener('click', () => {
+    animate()
+    spawnEnemies()
+    modalEl.style.display = 'none'
+})
+
+
