@@ -2,7 +2,7 @@ console.log(gsap)
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d') // Canvas Context variable 
 
-
+console.log('hi')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
@@ -119,7 +119,7 @@ const enemies = []
 const particles = []
 function spawnEnemies() {
     setInterval(() => {
-        const radius = Math.random() * (30 - 4) + 4 // Any value from 4 to 30
+        const radius = Math.random() * (30 - 4) + 4 // Create Radius As Any value from 4 to 30
 
         let x
         let y
