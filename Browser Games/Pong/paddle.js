@@ -1,10 +1,10 @@
 
 class Paddle {
     constructor({position}) {
-        this.position = position
-        this.velocity = {x: 0, y: 0}
-        this.width = 10
-        this.height = 100
+        this.position = position;
+        this.velocity = {x: 0, y: 0};
+        this.width = 10;
+        this.height = 100;
     }
 
     draw() {
@@ -15,7 +15,10 @@ class Paddle {
 
     update() {
         this.draw()
-        this.position.y += this.velocity.y
+        
+        if (this.position.y + this.velocity.y > 0 && this.position.y + this.height + this.velocity.y < canvas.height) // If player remains in screen contraints
+            this.position.y += this.velocity.y; // Movement
+
     }
 }
 

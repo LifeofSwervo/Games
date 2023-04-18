@@ -15,14 +15,15 @@ console.log(canvas.width)
 
 // Player Movement 
 addEventListener('keydown', (event) => {
+    const speed = 3
     switch (event.key) { // Focus on [s] key
         case 's':
             // Go Down
-            playerPaddle.velocity.y = 1
+            playerPaddle.velocity.y = speed
         break
         case 'w':
             // Go Up
-            playerPaddle.velocity.y = -1
+            playerPaddle.velocity.y = -speed
         break
         case 'a':
             // Go Left
@@ -34,7 +35,7 @@ addEventListener('keydown', (event) => {
 })
 
 
-
+// Game Animation [Running updates of all different paddles]
 function animate() {
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
