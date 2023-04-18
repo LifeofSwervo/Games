@@ -12,4 +12,9 @@ class Enemy {
         c.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     }
+
+    update() {
+        this.draw()
+        this.position.y += this.velocity.y
+    }
 }

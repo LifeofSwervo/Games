@@ -18,9 +18,11 @@ addEventListener('keydown', (event) => {
     switch (event.key) { // Focus on [s] key
         case 's':
             // Go Down
+            playerPaddle.velocity.y = 1
         break
         case 'w':
             // Go Up
+            playerPaddle.velocity.y = -1
         break
         case 'a':
             // Go Left
@@ -31,5 +33,14 @@ addEventListener('keydown', (event) => {
     
 })
 
-playerPaddle.draw()
-enemyPaddle.draw()
+
+
+function animate() {
+    requestAnimationFrame(animate)
+    c.fillStyle = 'black'
+    c.fillRect(0, 0, canvas.width, canvas.height)
+    playerPaddle.update()
+    enemyPaddle.update()
+}
+
+animate()
