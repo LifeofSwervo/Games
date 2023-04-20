@@ -20,18 +20,12 @@ addEventListener('keydown', (event) => {
         case 's':
             // Go Down
             playerPaddle.velocity.y = speed
-        break
+            break
         case 'w':
             // Go Up
             playerPaddle.velocity.y = -speed
-        break
-        case 'a':
-            // Go Left
-        break
-        case 'd':
-            // Go Right    
+            break
     }   
-    
 })
 
 
