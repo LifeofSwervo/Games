@@ -5,21 +5,27 @@ class Player {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        //this.image
-        this.radius = 10;
+        this.width = 10;
+        this.height = 100;
         this.color = 'white';
+        this.velocity = {x: 0, y: 0};
     };
 
     draw() {
-        c.beginPath();
-        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
         c.fillStyle = this.color;
-        c.fill();
+        c.fillRect(this.x, this.y, this.width, this.height);
     };
+
+    movement() {
+        // Movement if statement
+    }
 
     update() {
         this.draw();
+        this.movement();
     };
+
+    
 
 };
 
