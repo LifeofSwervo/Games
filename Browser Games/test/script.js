@@ -6,6 +6,9 @@ const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+// Center Line
+const centerLine = new CenterLine(canvas.width / 2, 0)
+
 // Player
 const player = new Player(canvas.width / 25, 0);
 
@@ -20,6 +23,7 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
     ball.update()
+    centerLine.update()
 }
 
 

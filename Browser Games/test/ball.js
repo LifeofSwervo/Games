@@ -2,6 +2,7 @@ class Ball {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.bounce = 0
 
 
         // Allow ball to spawn going in random direction
@@ -24,7 +25,16 @@ class Ball {
         // X coordinate constraint
         if (this.x + this.radius + this.velocity.x >= canvas.width || this.x + this.radius + this.velocity.x <= 0) {
             this.velocity.x = -this.velocity.x
-        }
+            this.bounce += 1
+            console.log(this.bounce)
+        };
+
+        // y Coordinate Constraint
+        if (this.y + this.radius + this.velocity.y >= canvas.height || this.y + this.radius + this.velocity.y <= 0) {
+            this.velocity.y = -this.velocity.y
+            this.bounce += 1
+            console.log(this.bounce)
+        };
     }
 
     draw() {
