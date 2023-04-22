@@ -5,8 +5,8 @@ class Ball {
 
         // Randomization of ball direction (On Reset)
         const direction = {
-            x: Math.random() - 0.5 >= 0 ? -1 : 1, // If -0.5 to 0 returns -1, if 0 to 5 returns 1
-            y: Math.random() - 0.5 >= 0 ? -1 : 1, //  If -0.5 to 0 returns -1, if 0 to 5 returns 1
+            x: Math.random() - 0.5 >= 0 ? -3 : 3, // If -0.5 to 0 returns -1, if 0 to 5 returns 1
+            y: Math.random() - 0.5 >= 0 ? -3 : 3, //  If -0.5 to 0 returns -1, if 0 to 5 returns 1
         };
 
         this.velocity = {x: direction.x, y: direction.y};

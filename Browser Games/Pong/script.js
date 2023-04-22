@@ -35,11 +35,36 @@ addEventListener('keydown', (event) => {
 })
 
 
+
+
+
 // Game Animation [Running updates of all different paddles]
 function animate() {
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
+
+    // Ball & Player Collisions
+    const ballLeftSide = ball.position.x + ball.velocity.x
+    const ballBottomSide = ball.position.y + ball.height
+    const ballRightSide = ball.position.x + ball.width + ball.velocity.x
+    const ballTopSide = ball.position.y
+
+    // Player Vars
+    const playerRightSide = playerPaddle.position.x + playerPaddle.width;
+    const playerTopSide = playerPaddle.position.y
+    const playerBottomSide = playerPaddle.position.y + playerPaddle.height
+    const playerLeftSide = playerPaddle.x 
+
+    // Ball & Player Collisions
+    if ((ballBottomSide >= playerTopSide &&
+        ballTopSide <= playerBottomSide &&
+        ballLeftSide <= playerRightSide) || ballLeftSide <= 0) {
+            // Collision
+        ball.velocity.x = -ball.velocity.x
+        console.log('test')
+    }
+
     playerPaddle.update()
     enemyPaddle.update()
 
