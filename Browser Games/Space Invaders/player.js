@@ -2,6 +2,7 @@
 class Player {
     constructor() {
         this.velocity = {x: 0, y: 0}
+        this.rotation = 0
 
         const image = new Image()
         image.src = './Assets/spaceship.png'
@@ -17,13 +18,30 @@ class Player {
     draw() {
         //c.fillStyle = 'red';
         //c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        
+        c.save() // Used in rotation of ship
+        c.translate(
+            this.position.x + this.width / 2,
+            this.position.y + this.height / 2
+        )
+
+        c.rotate(this.rotation)
+
+        c.translate(
+            -this.position.x - this.width / 2,
+            -this.position.y - this.height / 2
+        )
+        
         if (this.image) { // Only call image if it exist
             c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
-            
         }    
+        c.restore() // 
     }
 
     update() {
-        this.draw()
+        if (this.image) {
+            this.draw()
+            this.position.x += this.velocity.x
+        }
     }
 }
