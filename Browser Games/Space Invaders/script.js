@@ -6,6 +6,7 @@ canvas.height = window.innerHeight;
 
 // Player
 const player = new Player()
+const projectiles = []
 const keys = {
     a: {
         pressed: false
@@ -24,6 +25,12 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height) // Black Background
     player.update()
+
+    // Projectile Code
+    projectiles.forEach(projectile => {
+        projectile.update()
+    })
+
     // Player Movement and Rotation (rotation on movement for visual effect)
     if (keys.a.pressed && player.position.x >= 0) {
         player.velocity.x = -speed
