@@ -1,17 +1,16 @@
 
-class Player {
+class Invader {
     constructor() {
         this.velocity = {x: 0, y: 0}
-        this.rotation = 0
 
         const image = new Image()
-        image.src = './Assets/spaceship.png'
+        image.src = './Assets/invader.png'
         image.onload = () => { // Call images as they load. 
-            const scale = 0.15;
+            const scale = 1;
             this.image = image;
             this.width = image.width * scale;
             this.height = image.height * scale;
-            this.position = {x: canvas.width / 2 - this.width / 2, y: canvas.height - this.height -  20};
+            this.position = {x: canvas.width / 2 - this.width / 2, y: canvas.height / 2};
         };        
     };
 
@@ -19,29 +18,28 @@ class Player {
         //c.fillStyle = 'red';
         //c.fillRect(this.position.x, this.position.y, this.width, this.height)
         
-        c.save() // Used in rotation of ship
-        c.translate(
-            this.position.x + this.width / 2,
-            this.position.y + this.height / 2
-        )
-
-        c.rotate(this.rotation)
-
-        c.translate(
-            -this.position.x - this.width / 2,
-            -this.position.y - this.height / 2
-        )
-        
         if (this.image) { // Only call image if it exist
             c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
         }    
-        c.restore() // 
     }
 
     update() {
         if (this.image) {
             this.draw()
             this.position.x += this.velocity.x
+            this.position.y += this.velocity.y
         }
+    }
+}
+
+class Grid {
+    constructor() {
+        this.position = {x: 0, y: 0};
+        this.velocity = {x: 0, y: 0};
+        this.invaders = [new Invader()];
+    }
+
+    update() {
+        
     }
 }

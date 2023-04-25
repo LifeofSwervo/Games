@@ -7,6 +7,8 @@ canvas.height = window.innerHeight;
 // Player
 const player = new Player()
 const projectiles = []
+const grids = [new Grid()]
+
 const keys = {
     a: {
         pressed: false
@@ -26,9 +28,22 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height) // Black Background
     player.update()
 
-    // Projectile Code
-    projectiles.forEach(projectile => {
-        projectile.update()
+    // Projectile Loop
+    projectiles.forEach((projectile, index) => { // For each required to initiate projectile loop
+        if (projectile.position.y + projectile.radius <= 0) { // If required to collect garbage assets (out of bounds projectiles)
+            setTimeout(() => { // Gets rid of flashing
+                projectiles.splice(index, 1)
+            }, 0) 
+        } else {
+            projectile.update()
+        }
+    })
+
+    grids.forEach((grid) => {
+        grid.update()
+        grid.invaders.forEach((invader) => {
+            invader.update()
+        })
     })
 
     // Player Movement and Rotation (rotation on movement for visual effect)
@@ -50,14 +65,16 @@ animate()
 addEventListener('keydown', ({ key }) => {
     switch (key) {
         case 'a':
-            console.log('left')
             keys.a.pressed = true
         case 'd':
-            console.log('right')
             keys.d.pressed = true
             break
         case ' ':
-            console.log('Space')
+            projectiles.push(new Projectile({
+                position: {x: player.position.x + (player.width / 2), y: player.position.y},
+                velocity: {x: 0, y: -10}
+            }))
+            console.log(projectiles)
             break
     }
 })
@@ -66,14 +83,11 @@ addEventListener('keydown', ({ key }) => {
 addEventListener('keyup', ({ key }) => {
     switch (key) {
         case 'a':
-            console.log('left')
             keys.a.pressed = false
         case 'd':
-            console.log('right')
             keys.d.pressed = false
             break
         case ' ':
-            console.log('Space')
             break
     }
 })
