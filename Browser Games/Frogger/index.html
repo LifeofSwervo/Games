@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Basic Frogger HTML Game</title>
   <meta charset="UTF-8">
+  <title>Frogger</title>
   <style>
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
+    body {
+      background: #0F0F0F;
+      display: flex;
+      justify-content: center;
+    }
 
-  body {
-    background: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    canvas {
+      background: black;
+      border: 4px solid #272727;
+    }
   </style>
 </head>
 <body>
-<canvas width="624" height="720" id="game"></canvas>
-<script src="index.js"></script>
+<canvas width="570" height="540" id="canvas"></canvas>
+<script src="script.js"></script>
 </body>
 </html>
