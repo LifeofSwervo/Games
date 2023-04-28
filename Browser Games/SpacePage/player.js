@@ -1,5 +1,6 @@
 function movementAssignment() {
     player.position.x += player.velocity.x
+    player.position.y += player.velocity.y
 }
 
 

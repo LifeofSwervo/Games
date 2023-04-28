@@ -15,9 +15,6 @@ class Invader {
     };
 
     draw() {
-        //c.fillStyle = 'red';
-        //c.fillRect(this.position.x, this.position.y, this.width, this.height)
-        
         if (this.image) { // Only call image if it exist
             c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
         }    
