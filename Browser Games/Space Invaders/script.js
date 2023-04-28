@@ -35,7 +35,7 @@ function animate() {
                 projectiles.splice(index, 1)
             }, 0) 
         } else {
-            projectile.update()
+            projectile.update() // Draw Projectile
         }
     })
 

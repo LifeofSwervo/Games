@@ -17,6 +17,9 @@ const keys = {
     },
     s: {
         pressed: false
+    },
+    space: {
+        pressed: false
     }
 
 }
@@ -39,6 +42,12 @@ function movement() {
             case 's':
                 keys.s.pressed = true
                 break
+            case ' ': // If space is pressed.
+                projectiles.push(new Projectile({ // Push new Projectile into projectiles array
+                    position: {x: player.position.x + (player.width / 2), y: player.position.y},
+                    velocity: {x: 0, y: -10}
+                }))
+                break
         }   
         
     })
@@ -59,6 +68,8 @@ function movement() {
             case 's':
                 keys.s.pressed = false
                 break
+            case ' ':
+                break
         }
     })
 }
@@ -77,12 +88,24 @@ function movementInConstraint() {
         player.velocity.y = 0
         player.velocity.x = 0
     }
+}
+
+function drawProjectile() {
+    projectiles.forEach((projectile, index) => {
+        if (projectile.position.y + projectile.radius <= 0) {
+            setTimeout(() => {
+                projectiles.splice(index, 1)
+            }, 0)
+        } else {
+            projectile.update()
+        }
+    })
     
-    console.log(player.position, player.width, canvas.width)
 }
 
 // Player
 const player = new Player()
+const projectiles = []
 
 // Animation 
 function animate() {
@@ -90,6 +113,8 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height) // Make Background Black
     player.update()
+
+    drawProjectile()
 
     movementInConstraint()
 }
