@@ -103,9 +103,19 @@ function drawProjectile() {
     
 }
 
+function drawInvaders() {
+    grids.forEach((grid) => {
+        grid.update()
+        grid.invaders.forEach((invader) => {
+            invader.update()
+        })
+    })
+}
+
 // Player
 const player = new Player()
 const projectiles = []
+const grids = [new Grid()]
 
 // Animation 
 function animate() {
@@ -115,6 +125,8 @@ function animate() {
     player.update()
 
     drawProjectile()
+
+    drawInvaders()
 
     movementInConstraint()
 }

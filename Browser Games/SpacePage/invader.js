@@ -33,4 +33,8 @@ class Grid {
         this.velocity = {x: 0, y: 0}
         this.invaders = [new Invader()]
     }
+
+    update() {
+        
+    }
 }
