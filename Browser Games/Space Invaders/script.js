@@ -42,7 +42,7 @@ function animate() {
     grids.forEach((grid) => {
         grid.update()
         grid.invaders.forEach((invader) => {
-            invader.update()
+            invader.update({ velocity: grid.velocity })
         })
     })
 
