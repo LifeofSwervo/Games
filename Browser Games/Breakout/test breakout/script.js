@@ -19,6 +19,7 @@ const player_y_position = canvas.height - (canvas.height / 8)
 const player = new Player({position: {x: player_x_position, y: player_y_position}})
 const playerSpeed = 5
 
+
 function movementEventListeners() {
     addEventListener('keydown', ({ key }) => {
         switch (key) {
@@ -31,12 +32,27 @@ function movementEventListeners() {
         }
     })
 
-    
+    addEventListener('keyup', ({ key }) => {
+        switch(key) {
+            case 'a':
+                keys.a.pressed = false
+                break
+            case 'd':
+                keys.d.pressed = false
+                break
+        }
+    })
 }
 
+
+let playerRightSide = (player.position.x + player.width)
 function movement() {
     if (player.position.x >= 0 && keys.a.pressed) {
         player.velocity.x = -playerSpeed
+    } else if (player.position.x + player.width <= canvas.width && keys.d.pressed) {
+        player.velocity.x = playerSpeed
+    } else {
+        player.velocity.x = 0
     }
     movementEventListeners()
 }
@@ -53,6 +69,7 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
     movement()
+    console.log(playerRightSide)
 }
 
 animate()
