@@ -14,10 +14,14 @@ const keys = {
     }
 }
 
+const ball = new Ball()
+
 const player_x_position = canvas.width / 2
 const player_y_position = canvas.height - (canvas.height / 8)
 const player = new Player({position: {x: player_x_position, y: player_y_position}})
 const playerSpeed = 5
+
+
 
 
 function movementEventListeners() {
@@ -69,7 +73,7 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
     movement()
-    console.log(playerRightSide)
+    ball.update()
 }
 
 animate()
