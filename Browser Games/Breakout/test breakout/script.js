@@ -21,8 +21,13 @@ const player_y_position = canvas.height - (canvas.height / 8)
 const player = new Player({position: {x: player_x_position, y: player_y_position}})
 const playerSpeed = 5
 
-
-
+function collisions() {
+    if (ball.position.y >= player.position.y &&
+        ball.position.x >= player.position.x &&
+        ball.position.x <= player.position.x + player.width) {
+            ball.velocity.y = -ball.velocity.y
+    }
+}
 
 function movementEventListeners() {
     addEventListener('keydown', ({ key }) => {
@@ -71,6 +76,9 @@ function animate() {
     resize()
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
+
+    collisions()
+
     player.update()
     movement()
     ball.update()
