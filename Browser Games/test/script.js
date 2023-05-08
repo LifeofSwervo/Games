@@ -15,7 +15,6 @@ const player = new Player(canvas.width / 25, 0);
 // Ball
 const ball = new Ball(canvas.width / 2, canvas.height / 2);
 
-
 function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height)

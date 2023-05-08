@@ -1,3 +1,5 @@
+const SPEED = 5;
+
 class Ball {
     constructor(x, y) {
         this.x = x;
@@ -13,11 +15,11 @@ class Ball {
 
         this.radius = 10;
         this.color = 'white';
-        this.velocity = {x: direction.x, y: direction.y}; // Set velocity to direction determined by Math.random()
+        this.velocity = {x: direction.x + SPEED, y: direction.y + SPEED}; // Set velocity to direction determined by Math.random()
     };
 
     movement() {
-        this.x += this.velocity.x;
+        this.x += this.velocity.x; 
         this.y += this.velocity.y;
     }
 
