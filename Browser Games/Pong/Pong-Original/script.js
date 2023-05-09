@@ -89,6 +89,15 @@ addEventListener('keydown', (event) => {
     }   
 })
 
+addEventListener('keyup', (event) => {
+    const speed = 3;
+    switch (event.key) {
+        case 's':
+            break
+        case 'w':
+            break   
+    }
+})
 
 
 
