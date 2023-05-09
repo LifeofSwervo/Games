@@ -22,23 +22,39 @@ function spawnEnemies() {
     
         let x;
         let y;
-        if (Math.random() < 0.5) {
+        if (Math.random() < 0.5) { // If Math.random() is less than 0.5 (50% of the time)
             x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius // If random value is less than 0.5 -> 0 - radius (30) is X otherwise ScreenWidth + radius
+            y = Math.random() * canvas.height
+        } else {
+            x = Math.random() * canvas.width // If random value is less than 0.5 -> 0 - radius (30) is X otherwise ScreenWidth + radius
+            y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
         }
-    })
+        const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+        const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+        const velocity = {x: Math.cos(angle), y: Math.sin(angle)}
+        enemies.push(new Enemy(x, y, radius, color, velocity))
+    }, 1000)
 }
 
+let animationId
+let score = 0
 function animate() {
     requestAnimationFrame(animate);
     c.fillStyle = 'rgba(0, 0, 0, 0.1)';
     c.fillRect(0, 0, canvas.width, canvas.height);
     player.update();
-};
 
-animate();
+    enemies.forEach((enemy) => {
+        enemy.update()
+
+        const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y)
+    })
+};
 
 // Start Game
 startGameBtn.addEventListener('click', () => {
     animate();
+    spawnEnemies();
+    console.log(enemies)
     modalElem.style.display = 'none';
 });

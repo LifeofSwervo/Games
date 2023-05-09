@@ -1,10 +1,10 @@
 class Enemy {
-    constructor (x, y, radius, color) {
+    constructor (x, y, radius, color, velocity) {
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.color = color;
-        this.velocity = this.velocity;
+        this.velocity = velocity;
     };
 
     draw() {
@@ -16,5 +16,7 @@ class Enemy {
 
     update() {
         this.draw();
+        this.x = this.x + this.velocity.x;
+        this.y = this.y + this.velocity.y;
     }
 };
