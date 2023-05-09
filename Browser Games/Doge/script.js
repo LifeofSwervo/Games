@@ -41,16 +41,33 @@ window.addEventListener('load', function(){
             this.frameX = 0;
             this.frameY = 0;
             this.speed = 0;
+            this.vy = 0;
         }
 
         draw(context){
             context.fillStyle = 'white';
             context.fillRect(this.x, this.y, this.width, this.height)
-            context.drawImage(this.image, 0, 0, this.width, this.height, this.x, this.y, this.width, this.height);
+            context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
         }
 
-        update() {
-            this.x++
+        update(input) {
+            // horizontal movement
+            this.x += this.speed;
+            if (input.keys.indexOf('ArrowRight') > -1) {
+                this.speed = 5;
+            } else if (input.keys.indexOf('ArrowLeft') > -1) {
+                this.speed = -5;
+            } else {
+                this.speed = 0;
+            }
+
+            // Screen Constraint
+            if (this.x < 0) {
+                this.x = 0
+            } else if (this.x > this.gameWidth - this.width) {
+                this.x = this.gameWidth - this.width
+            }
+
         }
     }
 
@@ -78,7 +95,7 @@ window.addEventListener('load', function(){
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         player.draw(ctx);
-        player.update();
+        player.update(input);
         requestAnimationFrame(animate);
     }
     animate()++;
