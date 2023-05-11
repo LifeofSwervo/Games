@@ -2,3 +2,22 @@ body {
     margin: 0;
     background: black;
 }
+
+#scoreContainer {
+    color: white;
+    position: relative;
+}
+
+#scoreDiv, #enemyScoreDiv {
+    position: absolute;
+    top: 85%;
+    margin-top: 2%;
+}
+
+#scoreDiv {
+    left: 15%;
+}
+
+#enemyScoreDiv {
+    left: 75%;
+}
