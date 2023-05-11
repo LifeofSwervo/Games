@@ -26,6 +26,16 @@ function movementConstraint() {
     }
 }
 
+function enemyMovement() {
+    if (enemy.y + enemy.height <= ball.y + ball.radius) {
+        enemy.velocity.y = speed
+    } else if (enemy.y >= ball.y) {
+        enemy.velocity.y = -speed
+    } else {
+        enemy.velocity.y = 0
+    }
+}
+
 function movement() {
     addEventListener('keydown', ({ key }) => {
         switch (key) {
@@ -57,6 +67,12 @@ function collisons() {
     if ((ball.y + ball.radius >= player.y &&
         ball.x <= player.x + player.width &&
         ball.y <= player.y + player.height) || ball.x <= 0) {
+        ball.velocity.x = -ball.velocity.x
+    }
+
+    if ((ball.y + ball.radius >= enemy.y &&
+        ball.x + ball.radius >= enemy.x &&
+        ball.y <= enemy.y + enemy.height) || ball.x >= canvas.width) {
             ball.velocity.x = -ball.velocity.x
         }
 }
@@ -66,6 +82,9 @@ const centerLine = new CenterLine(canvas.width / 2, 0)
 
 // Player
 const player = new Player(canvas.width / 35, 100);
+
+// Enemy
+const enemy = new Enemy(canvas.width / 1.07, 100)
 
 // Ball
 const ball = new Ball(canvas.width / 2, canvas.height / 2);
@@ -78,12 +97,15 @@ function animate() {
 
     collisons()
 
+    enemy.update()
+    
     player.update()
 
     ball.update()
 
-    centerLine.update()
+    centerLine.update() 
 
+    enemyMovement()
     movement()
 }
 
