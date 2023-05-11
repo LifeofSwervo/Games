@@ -1,6 +1,4 @@
 
-
-
 class Player {
     constructor(x, y) {
         this.x = x;
@@ -23,9 +21,8 @@ class Player {
     update() {
         this.draw();
         this.movement();
+
+        this.y += this.velocity.y
     };
-
-    
-
 };
 
