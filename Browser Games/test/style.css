@@ -21,3 +21,24 @@ body {
 #enemyScoreDiv {
     left: 75%;
 }
+
+#startGameContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+#startGameBtn {
+    position: relative;
+    border-radius: 9999px;
+    width: 100%;
+    background-color: rgb(139 92 246);
+    color: white;
+    padding-top: 15%;
+    padding-bottom: 15%;
+    transform: scale(1.5);
+}
