@@ -51,6 +51,11 @@ function animate() {
     })
 };
 
+// Shooting Projectile 
+addEventListener('click', (event) => {
+    const angle = Math.atan2(event.clientY - canvas.height /2, event.clientX - canvas.width / 2)
+})
+
 // Start Game
 startGameBtn.addEventListener('click', () => {
     animate();
