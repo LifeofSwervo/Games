@@ -13,9 +13,11 @@ const x = canvas.width / 2;
 const y = canvas.height / 2;
 const player = new Player(x, y, 10, 'white');
 
-const projectiles = []
+const projectiles = [];
 
 const enemies = [];
+
+const particles = [];
 
 function shootProjectile() {
     projectiles.forEach((projectile, index) => {
@@ -85,6 +87,11 @@ function animate() {
                 scoreElem.innerHTML = score;
                 
                 // Particle Explosion
+                for (let i = 0; i < enemy.radius * 2; i++) {
+                    particles.push(new Particle(projectile.x, projectile.y, 3, enemy.color, {x: (Math.random() - 0.5) * (Math.random() * 7.6), y: (Math.random() - 0.5) * (Math.random() * 7.6)}))
+                }
+
+                // Set Height Min
             }
         })
 
