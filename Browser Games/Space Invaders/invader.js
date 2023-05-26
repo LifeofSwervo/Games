@@ -27,6 +27,19 @@ class Invader {
             this.position.y += velocity.y
         }
     }
+
+    shoot(invaderProjectiles) {
+        invaderProjectiles.push(new InvaderProjectile({
+            position: {
+                x: this.position.x + (this.width / 2),
+                y: this.position.y + this.height
+            },
+            velocity: {
+                x: 0,
+                y: 5
+            }
+        }))
+    }
 }
 
 class Grid {
@@ -60,4 +73,5 @@ class Grid {
             this.velocity.y = 30
         }
     }
+
 }

@@ -7,7 +7,8 @@ canvas.height = window.innerHeight;
 // Player
 const player = new Player()
 const projectiles = []
-const grids = [new Grid()]
+const grids = []
+const invaderProjectiles = []
 
 const keys = {
     a: {
@@ -31,6 +32,10 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height) // Black Background
     player.update()
 
+    invaderProjectiles.forEach((invaderProjectile) => {
+        invaderProjectile.update()
+    })
+
     // Projectile Loop
     projectiles.forEach((projectile, index) => { // For each required to initiate projectile loop
         if (projectile.position.y + projectile.radius <= 0) { // If required to collect garbage assets (out of bounds projectiles)
@@ -44,6 +49,14 @@ function animate() {
 
     grids.forEach((grid, gridIndex) => {
         grid.update()
+
+        // Spawn Projectiles
+        if (frames % 100 === 0 && grid.invaders.length > 0) {
+            grid.invaders[Math.floor(Math.random() * grid.invaders.length)].shoot(
+                invaderProjectiles
+            )
+        }
+
         grid.invaders.forEach((invader, i) => {
             invader.update({ velocity: grid.velocity })
 
@@ -99,8 +112,8 @@ function animate() {
         grids.push(new Grid())
         let randomInterval = Math.floor(Math.random() * 500 + 500)
         frames = 0
-        console.log(randomInterval)
     }
+
 
     frames++
 }
