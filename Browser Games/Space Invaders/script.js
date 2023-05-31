@@ -9,6 +9,7 @@ const player = new Player()
 const projectiles = []
 const grids = []
 const invaderProjectiles = []
+const particles = []
 
 const keys = {
     a: {
@@ -26,15 +27,58 @@ let speed = 5
 let frames = 0
 let randomInterval = Math.floor(Math.random() * 500 + 500)
 
+// Stars on Screen
+for (let i = 0; i < 100; i++) { // Creates 15 particles                                                                                                                                                                                  // Color or Invader hex color        
+    particles.push(new Particle({ position: {x: Math.random() * canvas.width, y: Math.random() * canvas.height}, velocity: {x: 0, y: 0.3}, radius: Math.random() * 2, color: 'white'}))
+}
+
+function createParticles({object, color, fades}) {
+    for (let i = 0; i < 15; i++) { // Creates 15 particles                                                                                                                                                                                  // Color or Invader hex color        
+        particles.push(new Particle({ position: {x: object.position.x + object.width / 2, y: object.position.y + object.height / 2}, velocity: {x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2}, radius: Math.random() * 3, color: color || '#BAA0DE', fades: true}))
+    }
+}
+
 function animate() {
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height) // Black Background
     player.update()
+    particles.forEach((particle, i) => {
 
-    invaderProjectiles.forEach((invaderProjectile) => {
-        invaderProjectile.update()
+        if (particle.position.y - particle.radius >= canvas.height) {
+            particle.position.x = Math.random() * canvas.width
+            particle.position.y = -particle.radius
+        }
+
+        if (particle.opacity <= 0) {
+            setTimeout(() => {
+                particles.splice(i, 1)
+            }, 0)
+        } else {
+            particle.update()
+        }
     })
+    invaderProjectiles.forEach((invaderProjectile, index) => {
+        // Invader Projectile Screen Constraint
+        if (invaderProjectile.position.y + invaderProjectile.height >= canvas.height) {
+            setTimeout(() => {
+                invaderProjectiles.splice(index, 1)
+            }, 0)
+        } else invaderProjectile.update()
+
+        // Lose Condition (if Invader Projectile hits player)
+        if (invaderProjectile.position.y + invaderProjectile.height >= player.position.y &&
+            invaderProjectile.position.x + invaderProjectile.width >= player.position.x &&
+            invaderProjectile.position.x <= player.position.x + player.width ) {
+            console.log('You Lost!')
+
+            setTimeout(() => {
+                invaderProjectiles.splice(index, 1)
+            }, 0)
+            createParticles({ object: player, color: 'white', fades: true})
+        }
+    })
+    
 
     // Projectile Loop
     projectiles.forEach((projectile, index) => { // For each required to initiate projectile loop
@@ -66,6 +110,7 @@ function animate() {
                     projectile.position.x + projectile.radius >= invader.position.x &&
                     projectile.position.x - projectile.radius <= invader.position.x + invader.width &&
                     projectile.position.y + projectile.radius >= invader.position.y) {
+                    
 
                     setTimeout(() => {
                         const invaderFound = grid.invaders.find((invader2) => invader2 === invader)
@@ -73,6 +118,8 @@ function animate() {
                         
                         // remove Invader and Projectile
                         if (invaderFound && projectileFound) {
+                            // Particles on death
+                            createParticles({ object: invader, fades: true})
                             grid.invaders.splice(i, 1)
                             projectiles.splice(j, 1)
 
@@ -129,11 +176,11 @@ addEventListener('keydown', ({ key }) => {
             keys.d.pressed = true
             break
         case ' ':
+            const color = `hsl(${Math.random() * 360}, 50%, 50%)`
             projectiles.push(new Projectile({
                 position: {x: player.position.x + (player.width / 2), y: player.position.y},
                 velocity: {x: 0, y: -10}
             }))
-            console.log(projectiles)
             break
     }
 })

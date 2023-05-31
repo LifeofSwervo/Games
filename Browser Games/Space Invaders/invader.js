@@ -59,7 +59,6 @@ class Grid {
                 this.invaders.push(new Invader({position: {x: x * 30, y: y * 30}}))
             }
         }   
-        console.log(this.invaders)
     }
 
     update() {
