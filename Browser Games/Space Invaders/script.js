@@ -176,7 +176,6 @@ addEventListener('keydown', ({ key }) => {
             keys.d.pressed = true
             break
         case ' ':
-            const color = `hsl(${Math.random() * 360}, 50%, 50%)`
             projectiles.push(new Projectile({
                 position: {x: player.position.x + (player.width / 2), y: player.position.y},
                 velocity: {x: 0, y: -10}
