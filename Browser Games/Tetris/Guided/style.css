@@ -83,3 +83,20 @@ body {
 .type6 {
     background-color: #f0f000;
 }
+
+#next_shape {
+    position: relative;
+    background-color: #000;
+    border: 1px solid white;
+    width: 110px;
+    height: 110px;
+}
+
+#info {
+    background-color: #000;
+    color: #fff;
+    float: right;
+    width: 110px;
+    height: 420px;
+    padding: 10px;
+}
