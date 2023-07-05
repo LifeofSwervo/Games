@@ -89,11 +89,49 @@
         init: function () {
             isStart = true;
             this.canvas = document.getElementById('canvas');
+            this.initBoard();
+            this.initInfo();
         },
 
+        // Initilize Board
         initBoard: function () {
-            
-        }
+            this.boardHeight = this.canvasHeight / this.pSize;
+            this.boardWidth = this.canvasWidth / this.pSize;
+            let s = this.boardHeight * this.boardWidth;
 
+            for (let i = 0; i < s; i++) {
+              this.board.push(0) // Push 0's into board array (until it equals sum of height * width)
+            }
+            //this.boardDiv = document.getElementById('board'); // For Debugging
+        },
+
+        initInfo: function () {
+          this.nextShapeDisplay = document.getElementById('next_shape');
+          this.levelDisplay = document
+            .getElementById('level')
+            .getElementsByTagName('span')[0];
+          this.timeDisplay = document
+            .getElementById('time')
+            .getElementsByTagName('span')[0];
+          this.scoreDisplay = document
+            .getElementById('score')
+            .getElementsByTagName('span')[0];
+          this.linesDisplay = document
+            .getElementById('lines')
+            .getElementsByTagName('span')[0];
+          this.setInfo('time');
+          this.setInfo('score');
+          this.setInfo('level');
+          this.setInfo('lines');
+        },
+        initShapes: function() {
+          this.curSqs = [];
+          this.curComplete = false;
+          //this.shiftTempShapes(); // Create this function
+        },
+        // Set information Function
+        setInfo: function(el) { // Passes element in as argument
+          this[el + 'Display'].innerHTML = this[el]; // Sets element's value to be displayed. 
+        },
     }
 })
