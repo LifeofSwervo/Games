@@ -105,6 +105,7 @@
             //this.boardDiv = document.getElementById('board'); // For Debugging
         },
 
+        // Initilizes display for next shape, scores, and lines. 
         initInfo: function () {
           this.nextShapeDisplay = document.getElementById('next_shape');
           this.levelDisplay = document
@@ -119,6 +120,8 @@
           this.linesDisplay = document
             .getElementById('lines')
             .getElementsByTagName('span')[0];
+
+          // Calls setInfo method to initilize values.
           this.setInfo('time');
           this.setInfo('score');
           this.setInfo('level');
@@ -132,6 +135,40 @@
         // Set information Function
         setInfo: function(el) { // Passes element in as argument
           this[el + 'Display'].innerHTML = this[el]; // Sets element's value to be displayed. 
+        },
+
+        // initTemptShapes
+        initTempShapes: function() {
+          this.tempShapes = [];
+          // Loop through shape array, adds each element to the new tempShapes Array
+          for (let i = 0; i < this.shapes.length; i++) {
+            this.tempShapes.push(i);
+          }
+          let k = this.tempShapes.length;
+          while(--k) {
+            // Fisher Yates Shuffle (Used to randomize the next shape.)
+            let j = Math.floor(Math.random() * (k + 1));
+            let tempk = this.tempShapes[k];
+            let tempj = this.tempShapes[j];
+            this.tempShapes[k] = tempk;
+            this.tempShapes[j] = tempj;
+          }
+        },
+
+        // Shifts elements out the tempShapes array. 
+        shiftTempShapes: function() {
+          try {
+            if (
+              typeof this.tempShapes === 'undefined' || // Checks if defined or null
+              this.tempShapes === null
+            ) {
+              this.initTempShapes(); // If not defined calls initTempShapes
+            } else {
+              this.tempShapes.shift() // Once defined calls shift method to remove 1st element
+            }
+          } catch (e) {
+            throw new Error('Could not shift or init tempShapes: ' + e); // Provides error message explaining any errors
+          }
         },
     }
 })
