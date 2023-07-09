@@ -127,14 +127,24 @@
           this.setInfo('level');
           this.setInfo('lines');
         },
+
+        // Initilizes the game shapes. 
         initShapes: function() {
-          this.curSqs = [];
-          this.curComplete = false;
-          //this.shiftTempShapes(); // Create this function
+          this.curSqs = []; // Resets current squares array
+          this.curComplete = false; // Indicates that the current shape is not complete
+          this.shiftTempShapes(); // Shifts temp shape array
+          this.curShapeIndex = this.tempShapes[0]; // Selects the new shape
+          this.curShape = this.shapes[this.curShapeIndex]; // Sets the current shape to the selected shape
+          this.initNextShapes();
+          this.setCurCoords(this.spawnX, this.spawnY); // Sets coordinates
+          this.drawShape(this.curX, this.curY, this.curShape);
         },
-        // Set information Function
-        setInfo: function(el) { // Passes element in as argument
-          this[el + 'Display'].innerHTML = this[el]; // Sets element's value to be displayed. 
+
+        // Initilizes the next shape by selecting the next shape from the temp shapes array.
+        initNextShapes: function() {
+          if (typeof this.tempShapes[1] === 'undefined') {
+            this.initTempShapes();
+          }
         },
 
         // initTemptShapes
@@ -164,11 +174,49 @@
             ) {
               this.initTempShapes(); // If not defined calls initTempShapes
             } else {
-              this.tempShapes.shift() // Once defined calls shift method to remove 1st element
+              this.tempShapes.shift(); // Once defined calls shift method to remove 1st element
             }
           } catch (e) {
             throw new Error('Could not shift or init tempShapes: ' + e); // Provides error message explaining any errors
           }
+        },
+
+        // Initilizes the timer
+        initTimer: function() {
+          let me = this;
+          let tLoop = function() {
+            me.incTime(); // Calls function increasing game timer
+            me.timer = setTimeout(tLoop, 2000);
+          };
+          this.timer = setTimeout(tLoop, 2000);
+        },
+
+        // Init Level Scores
+        initLevelScores: function() {
+          let c = 1; // Current level score
+          for (let i = 1; i <= this.numLevels; i++) {
+            this['level' + i] = [c * 1000, 40 * i, 5 * i]; // For next leve, row score, p score
+            c = c + c;
+          }
+        },
+
+        // Set information Function
+        setInfo: function(el) { // Passes element in as argument
+          this[el + 'Display'].innerHTML = this[el]; // Sets element's value to be displayed. 
+        },
+
+        // Draw next shape function
+        drawNextShape: function() {
+          let ns = []; // Next shape array.
+          for (let i = 0; i < this.nextShape.length; i++) {
+            // Finish this function.
+          }
+        },
+
+        // Increases in game timer
+        incTime: function() {
+          this.time++;
+          this.setInfo('time'); // Updates on screen timer info.
         },
     }
 })
