@@ -145,6 +145,13 @@
           if (typeof this.tempShapes[1] === 'undefined') {
             this.initTempShapes();
           }
+          try {
+            this.nextShapeIndex = this.tempShapes[1];
+            this.nextShape = this.shapes[this.nextShapeIndex];
+            this.drawNextShape();
+          } catch (e) {
+            throw new Error('Could not create next shape. ' + e);
+          }
         },
 
         // initTemptShapes
@@ -209,8 +216,26 @@
         drawNextShape: function() {
           let ns = []; // Next shape array.
           for (let i = 0; i < this.nextShape.length; i++) {
-            // Finish this function.
+            ns[i] = this.createSquare(
+              this.nextShape[i][0] + 2,
+              this.nextShape[i][1] + 2,
+              this.nextShapeIndex
+            );
           }
+          this.nextShapeDisplay.html = '';
+          for (let k = 0; k < ns.length; k++) {
+            this.nextShapeDisplay.appendChild(ns[k]);
+          }
+        },
+
+        // Implement drawShape function. 
+
+        createSquare: function(x, y, type) {
+          let el = document.createElement('div');
+          el.className = 'square type' + type;
+          el.style.left = x * this.pSize + 'px';
+          el.style.top = y * this.pSize + 'px';
+          return el;
         },
 
         // Increases in game timer
