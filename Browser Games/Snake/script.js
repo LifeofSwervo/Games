@@ -111,7 +111,53 @@ let helpers = {
       red = chroma;
       green = 0;
       blue = secondComponent;
-      
     }
+
+    var lightnessAdjustment = lightness - chroma / 2;
+    red += lightnessAdjustment;
+    green += lightnessAdjustment;
+    blue += lightnessAdjustment;
+
+    return [
+      Math.round(red * 255),
+      Math.round(green * 255),
+      Math.round(blue, 255),
+    ];
+  },
+  lerp(start, end, t) {
+    return start * (1 - t) + end * t;
   }
-}  
+};
+
+let KEY = {
+  ArrowUp: false,
+  ArrowRight: false,
+  ArrowDown: false,
+  ArrowLeft: false,
+
+  // Reset Method
+  resetState() {
+    ArrowUp: false;
+    ArrowRight: false;
+    ArrowDown: false;
+    ArrowLeft: false;
+  },
+
+  listen() {
+    addEventListener("keydown",
+    e => {
+      if (e.key === "ArrowUp" && this.ArrowDown) return;
+      if (e.key === "ArrowDown" && this.ArrowUp) return;
+      if (e.key === "ArrowLeft" && this.ArrowRight) return;
+      if (e.key === "ArrowRight" && this.ArrowLeft) return;
+      this[e.key] = true;
+      Object.keys(this)
+      .filter((f) => f !== e.key && f !== "listen" && f  !== "resetState")
+      .forEach((k) => {
+        this[k] = false;
+      });
+    },
+    false
+  );
+ }
+};
