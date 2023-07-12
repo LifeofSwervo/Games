@@ -129,6 +129,7 @@ let helpers = {
   }
 };
 
+// Key Object
 let KEY = {
   ArrowUp: false,
   ArrowRight: false,
@@ -143,8 +144,9 @@ let KEY = {
     ArrowLeft: false;
   },
 
+  // Listen(er) Method
   listen() {
-    addEventListener("keydown",
+    addEventListener("keydown", // When key is pressed down
     e => {
       if (e.key === "ArrowUp" && this.ArrowDown) return;
       if (e.key === "ArrowDown" && this.ArrowUp) return;
@@ -161,3 +163,93 @@ let KEY = {
   );
  }
 };
+
+// Snake Class
+class Snake {
+  constructor(i, type) {
+    this.pos = new helpers.Vec(W / 2, H / 2);
+    this.dir = new helpers.Vec(0, 0);
+    this.type = type;
+    this.index = i;
+    this.delay = 5;
+    this.size = W / cells;
+    this.color = "white";
+    this.history = [];
+    this.total = 1;
+  }
+  draw () {
+    let {x, y} = this.pos;
+    CTX.fillStyle = this.color;
+    CTX.shadowBlur = 20;
+    CTX.shadowColor = "rgba(255, 255, 255, 0.3)";
+    CTX.fillRect(x, y, this.size, this.size);
+    CTX.shadowBlur = 0;
+    if (this.total >= 2) {
+      for (let i = 0; i < this.history.length - 1; i++) {
+        let {x, y} = this.history[i];
+        CTX.lineWidth = 1;
+        CTX.fillStyle = "rgba(255, 255, 255, 1)";
+        CTX.fillRect(x, y, this.size, this.size);
+      }
+    }
+  }
+  walls() {
+    let {x, y} = this.pos;
+    if (x + cellSize > W) {
+      this.pos.x = 0;
+    }
+    if (y + cellSize > W) {
+      this.pos.y = 0;
+    }
+    if (y < 0) {
+      this.pos.y = H - cellSize;
+    }
+    if (x < 0) {
+      this.pos.x = W - cellSize;
+    }
+  }
+  controlls() {
+    let dir = this.size;
+    if (KEY.ArrowUp) {
+      this.dir = new helpers.Vec(0, -dir); // Up
+    }
+    if (KEY.ArrowDown) {            
+      this.dir = new helpers.Vec(0, dir); // Down
+    }
+    if (KEY.ArrowLeft) {
+      this.dir = new helpers.Vec(-dir, 0); // Left
+    }
+    if (KEY.ArrowRight) {
+      this.dir = new helpers.Vec(dir, 0); // Right
+    }
+  }
+
+  selfCollision() {
+    for (let i = 0; i < this.history.length; i++) {
+      let p = this.history[i];
+      if (helpers.isCollision(this.pos, p)) {
+        isGameOver = true;
+      }
+    }
+  }
+  update() {
+    this.walls();
+    this.draw();
+    this.controlls();
+    if (!this.delay--) {
+      if (helpers.isCollision(this.pos, food.pos)) {
+        incrementScore();
+        particleSplash();
+        food.spawn();
+        this.total++;
+      }
+      this.history[this.total - 1] = new helpers.Vec(this.pos.x, this.pos.y);
+      for (let i = 0; i < this.total - 1; i++) {
+        this.history[i] = this.history[i + 1];
+      }
+      this.pos.add(this.dir);
+      this.delay = 5;
+      this.total > 3 ? this.selfCollision() : null;
+    }
+  }
+}
