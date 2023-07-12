@@ -111,6 +111,7 @@ let helpers = {
       red = chroma;
       green = 0;
       blue = secondComponent;
+      
     }
   }
 }  
