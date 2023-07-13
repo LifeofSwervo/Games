@@ -263,4 +263,17 @@ class Food {
     this.color = currentHue = `hsl(${~~(Math.random() * 360)}, 100%, 50%)`;
     this.size = cellSize;
   }
+  draw() {
+    let {x, y} = this.pos;
+    CTX.globalCompositeOperation = "lighter";
+    CTX.shadowBlur = 20;
+    CTX.shadowColor = this.color;
+    CTX.fillStyle = this.color;
+    CTX.fillRect(x, y, this.size, this.size);
+    CTX.globalCompositeOperation = "source-over";
+    CTX.shadowBlur = 0;
+  }
+  spawn() {
+    let randX = ~~(Math.random() * cells) * this.size;
+  }
 }
