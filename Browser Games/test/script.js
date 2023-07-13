@@ -20,6 +20,10 @@ const keys = {
     }
 }
 
+
+// Particles
+const particles = [];
+
 // Center Line
 const centerLine = new CenterLine(canvas.width / 2, 0)
 
@@ -33,6 +37,18 @@ let enemyScore = 0
 
 // Ball
 const ball = new Ball(canvas.width / 2, canvas.height / 2);
+
+// Stars on Screen
+for (let i = 0; i < 100; i++) { // Creates 100 particles                                                                                                                                                                                  // Color or Invader hex color        
+    particles.push(new Particle({ position: {x: Math.random() * canvas.width, y: Math.random() * canvas.height}, velocity: {x: 0, y: 0.3}, radius: Math.random() * 2, color: 'white'}))
+}
+
+
+function createParticles({object, color, fades}) {
+    for (let i = 0; i < 15; i++) { // Creates 15 particles                                                                                                                                                                                  // Color or Invader hex color        
+        particles.push(new Particle({ position: {x: object.position.x + object.width / 2, y: object.position.y + object.height / 2}, velocity: {x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2}, radius: Math.random() * 3, color: color || '#BAA0DE', fades: true}))
+    }
+}
 
 function movementConstraint() {
     if (keys.w.pressed && player.y >= 0) {
@@ -113,6 +129,22 @@ function animate() {
     c.clearRect(0, 0, canvas.width, canvas.height)
     c.fillStyle = 'rgba(0, 0, 0, 0.1)';
     c.fillRect(0, 0, canvas.width, canvas.height)
+
+    particles.forEach((particle, i) => {
+
+        if (particle.position.y - particle.radius >= canvas.height) {
+            particle.position.x = Math.random() * canvas.width
+            particle.position.y = -particle.radius
+        }
+
+        if (particle.opacity <= 0) {
+            setTimeout(() => {
+                particles.splice(i, 1)
+            }, 0)
+        } else {
+            particle.update()
+        }
+    })
 
     collisons()
 
