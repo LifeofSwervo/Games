@@ -253,3 +253,14 @@ class Snake {
     }
   }
 }
+
+class Food {
+  constructor() {
+    this.pos = new helpers.Vec(
+      ~~(Math.random() * cells) * cellSize,
+      ~~(Math.random() * cells) * cellSize
+    );
+    this.color = currentHue = `hsl(${~~(Math.random() * 360)}, 100%, 50%)`;
+    this.size = cellSize;
+  }
+}
