@@ -150,16 +150,9 @@ function resumeAnimation() {
 
 // Start Game Function
 function reset() {
-    let holdBall = true
-
-    if (holdBall) {
-        cancelAnimationFrame(animationId)
-    }
-
   
     setTimeout(function () {
-      holdBall = false;
-      resumeAnimation()
+      animate()
       console.log('Hi')
       console.log(ball.velocity, ball.x, ball.y)
 
@@ -189,5 +182,3 @@ function animate() {
     enemyMovement()
     movement()
 }
-
-animate()
