@@ -43,12 +43,13 @@ for (let i = 0; i < 100; i++) { // Creates 100 particles                        
     particles.push(new Particle({ position: {x: Math.random() * canvas.width, y: Math.random() * canvas.height}, velocity: {x: 0, y: 0.3}, radius: Math.random() * 2, color: 'white'}))
 }
 
-
+// Particles
 function createParticles({object, color, fades}) {
     for (let i = 0; i < 15; i++) { // Creates 15 particles                                                                                                                                                                                  // Color or Invader hex color        
         particles.push(new Particle({ position: {x: object.position.x + object.width / 2, y: object.position.y + object.height / 2}, velocity: {x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2}, radius: Math.random() * 3, color: color || '#BAA0DE', fades: true}))
     }
 }
+
 
 function movementConstraint() {
     if (keys.w.pressed && player.y >= 0) {
