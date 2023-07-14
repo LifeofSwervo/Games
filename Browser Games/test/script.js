@@ -61,6 +61,24 @@ function movementConstraint() {
     }
 }
 
+function runParticles() {
+    particles.forEach((particle, i) => {
+
+        if (particle.position.y - particle.radius >= canvas.height) {
+            particle.position.x = Math.random() * canvas.width
+            particle.position.y = -particle.radius
+        }
+
+        if (particle.opacity <= 0) {
+            setTimeout(() => {
+                particles.splice(i, 1)
+            }, 0)
+        } else {
+            particle.update()
+        }
+    })
+}
+
 function enemyMovement() {
     if (enemy.y + enemy.height <= ball.y + ball.radius) {
         enemy.velocity.y = speed
@@ -125,27 +143,38 @@ function collisons() {
     }
 }
 
+// Hold the ball in place for 2 seconds
+function resumeAnimation() {
+    animationId = requestAnimationFrame(animationId);
+}
+
+// Start Game Function
+function reset() {
+    let holdBall = true
+
+    if (holdBall) {
+        cancelAnimationFrame(animationId)
+    }
+
+  
+    setTimeout(function () {
+      holdBall = false;
+      resumeAnimation()
+      console.log('Hi')
+      console.log(ball.velocity, ball.x, ball.y)
+
+    }, 2000); // 2000 milliseconds = 2 seconds
+}
+
+let animationId;
+
 function animate() {
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height)
     c.fillStyle = 'rgba(0, 0, 0, 0.1)';
     c.fillRect(0, 0, canvas.width, canvas.height)
 
-    particles.forEach((particle, i) => {
-
-        if (particle.position.y - particle.radius >= canvas.height) {
-            particle.position.x = Math.random() * canvas.width
-            particle.position.y = -particle.radius
-        }
-
-        if (particle.opacity <= 0) {
-            setTimeout(() => {
-                particles.splice(i, 1)
-            }, 0)
-        } else {
-            particle.update()
-        }
-    })
+    runParticles()
 
     collisons()
 
