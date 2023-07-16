@@ -152,7 +152,7 @@ function resumeAnimation() {
 function reset() {
   
     setTimeout(function () {
-      animate()
+      
       console.log('Hi')
       console.log(ball.velocity, ball.x, ball.y)
 
@@ -182,3 +182,5 @@ function animate() {
     enemyMovement()
     movement()
 }
+
+animate()
