@@ -275,5 +275,34 @@ class Food {
   }
   spawn() {
     let randX = ~~(Math.random() * cells) * this.size;
+    let randY = ~~(Math.random() * cells) * this.size;
+    for (let path of snake.history) {
+      if (helpers.isCollision(new helpers.Vec(randX, randY), path)) {
+        return this.spawn;
+      }
+    }
+    this.color = currentHue = `hsl(${helpers.randHue()}, 100%, 50%)`;
+    this.pos = new helpers.Vec(randX, randY);
+  }
+}
+
+class Particle {
+  constructor(pos, color, size, vel) {
+    this.pos = pos;
+    this.color = color;
+    this.size = Math.abs(size / 2);
+    this.ttl = 0;
+    this.gravity = -0.2;
+    this.vel = vel;
+  }
+
+  draw() {
+    let {x, y} = this.pos;
+    let hsl = this.color
+      .split("")
+      .filter((l) => l.match(/[^hsl()$% ]/g))
+      .join("")
+      .split(",")
+      .map((n) => +n);
   }
 }
