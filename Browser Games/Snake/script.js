@@ -21,6 +21,7 @@ let snake,
   cellsCount,
   requestID;
 
+// Helper functions
 let helpers = {
   Vec: class {
     constructor(x, y) {
