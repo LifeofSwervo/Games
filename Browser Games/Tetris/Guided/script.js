@@ -243,5 +243,28 @@
           this.time++;
           this.setInfo('time'); // Updates on screen timer info.
         },
-    }
+
+        incScore: function(amount) {
+          this.score = this.score + amount;
+          this.setInfo('score');
+        },
+
+        incLevel: function() {
+          this.level++;
+          this.speed = this.speed - 75;
+          this.setInfo('level');
+        },
+        
+        incLines: function(num) {
+          this.lines += num;
+          this.setInfo('lines')
+        },
+
+        calcScore: function(args) {
+          var lines = args.lines || 0;
+          var shape = args.shape || false;
+          var speed = args.speed || 0;
+          var score = 0
+        }
+    }   
 })
