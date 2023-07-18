@@ -264,7 +264,83 @@
           var lines = args.lines || 0;
           var shape = args.shape || false;
           var speed = args.speed || 0;
-          var score = 0
+          var score = 0;
+
+          if (lines > 0) {
+            // Ensure's score is only updated if a least one of the lines has been cleared
+            score += lines * this['level' + this.level[1]];
+            this.incLines(lines);
+          } // If shape property is true this means a shape has been implemented on the board
+          if (shape === true) {
+            score += shape * this['level' + this.level[2]];
+          }
+          /*if (speed > 0){ score += speed * this["level" +this .level[3]];}*/
+          this.incScore(score);
+        },
+        checkScore: function() {
+          if (this.score >= this['level' + this.level[0]]) {
+            this.incLevel();
+          }
+        },
+        gameOver: function() {
+          var me = this;
+          if (this.timer === null) {
+            this.initTimer();
+          }
+          var gameLoop = function() {
+            me.gameOver('D');
+            if (me.curComplete) { // If shape has completed
+              me.markBoardShape(me.curX, me.curY, me.curShape);
+              me.curSqs.eachdo(function() {
+                me.sqs.push(this);
+              });
+              me.calcScore({shape: true});
+              me.checkRows();
+              me.checkScore();
+              me.initShapes();
+              me.play();
+            } else {
+              me.pTimer = setTimeout(gameLoop, me.speed);
+            }
+          };
+          this.pTimer = setTimeout(gameLoop, me.speed);
+          this.isActive = 1;
+        },
+        togglePause: function() {
+          if (this.isActive === 1) {
+            this.clearTimers();
+            this.isActive = 0;
+          } else {
+            this.play();
+          }
+        },
+        clearTimers: function() {
+          clearTimeout(this.timer);
+          clearTimeout(this.pTimer);
+          this.timer = null;
+          this.pTimer = null;
+        },
+        move: function(dir) {
+          var s = '';
+          var me = this;
+          var tempX = this.curX;
+          var tempY = this.curY;
+          switch (dir) {
+            case 'L':
+              s = 'left';
+              tempX -= 1;
+              break;
+            case 'R':
+              s = 'left';
+              tempX += 1;
+              break;
+            case 'D':
+              s = 'top';
+              tempY += 1;
+              break;
+              
+          }
         }
     }   
-})
+  }
+)
