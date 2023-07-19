@@ -26,12 +26,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     return random() * (max - min) + min
   }
   
+  // Create Monster
   func addMonster() {
-    
+
     // Create a monster variable
     let monster = SKSpriteNode(imageNamed: "monster")
     
     // Randomize where the monster will spawn (along Y axis)
     let actualY = random(min: monster.size.height / 2, max: size.height - monster.size.height / 2)
+    
+    // Place monster slightly off screen on the right edge
+    monster.position = CGPoint(x: size.width + monster.size.width / 2, y: actualY)
+    
+    // Add monster as a child of the scene
+    addChild(monster)
+    
+    // Determine speed of the monster
+    let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+    
+    // Create the actions
+    let actionMove = SKAction.move(to: CGPoint(x: -monster.size.width / 2, y: actualY),
+                                   duration: TimeInterval(actualDuration))
+    let actionMoveDone = SKAction.removeFromParent()
+    monster.run(SKAction.sequence([actionMove, actionMoveDone]))
   }
 }
