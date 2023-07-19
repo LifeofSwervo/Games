@@ -9,18 +9,18 @@ class Particle {
     }
 
     draw() {
-        c.save()
+        c.save();
         c.globalAlpha = this.opacity;
         c.beginPath();
         c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
         c.fillStyle = this.color;
-        c.fill()
-        c.closePath()
-        c.restore()
+        c.fill();
+        c.closePath();
+        c.restore();
     }
 
     update() {
-        this.draw()
+        this.draw();
         
         //
         this.position.x += this.velocity.x;
