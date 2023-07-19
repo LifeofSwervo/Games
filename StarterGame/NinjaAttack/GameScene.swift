@@ -17,6 +17,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Add player as child of the scene
     addChild(player)
+    
+    // Monsters will infinitely spawn in game
+    run(SKAction.repeatForever(
+      SKAction.sequence([
+        SKAction.run(addMonster),
+        // 1 second delay between monster Spawns
+        SKAction.wait(forDuration: 1.0)
+      ])
+    ))
   }
   
   func random() -> CGFloat {
@@ -45,8 +54,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
     
     // Create the actions
+
+    // Make the object move off-screen to the left
     let actionMove = SKAction.move(to: CGPoint(x: -monster.size.width / 2, y: actualY),
                                    duration: TimeInterval(actualDuration))
+    // Removes monster from the scene when it is no longer visible
     let actionMoveDone = SKAction.removeFromParent()
     monster.run(SKAction.sequence([actionMove, actionMoveDone]))
   }
