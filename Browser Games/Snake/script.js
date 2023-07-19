@@ -175,6 +175,8 @@ class Snake {
     this.delay = 5;
     this.size = W / cells;
     this.color = "white";
+
+    // Tail Tracking variables
     this.history = [];
     this.total = 1;
   }
@@ -185,28 +187,31 @@ class Snake {
     CTX.shadowColor = "rgba(255, 255, 255, 0.3)";
     CTX.fillRect(x, y, this.size, this.size);
     CTX.shadowBlur = 0;
+
+    // Upon food being eaten
     if (this.total >= 2) {
       for (let i = 0; i < this.history.length - 1; i++) {
-        let {x, y} = this.history[i];
-        CTX.lineWidth = 1;
-        CTX.fillStyle = "rgba(255, 255, 255, 1)";
-        CTX.fillRect(x, y, this.size, this.size);
+        let {x, y} = this.history[i]; // Gets x and y coordinates in history array and stores them in {x, y}
+        CTX.lineWidth = 1; // Set so trail is only 1px wide.
+        CTX.fillStyle = "rgba(255, 255, 255, 1)"; // Sets trail white
+        CTX.fillRect(x, y, this.size, this.size); 
       }
     }
   }
+  // Screen Constraints
   walls() {
-    let {x, y} = this.pos;
-    if (x + cellSize > W) {
-      this.pos.x = 0;
+    let {x, y} = this.pos; 
+    if (x + cellSize > W) { // If player is on right side of screen
+      this.pos.x = 0; // Place player on left
     }
-    if (y + cellSize > W) {
-      this.pos.y = 0;
+    if (y + cellSize > W) { // if Player is on the bottom of the screen
+      this.pos.y = 0; // Place player on top
     }
-    if (y < 0) {
-      this.pos.y = H - cellSize;
+    if (y < 0) { // If player is on the top of the screen
+      this.pos.y = H - cellSize; // Place player on the top of the screen
     }
-    if (x < 0) {
-      this.pos.x = W - cellSize;
+    if (x < 0) { // If player is on the left side of the screen
+      this.pos.x = W - cellSize; // Place player on the right side of the screen
     }
   }
   controlls() {
@@ -228,6 +233,7 @@ class Snake {
   selfCollision() {
     for (let i = 0; i < this.history.length; i++) {
       let p = this.history[i];
+      // GameOver (upon colliding with tail)
       if (helpers.isCollision(this.pos, p)) {
         isGameOver = true;
       }
@@ -238,6 +244,7 @@ class Snake {
     this.draw();
     this.controlls();
     if (!this.delay--) {
+      // Collision between player and food
       if (helpers.isCollision(this.pos, food.pos)) {
         incrementScore();
         particleSplash();
@@ -245,12 +252,13 @@ class Snake {
         this.total++;
       }
       this.history[this.total - 1] = new helpers.Vec(this.pos.x, this.pos.y);
+      // Checks if snake has collided with any of the history positions 
       for (let i = 0; i < this.total - 1; i++) {
         this.history[i] = this.history[i + 1];
       }
       this.pos.add(this.dir);
       this.delay = 5;
-      this.total > 3 ? this.selfCollision() : null;
+      this.total > 3 ? this.selfCollision() : null; // If total > 3 - Checks if snake has gotten in tail collision
     }
   }
 }
