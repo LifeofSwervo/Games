@@ -7,6 +7,10 @@ canvas.height = innerHeight;
 // Player
 const player = new Player({ position: {x: canvas.width / 2, y: canvas.height / 2}, velocity: {x: 0, y: 0}, radius: 10, color: 'white'})
 
+// Enemies
+const enemies = [];
+
+
 // Particles
 particles = [];
 
@@ -16,6 +20,19 @@ for (let i = 0; i < 100; i++) {
     velocity: {x: 0, y: 0.3}, 
     radius: Math.random() * 2, 
     color: 'white'}))
+}
+
+function spawnEnemies() {
+    setInterval(() => {
+        const radius = Math.random() * (30 - 4) + 4 // Create radius as any value from 4 to 30
+
+        let x;
+        let y;
+        // If (Math.Random()) radius returned less than 0.5
+        if (Math.random() < 0.5) {
+
+        }
+    })
 }
 
 function runParticles() {
