@@ -116,6 +116,8 @@ const projectiles = []
 
 // Enemies
 const enemies = []
+
+// Particles
 const particles = []
 function spawnEnemies() {
     setInterval(() => {
@@ -124,17 +126,18 @@ function spawnEnemies() {
         let x
         let y
         if (Math.random() < 0.5) {
-            x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius // If random value is less than 0.5 -> 0 - radius (30) is X otherwise ScreenWidth + radius
-            y = Math.random() * canvas.height
+            x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius // If random value is less than 0.5; Left edge (of screen) is x otherwise the Right edge is the spawn point
+            y = Math.random() * canvas.height // Y will be a random value between 0 and bottom of screen
         } else {
-            x = Math.random() * canvas.width // If random value is less than 0.5 -> 0 - radius (30) is X otherwise ScreenWidth + radius
-            y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+            // If Math.random() returns more than 0.5
+            x = Math.random() * canvas.width // X will be a random value between 0 and right side of screen
+            y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius // If random is less than 0.5, the y will be (slightly above screen) or (slight below screen)
         }
         const color = `hsl(${Math.random() * 360}, 50%, 50%)`
         const angle = Math.atan2(canvas.height / 2 - y,canvas.width / 2 - x)
         const velocity = {x: Math.cos(angle), y: Math.sin(angle)}
         enemies.push(new Enemy(x, y, radius, color, velocity))
-    }, 1000)
+    }, 1000) // Repeat every second
 }
 
 let animationId
