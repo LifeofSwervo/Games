@@ -96,4 +96,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let actionMoveDone = SKAction.removeFromParent()
     monster.run(SKAction.sequence([actionMove, actionMoveDone]))
   }
+  
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    // 1
+    guard let touch = touches.first else {
+      return
+    }
+    let touchLocation = touch.location(in: self)
+    
+    // 2
+    let projectile = SKSpriteNode(imageNamed: "projectile")
+    projectile.position = player.position
+    
+    // 3 - Determine offset of location to projectile
+    let offset = touchLocation - projectile.position
+    
+    // 4 - Bail out if you are shooting down or backwards
+    if offset.x < 0 { return }
+    
+    // 5 - Add projectile as child of the scene
+    addChild(projectile)
+    
+    // 6 - Get direction where to shoot
+    let direction = offset.normalized()
+    
+    // 7
+    let shootAmount = direction * 1000
+    
+    // 8 -
+    let realDest = shootAmount + projectile.position
+    
+    // 9 - Create the actions
+    let actionMove = SKAction.move(to: realDest, duration: 2.0)
+    let actionMoveDone = SKAction.removeFromParent()
+    projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
+    
+  }
+  
 }
