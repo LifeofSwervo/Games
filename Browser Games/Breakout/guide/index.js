@@ -1,34 +1,73 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-// Red Square
-ctx.beginPath();
-ctx.rect(20, 40, 50, 50);
-ctx.fillStyle = "#FF0000";
-ctx.fill();
-ctx.closePath();
+// Keys
+//document.addEventListener("keydown", keyDownHandler, false);
+//document.addEventListener("keyup", keyUpHandler, false);
+let leftPressed = false;
+let rightPressed = false;
 
-// Green Circle - Player
-ctx.beginPath();
-ctx.arc(240, 160, 20, 0, Math.PI * 2, false);
-ctx.fillStyle = 'green';
-ctx.fill();
-ctx.closePath();
 
-// Frame
-ctx.beginPath();
-ctx.rect(160, 10, 100, 40);
-ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
-ctx.stroke();
-ctx.closePath();
+// Ball Variables
+let x = canvas.width / 2;
+let y = canvas.height - 30;
+let ballRadius = 10;
+let dx = 2;
+let dy = -2
 
-function draw() {
-    // Ball
+// Player Variables
+const paddleHeight = 10;
+const paddleWidth = 75;
+paddleX = (canvas.width - paddleWidth) / 2;
+
+// Key Functions
+function keyUpHandler(e) {
+    if (e.key === 'Right' || e.key === 'ArrowRight') {
+        rightPressed = false;
+    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+        leftPressed = false;
+    }
+}
+
+function keyDownHandler(e) {
+    if (e.key === 'Right' || e.key === 'ArrowRight') {
+        rightPressed = true;
+    } else if (e.key === 'left' || e.key === 'ArrowLeft') {
+        leftPressed = true;
+    }
+}
+function drawBall() {
     ctx.beginPath();
-    ctx.arc(50, 50, 10, 0, Math.PI * 2, false);
-    ctx.fillStyle = "#0095ZDD"; // Green
+    ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
+    ctx.fillStyle = "#0095DD"; // Blue
     ctx.fill();
     ctx.closePath();
+}
+
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight)
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawPaddle()
+    drawBall()
+
+    // Ball Constrainsts
+    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) { // x axis constraint
+        dx = -dx
+    }
+    if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) { // y axis constraint
+        dy = -dy
+    }
+
+    // Assign ball movement
+    x += dx;
+    y += dy;
 
 }
 // Calls draw loop every 10 milliseconds
