@@ -2,8 +2,8 @@ const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
 // Keys
-//document.addEventListener("keydown", keyDownHandler, false);
-//document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
 let leftPressed = false;
 let rightPressed = false;
 
@@ -25,8 +25,13 @@ function ballConstraint() {
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) { // x axis constraint
         dx = -dx
     }
-    if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) { // y axis constraint
+
+    if (y + dy < ballRadius) {
         dy = -dy
+    } else if (y + dy > canvas.height - ballRadius) { // y axis constraint
+        alert("Game Over");
+        document.location.reload();
+        clearInterval(interval); // Chrome requirement
     }
 }
 
@@ -69,10 +74,23 @@ function draw() {
 
     ballConstraint()
 
+    // Player Constraint
+    if (rightPressed) {
+        paddleX += 7;
+        if (paddleX + paddleWidth > canvas.width) {
+            paddleX = canvas.width - paddleWidth;
+        }
+    } else if (leftPressed) {
+        paddleX -= 7;
+        if (paddleX < 0) {
+            paddleX = 0;
+        }
+    }
+
     // Assign ball movement
     x += dx;
     y += dy;
 
 }
 // Calls draw loop every 10 milliseconds
-setInterval(draw, 10)
+const interval = setInterval(draw, 10)
