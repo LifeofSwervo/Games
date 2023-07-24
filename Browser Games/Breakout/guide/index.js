@@ -20,6 +20,16 @@ const paddleHeight = 10;
 const paddleWidth = 75;
 paddleX = (canvas.width - paddleWidth) / 2;
 
+function ballConstraint() {
+    // Ball Constrainsts
+    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) { // x axis constraint
+        dx = -dx
+    }
+    if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) { // y axis constraint
+        dy = -dy
+    }
+}
+
 // Key Functions
 function keyUpHandler(e) {
     if (e.key === 'Right' || e.key === 'ArrowRight') {
@@ -57,13 +67,7 @@ function draw() {
     drawPaddle()
     drawBall()
 
-    // Ball Constrainsts
-    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) { // x axis constraint
-        dx = -dx
-    }
-    if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) { // y axis constraint
-        dy = -dy
-    }
+    ballConstraint()
 
     // Assign ball movement
     x += dx;
