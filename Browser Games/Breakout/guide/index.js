@@ -1,9 +1,12 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
+let score = 0;
+
 // Keys
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("mousemove", mouseMoveHandler, false);
 let leftPressed = false;
 let rightPressed = false;
 
@@ -44,10 +47,14 @@ function collisionDetection() {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
                     dy = -dy;
                     b.status = 0;
+                    score++;
+                    if (score === brickRowCount * brickColumnCount) {
+                        alert("You Win, Congratulations!!!");
+                        document.location.reload();
+                        clearInterval(interval); // Chrome Requirement
+                    }
                 }
             }
-            
-
         }
     }
 }
@@ -89,6 +96,12 @@ function ballConstraint() {
     }
 }
 
+function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "0095DD";
+    ctx.fillText(`Score ${score}`, 8, 20);
+}
+
 // Key Functions
 function keyUpHandler(e) {
     if (e.key === 'Right' || e.key === 'ArrowRight') {
@@ -105,6 +118,14 @@ function keyDownHandler(e) {
         leftPressed = true;
     }
 }
+
+function mouseMoveHandler(e) {
+    const relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX - paddleWidth / 2;
+    }
+}
+
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
@@ -124,7 +145,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     collisionDetection()
-
+    drawScore()
     drawBricks()
 
     drawPaddle()
