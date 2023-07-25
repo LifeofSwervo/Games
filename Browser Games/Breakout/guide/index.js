@@ -58,7 +58,6 @@ function collisionDetection() {
         }
     }
 }
-
 function drawBricks() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
@@ -76,7 +75,6 @@ function drawBricks() {
         }
     }
 }
-
 function ballConstraint() {
     // Ball Constrainsts
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) { // x axis constraint
