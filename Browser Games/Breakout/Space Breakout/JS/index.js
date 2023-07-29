@@ -32,30 +32,34 @@ function keyDownHandler(event) {
 // Player
 const paddleHeight = 10;
 const paddleWidth = 75;
-paddleX = (canvas.width - paddleWidth) / 2;
-const paddle = new Paddle(paddleX, canvas.height - (paddleHeight * 5), paddleWidth, paddleHeight, "#9047FF");
-
-
+const paddle = new Paddle((canvas.width - paddleWidth) / 2, canvas.height - (paddleHeight * 5), paddleWidth, paddleHeight, "#9047FF");
 
     // Player Movement
 function playerMovement() {
-    
-}
-
-function draw() {
-    c.clearRect(0, 0, canvas.width, canvas.height);
-    paddle.update();
     if (rightPressed) {
-        paddle.x += 7; // Paddle goes right
+        const speed = 7;
+        paddle.x += speed; // Paddle goes right
         if (paddle.x + paddleWidth > canvas.width) {
             paddle.x = canvas.width - paddleWidth;
         }
     } else if (leftPressed) {
-        paddle.x -= 7; // Paddle goes left
+        paddle.x -= speed; // Paddle goes left
         if (paddle.x <= 0) {
             paddle.x = 0;
         }
     }
+}
+
+// Ball
+ballRadius = 12.5;
+const ball = new Ball((canvas.width - ballRadius) / 2, (canvas.height - ballRadius) / 2, ballRadius, 'white', 2, 2)
+
+function draw() {
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    ball.update();
+
+    paddle.update();
+    playerMovement();
 }
 
 const interval = setInterval(draw, 10)
