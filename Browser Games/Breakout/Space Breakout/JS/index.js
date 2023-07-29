@@ -32,7 +32,7 @@ function keyDownHandler(event) {
 // Player
 const paddleHeight = 10;
 const paddleWidth = 75;
-const paddle = new Paddle((canvas.width - paddleWidth) / 2, canvas.height - (paddleHeight * 5), paddleWidth, paddleHeight, "#9047FF");
+const paddle = new Paddle((canvas.width - paddleWidth) / 2, canvas.height - paddleHeight, paddleWidth, paddleHeight, "#9047FF");
 
     // Player Movement
 function playerMovement() {

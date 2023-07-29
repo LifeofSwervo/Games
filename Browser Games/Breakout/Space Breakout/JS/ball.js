@@ -26,8 +26,16 @@ class Ball {
         }
 
         // Y screen constraint 
-        if (this.y + this.dy > canvas.height - this.radius || this.y + this.dy < this.radius) {
+        if (this.y + this.dy < this.radius) { // Top of Screen
             this.dy = -this.dy;
+        } else if (this.y + this.dy > canvas.height - this.radius) { // Bottom 
+            if (this.x > paddle.x && this.x < paddle.x + paddle.width) {
+                this.dy = -this.dy;
+            } else {
+                alert("Game Over");
+                document.location.reload();
+                clearInterval(interval); // Chrome Requirement
+            }
         }
     }
 
