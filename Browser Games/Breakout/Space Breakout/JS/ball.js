@@ -17,20 +17,18 @@ class Ball {
     }
 
     movement() {
-
         this.x += this.dx;
         this.y += this.dy;
 
+        // X screen constraint
         if (this.x + this.dx > canvas.width - this.radius || this.x + this.dx < this.radius) {
             this.dx = -this.dx;
         }
+
+        // Y screen constraint 
         if (this.y + this.dy > canvas.height - this.radius || this.y + this.dy < this.radius) {
             this.dy = -this.dy;
         }
-    }
-
-    screenConstraint() {
-
     }
 
     update() {

@@ -51,8 +51,9 @@ function playerMovement() {
 }
 
 // Ball
-ballRadius = 12.5;
-const ball = new Ball((canvas.width - ballRadius) / 2, (canvas.height - ballRadius) / 2, ballRadius, 'white', 2, 2)
+const ballRadius = 12.5;
+let ballSpeed = 2;
+const ball = new Ball((canvas.width - ballRadius) / 2, (canvas.height - ballRadius) / 2, ballRadius, 'white', ballSpeed, ballSpeed)
 
 function draw() {
     c.clearRect(0, 0, canvas.width, canvas.height);
