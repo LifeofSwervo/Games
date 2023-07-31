@@ -6,6 +6,8 @@ canvas.height = window.innerHeight;
 
 const speed = 6;
 
+const bricks = new Bricks(3, 5, 75, 20, 10, 30, 30);
+
 // Keys
 let rightPressed = false;
 let leftPressed = false;
@@ -31,7 +33,7 @@ function keyDownHandler(event) {
 
 // Player
 const paddleHeight = 10;
-const paddleWidth = 75;
+const paddleWidth = 175;
 const paddle = new Paddle((canvas.width - paddleWidth) / 2, canvas.height - paddleHeight, paddleWidth, paddleHeight, "#9047FF");
 
     // Player Movement
@@ -52,11 +54,12 @@ function playerMovement() {
 
 // Ball
 const ballRadius = 12.5;
-let ballSpeed = 2;
-const ball = new Ball((canvas.width - ballRadius) / 2, (canvas.height - ballRadius) / 2, ballRadius, 'white', ballSpeed, ballSpeed)
+let ballSpeed = 6;
+const ball = new Ball((canvas.width - ballRadius) / 2, (canvas.height - ballRadius) / 2, ballRadius, 'white', ballSpeed, -ballSpeed)
 
 function draw() {
     c.clearRect(0, 0, canvas.width, canvas.height);
+    bricks.update()
     ball.update();
 
     paddle.update();
