@@ -6,7 +6,7 @@ canvas.height = window.innerHeight;
 
 const speed = 6;
 
-const bricks = new Bricks(3, 5, 75, 20, 10, 30, 30);
+const bricks = new Bricks(5, 7, 75, 20, 23, 30, 30);
 
 // Keys
 let rightPressed = false;
