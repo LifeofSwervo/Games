@@ -19,7 +19,9 @@ class Ball {
     movement() {
         this.x += this.dx;
         this.y += this.dy;
+    }
 
+    screenConstraint() {
         // X screen constraint
         if (this.x + this.dx > canvas.width - this.radius || this.x + this.dx < this.radius) {
             this.dx = -this.dx;
@@ -42,5 +44,6 @@ class Ball {
     update() {
         this.draw();
         this.movement();
+        this.screenConstraint();
     }
 }

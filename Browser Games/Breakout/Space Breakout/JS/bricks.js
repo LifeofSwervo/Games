@@ -18,8 +18,6 @@ class Bricks {
     }
 
     draw() {
-        
-
         // Draw Bricks
         for (let col = 0; col < this.columns; col++) {
             for (let r = 0; r < this.rows; r++) {
@@ -36,8 +34,9 @@ class Bricks {
                 }
             }
         }
+    }
 
-        // Collision
+    collision() {
         for (let col = 0; col < this.columns; col++) {
             for (let r = 0; r < this.rows; r++) {
                 const b = this.bricks[col][r]; // Bricks in grid
@@ -46,6 +45,7 @@ class Bricks {
                         ball.dy = -ball.dy;
                         b.status = 0;
                         score++;
+                        bounce++;
                         if (score === this.rows * this.columns) {
                             alert("You Win, Congratulations!!!");
                             document.location.reload();
@@ -58,6 +58,7 @@ class Bricks {
     }
 
     update() {
-        this.draw()
+        this.draw();
+        this.collision();
     }
 }

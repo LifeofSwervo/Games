@@ -4,7 +4,9 @@ const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const particles = []
+let bounce = 0;
+
+const particles = [];
 
 // Stars on Screen
 for (let i = 0; i < 100; i++) { // Creates 100 particles                                                                                                                                                                                  // Color or Invader hex color        
@@ -30,6 +32,14 @@ function keyUpHandler(event) {
         rightPressed = false;
     } else if (event.key === "Left" || event.key === "ArrowLeft") {
         leftPressed = false;
+    }
+}
+
+// Bounce
+
+function calcBounce() {
+    if (bounce > 0) {
+        console.log('test')
     }
 }
 
@@ -96,6 +106,7 @@ const ball = new Ball((canvas.width - ballRadius) / 2, (canvas.height - ballRadi
 function draw() {
     c.clearRect(0, 0, canvas.width, canvas.height);
     runParticles();
+    calcBounce();
     drawScore();
     bricks.update()
     ball.update();

@@ -20,12 +20,15 @@ class Particle {
         c.restore()
     }
 
-    update() {
-        this.draw()
+    movement() {
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+    }
 
-        // Projectile position assigned to velocity.
-        this.position.x += this.velocity.x
-        this.position.y += this.velocity.y
+    update() {
+        this.draw();
+        this.movement();
+
 
         if (this.fades) this.opacity -= 0.01
     }
