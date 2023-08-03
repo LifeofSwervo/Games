@@ -4,6 +4,12 @@ const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+let gameStarted = false;
+
+function startGame() {
+    gameStarted = true;
+}
+
 let bounce = 0;
 
 const particles = [];
@@ -81,6 +87,9 @@ function runParticles() {
 const paddleHeight = 10;
 const paddleWidth = 175;
 const paddle = new Paddle((canvas.width - paddleWidth) / 2, canvas.height - paddleHeight, paddleWidth, paddleHeight, "#9047FF");
+
+
+
 
     // Player Movement
 function playerMovement() {

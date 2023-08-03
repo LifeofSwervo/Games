@@ -3,3 +3,16 @@ body {
     margin: 0;
 }
 
+button {
+    background-color: yellow;
+    border-radius: 40%;
+
+}
+
+#startGameContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: scale(2.3);
+}
+

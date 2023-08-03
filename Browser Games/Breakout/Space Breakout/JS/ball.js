@@ -17,8 +17,11 @@ class Ball {
     }
 
     movement() {
-        this.x += this.dx;
-        this.y += this.dy;
+        if (gameStarted) {
+            this.x += this.dx;
+            this.y += this.dy;
+        }
+        
     }
 
     screenConstraint() {
