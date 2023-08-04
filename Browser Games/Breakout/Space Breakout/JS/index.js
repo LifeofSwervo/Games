@@ -64,6 +64,25 @@ function keyDownHandler(event) {
     }
 }
 
+function createParticles(object, color, fades) {
+    for (let i = 0; i < 15; i++) {
+        particles.push(new Particle({ position: {x: object.x + (object.width / 2), y: object.y + (object.height / 2)}, velocity: {x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2}, radius: Math.random() * 3, color: 'white', fades: true}))
+    }
+}
+
+function ballParticles() {
+
+    if (score > 0) {
+        for (i = 0; i < 15; i++) {
+            particles.push(new Particle({ position: {x: ball.x + (ball.radius / 2), y: ball.y + (ball.radius / 2)}, velocity: {x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2}, radius: Math.random() * 3, color: 'white', fades: true}))
+        }
+        score -= 1;
+    }
+
+
+
+} 
+
 function runParticles() {
     particles.forEach((particle, i) => {
 
@@ -88,9 +107,6 @@ const paddleHeight = 10;
 const paddleWidth = 175;
 const paddle = new Paddle((canvas.width - paddleWidth) / 2, canvas.height - paddleHeight, paddleWidth, paddleHeight, "#9047FF");
 
-
-
-
     // Player Movement
 function playerMovement() {
     const speed = 15;
@@ -109,11 +125,12 @@ function playerMovement() {
 
 // Ball
 const ballRadius = 12.5;
-let ballSpeed = 10;
+let ballSpeed = 5;
 const ball = new Ball((canvas.width - ballRadius) / 2, (canvas.height - ballRadius) / 2, ballRadius, 'white', ballSpeed, -ballSpeed)
 
 function draw() {
     c.clearRect(0, 0, canvas.width, canvas.height);
+    ballParticles()
     runParticles();
     calcBounce();
     drawScore();
