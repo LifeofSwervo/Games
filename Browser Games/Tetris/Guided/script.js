@@ -338,8 +338,48 @@
               s = 'top';
               tempY += 1;
               break;
-              
+            case 'RT':
+              this.rotate();
+              return true;
+              break;
+            default:
+              throw new Error('wtf');
+              break;
           }
+          if (this.checkMove(tempX, tempY, this.curShape)) {
+            this.curSqs.eachdo(function (i) {
+              var l = parseInt(this.style[s], 10);
+              dir === 'L' ? (l -= me.pSize) : (l += me.pSize);
+              this.style[s] = l + 'px';
+            });
+            this.curX = tempX;
+            this.curY = tempY;
+          } else if (dir === 'D') {
+            if (this.curY === 1 || this.time === this.maxTime) {
+              this.gameOver();
+              return false;
+            }
+            this.curComplete = true; 
+          }
+        },
+        rotate: function() {
+          if (this.curShapeIndex !== 6) {
+            // Square
+            var temp = [];
+            this.curShape.eachdo(function() {
+              temp.push([this[1] * -1, this[0]]);
+            });
+            if (this.checkMove(this.curX, this.curY, temp)) {
+              this.curShape = temp;
+              this.removeCur();
+              this.drawShape(this.curX, this.curY, this.curShape);
+            } else {
+              throw new Error("Couldn't Rotate!");
+            }
+          }
+        }, 
+        checkMove: function(x, y, p) {
+          
         }
     }   
   }
