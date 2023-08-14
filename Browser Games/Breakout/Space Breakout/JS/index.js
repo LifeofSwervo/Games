@@ -1,5 +1,6 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
+const startGameContatiner = document.querySelector('#startGameContainer')
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -8,6 +9,7 @@ let gameStarted = false;
 
 function startGame() {
     gameStarted = true;
+    startGameContatiner.style.display = 'none'
 }
 
 let bounce = 0;
