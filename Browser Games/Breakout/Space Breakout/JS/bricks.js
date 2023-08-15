@@ -9,10 +9,10 @@ class Bricks {
         this.offsetLeft = offsetLeft;
 
         this.bricks = [];
-        for (let c = 0; c < this.columns; c++) {
-            this.bricks[c] = [];
+        for (let col = 0; col < this.columns; col++) {
+            this.bricks[col] = [];
             for (let r = 0; r < this.rows; r++) {
-                this.bricks[c][r] = {x: 0, y: 0, status: 1};
+                this.bricks[col][r] = {x: 0, y: 0, status: 1}; // Status indicates if alive (1: Alive, 0: Dead)
             }
         }
     }
@@ -40,8 +40,9 @@ class Bricks {
         for (let col = 0; col < this.columns; col++) {
             for (let r = 0; r < this.rows; r++) {
                 const b = this.bricks[col][r]; // Bricks in grid
-                if (b.status === 1) {
+                if (b.status === 1) { // Logic for alive bricks
                     if (ball.x > b.x && ball.x < b.x + this.width && ball.y > b.y && ball.y < b.y + this.height) {
+                        // If ball bouces off a brick
                         ball.dy = -ball.dy;
                         b.status = 0;
                         score++;

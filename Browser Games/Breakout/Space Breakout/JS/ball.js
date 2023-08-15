@@ -18,6 +18,7 @@ class Ball {
 
     movement() {
         if (gameStarted) {
+            // Applies velocity to movement
             this.x += this.dx;
             this.y += this.dy;
         }

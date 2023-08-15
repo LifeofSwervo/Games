@@ -9,6 +9,8 @@ let gameStarted = false;
 
 function startGame() {
     gameStarted = true;
+
+    // Hide button on button press
     startGameContatiner.style.display = 'none'
 }
 
@@ -44,7 +46,6 @@ function keyUpHandler(event) {
 }
 
 // Bounce
-
 function calcBounce() {
     if (bounce > 0) {
         console.log('test')
@@ -67,32 +68,29 @@ function keyDownHandler(event) {
 }
 
 function createParticles(object, color, fades) {
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 15; i++) { 
         particles.push(new Particle({ position: {x: object.x + (object.width / 2), y: object.y + (object.height / 2)}, velocity: {x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2}, radius: Math.random() * 3, color: 'white', fades: true}))
     }
 }
 
 function ballParticles() {
-
     if (score > 0) {
-        for (i = 0; i < 15; i++) {
+        for (i = 0; i < 15; i++) { // 15 particles
             particles.push(new Particle({ position: {x: ball.x + (ball.radius / 2), y: ball.y + (ball.radius / 2)}, velocity: {x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2}, radius: Math.random() * 3, color: 'white', fades: true}))
         }
         score -= 1;
     }
-
-
-
 } 
 
 function runParticles() {
     particles.forEach((particle, i) => {
-
+        // Particle Constraints
         if (particle.position.y - particle.radius >= canvas.height) {
             particle.position.x = Math.random() * canvas.width
             particle.position.y = -particle.radius
         }
 
+        // Destroys particles after their opacity has been lowered to 0
         if (particle.opacity <= 0) {
             setTimeout(() => {
                 particles.splice(i, 1)
