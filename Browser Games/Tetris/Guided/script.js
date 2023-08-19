@@ -379,7 +379,75 @@
           }
         }, 
         checkMove: function(x, y, p) {
-          
+          if (this.isOb(x, y, p) || this.isCollision(x, y, p)) {
+            return false;
+          }
+          return true;
+        },
+        isCollision: function(x, y, p) {
+          var me = this;
+          var bool = false;
+          p.eachdo(function() {
+            var newX = this[0] + x;
+            var newY = this[1] + y;
+            if (me.boardPos(newX, newY) === 1) {
+              bool = true;
+            }
+          });
+          return bool;
+        },
+        getRowState: function(y) {
+          var c = 0;
+          for (var x = 0; x < this.boardWidth; x++) {
+            if (this.boardPos(x, y) === 1) {
+              c = c + 1;
+            }
+          }
+          if (c === 0) {
+            return 'E';
+          }
+          if (c === this.boardWidth) {
+            return 'F';
+          }
+          return 'U';
+        },
+        checkRows: function() {
+          var me = this;
+          var start = this.boardHeight;
+          this.curShape.eachdo(function() {
+            var n = this[1] + me.curY;
+            console.log(n);
+            if (n < start) {
+              start = n;
+            }
+          });
+          console.log(start);
+
+          var c = 0;
+          var stopCheck = false;
+          for (var y = this.boardHeight - 1; y >= 0; y--) {
+            switch (this.getRowState(y)) {
+              case 'F':
+                this.removeRow(y);
+                c++;
+                break;
+              case 'E':
+                if (c === 0) {
+                  stopCheck = true;
+                }
+                break;
+              case 'U':
+                if (c > 0) {
+                  this.shiftRow(y, c);
+                }
+                break;
+              default:
+                break;
+            }
+            if (stopCheck === true) {
+              break
+            }
+          }
         }
     }   
   }
