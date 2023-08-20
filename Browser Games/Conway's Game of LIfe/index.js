@@ -26,7 +26,7 @@ function createField() {
 function draw() {
     for (var y = 0; y < size; y++) {
         for (var x = 0; x < size; x++) {
-            htmlElements[y][x].setAttribute('class', 'cell' + (cells[y][x] == 1 ? 'filled' : 'empty'))
+            htmlElements[y][x].setAttribute('class', 'cell ' + (cells[y][x] == 1 ? 'filled' : 'empty'))
         }
     }
 }
