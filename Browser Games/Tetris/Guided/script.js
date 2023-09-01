@@ -502,6 +502,66 @@
           p.push(parseInt(block.style.top, 10) / this.pSize);
           return p;
         },
-    }   
-  }
-)
+        getBoardIdx: function(x, y) {
+          return x + y * this.boardWidth;
+        },
+        boardPos: function(x, y) {
+          return this.board[x + y * this.boardWidth];
+        },
+        markBoardAt: function(x, y, val) {
+          this.board[this.board.getBoardIdx(x, y)] = val;
+        },
+        markBoardShape: function(x, y, p) {
+          var me = this;
+          p.eachdo(function(i) {
+            var newX = p[i][0] + x;
+            var newY = p[i][1] + y;
+            me.markBoardAt(newX, newY, 1);
+          });
+        },
+        isIE: function() { // Internet Explorer Test
+          return this.bTest(/IE/);
+        },
+        isFirefox: function() { // Firefox Test
+          return this.bTest(/Firefox/)
+        },
+        isSafari: function() {
+          return this.bTest(/Safari/)
+        },
+        bTest: function(rgx) {
+          return rgx.test(navigator.userAgent);
+        },
+    };
+    const btn = document.querySelector('#start');
+    btn.addEventListener('click', function() {
+      btn.style.display = 'none';
+      if (!isStart) {
+        tetris.init();
+      }
+    });   
+})();
+
+if (!Array.prototype.eachdo) {
+  Array.prototype.eachdo = function(fn) {
+    for (var i = 0; i < this.length; i++) {
+      fn.call(this[i], i);
+    }
+  };
+}
+if (!Array.prototype.remDup) {
+  Array.prototype.remDup = function() {
+    var temp = [];
+    for (var i = 0; i < this.length; i++) {
+      var bool = true;
+      for (var j = i + 1; j < this.length; j++) {
+        if (this[i] === this[j]) {
+          bool = false;
+        }
+      }
+      if (bool === true) {
+        temp.push(this[i]);
+      }
+    }
+    return temp;
+  };
+}
