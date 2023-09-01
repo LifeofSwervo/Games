@@ -445,10 +445,63 @@
                 break;
             }
             if (stopCheck === true) {
-              break
+              break;
             }
           }
-        }
+          if (c > 0) {
+            this.calcScore({ lines: c });
+          }
+        },
+        shiftRow: function (y, amount) {
+          var me = this;
+          for (var x = 0; x < this.boardWidth; x++) {
+            this.sqs.eachDo(function() {
+              if (me.isAt(x, y, this)) {
+                me.setBlock(x, y + amount, this);
+              }
+            });
+          }
+          me.emptyBoardRow(y);
+        },
+        emptyBoardRow: function(y) {
+          for (var x = 0; x < this.boardWidth; x++) {
+            this.removesBlock(x, y);
+          }
+        },
+        removeRow: function(y) {
+          for (var x = 0; x < this.boardWidth; x++) {
+            this.removeBlock(x, y);
+          }
+        },
+        removeBlock: function(x, y) {
+          var me = this;
+          this.markBoardAt(x, y, 0);
+          this.sqs.eachdo(function (i) {
+            if (me.getPos(this)[0] === x && me.getPos(this)[1] === y) {
+              me.canvas.removeChild(this);
+              me.sqs.splice(i, 1);
+            }
+          });
+        },
+        setBlock: function(x, y, block) {
+          this.markBoardAt(x, y, 1);
+          var newX = x * this.pSize;
+          var newY = y * this.pSize;
+          block.style.left = newX + 'px';
+          block.style.top = newY + 'px';
+        },
+        isAt: function(x, y, block) {
+          if (this.getPos(block)[0] === x && this.getPos(block)[1] ===y) {
+            return true;
+          }
+          return false;
+        },
+        getPos: function(block) {
+          var p = [];
+          p.push(parseInt(block.style.left, 10) / this.pSize);
+          p.push(parseInt(block.style.top, 10) / this.pSize);
+          return p;
+        },
     }   
   }
 )
