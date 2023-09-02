@@ -238,6 +238,64 @@
           return el;
         },
 
+        removeCur: function() {
+          var me = this;
+          this.curSqs.eachdo(function() {
+            me.canvas.removeChild(this);
+          });
+          this.curSqs = [];
+        },
+        setCurCoords: function(x, y) {
+          this.curX = x;
+          this.curY = y;
+        },
+        blindKeyEvents: function() {
+          var me = this;
+          var event = 'keypress';
+          if (this.isSafari() || this.isIE()) {
+            event = 'keydown';
+          }
+          var cb = function(e) {
+            me.handleKey(e);
+          };
+          if (window.addEventListener) {
+            document.addEventListener(event, cb, false);
+          } else {
+            document.attachEvent('on' + event, cb);
+          }
+        },
+        handleKey: function(e) {
+          var c = this.whichKey(e);
+          var dir = '';
+          switch(c) {
+            case 37:
+              this.move('L');
+              break;
+            case 38:
+              this.move('RT');
+              break;
+            case 39:
+              this.move('R');
+              break;
+            case 40:
+              this.move('D');
+              break;
+            case 27:
+              this.togglePause();
+              break;
+            default:
+              break;
+          }
+        },
+        whichKey: function(e) {
+          var c;
+          if (window.event) {
+            c = window.event.keyCode;
+          } else if (e) {
+            c = e.keyCode;
+          }
+          return c;
+        },
         // Increases in game timer
         incTime: function() {
           this.time++;
@@ -283,6 +341,11 @@
           }
         },
         gameOver: function() {
+          this.clearTimers();
+          isStart = false;
+          this.canvas.innerHTML = '<h1>Game Over</h1>'
+        },
+        play: function() {
           var me = this;
           if (this.timer === null) {
             this.initTimer();
@@ -379,7 +442,7 @@
           }
         }, 
         checkMove: function(x, y, p) {
-          if (this.isOb(x, y, p) || this.isCollision(x, y, p)) {
+          if (this.isOB(x, y, p) || this.isCollision(x, y, p)) {
             return false;
           }
           return true;
@@ -391,6 +454,19 @@
             var newX = this[0] + x;
             var newY = this[1] + y;
             if (me.boardPos(newX, newY) === 1) {
+              bool = true;
+            }
+          });
+          return bool;
+        },
+        isOB: function(x, y, p) {
+          var w = this.boardWidth - 1;
+          var h = this.boardHeight - 1;
+          var bool = false;
+          p.eachdo(function() {
+            var newX = this[0] + x;
+            var newY = this[1] + y;
+            if (newX < 0 || newX > w || newY < 0 || newY > h) {
               bool = true;
             }
           });
@@ -455,7 +531,7 @@
         shiftRow: function (y, amount) {
           var me = this;
           for (var x = 0; x < this.boardWidth; x++) {
-            this.sqs.eachDo(function() {
+            this.sqs.eachdo(function() {
               if (me.isAt(x, y, this)) {
                 me.setBlock(x, y + amount, this);
               }
