@@ -26,6 +26,10 @@ function animate() {
   c.clearRect(0, 0, canvas.width, canvas.height);
   camera.update(player);
   player.update();
+
+  // Draw a rectangle
+  c.fillStyle = 'red';
+  c.fillRect(50 - camera.x, 50 - camera.y, 100, 100);
 };
 
 // Event listeners for player movement
