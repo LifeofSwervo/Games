@@ -9,6 +9,7 @@ canvas.height = innerHeight;
 // Player info
 const player = new Player(0, 0, 30, 'white');
 
+// Camera info
 let camera = {
   x: 0,
   y: 0,
@@ -21,11 +22,38 @@ let camera = {
   }
 };
 
+// Projectile
+let projectiles = [];
+  // Projectile event listener
+  addEventListener('click', (event) => 
+  {
+    const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2);
+    const velocity = 
+    {
+      x: Math.cos(angle),
+      y: Math.sin(angle)
+    }
+    projectiles.push(new Projectile(canvas.width / 2, canvas.height / 2, 5, 'red', velocity));
+  });
+
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height);
   camera.update(player);
   player.update();
+
+  // Update and draw projectiles
+  projectiles.forEach((projectile, index) => 
+  {
+    projectile.update();
+    if(projectile.x + projectile.radius < 0 || projectile.x - projectile.radius > canvas.width || projectile.y + projectile.radius < 0 || projectile.y - projectile.radius > canvas.height) 
+    {
+      setTimeout(() => 
+      {
+        projectiles.splice(index, 1);
+      }, 0);
+    }
+  });
 
   // Draw a rectangle
   c.fillStyle = 'red';
@@ -36,15 +64,19 @@ function animate() {
 window.addEventListener('keydown', function(e) {
   switch(e.key) {
     case 'ArrowLeft':
+    case 'a':
       player.moveLeft();
       break;
     case 'ArrowRight':
+    case 'd':
       player.moveRight();
       break;
     case 'ArrowUp':
+    case 'w':
       player.moveUp();
       break;
     case 'ArrowDown':
+    case 's':
       player.moveDown();
       break;
   }
@@ -54,10 +86,14 @@ window.addEventListener('keyup', function(e) {
   switch(e.key) {
     case 'ArrowLeft':
     case 'ArrowRight':
+    case 'a':
+    case 'd':
       player.stopX();
       break;
     case 'ArrowUp':
     case 'ArrowDown':
+    case 'w':
+    case 's':
       player.stopY();
       break;
   }
