@@ -25,24 +25,21 @@ let camera = {
 // Projectile
 let projectiles = [];
   // Projectile event listener
-  addEventListener('click', (event) => 
+addEventListener('click', (event) => 
+{
+  const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2);
+  const velocity = 
   {
-    const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2);
-    const velocity = 
-    {
-      x: Math.cos(angle),
-      y: Math.sin(angle)
-    }
-    projectiles.push(new Projectile(player.x + player.radius / 2, player.y + player.radius / 2, 5, 'red', velocity));
-  });
+    x: Math.cos(angle),
+    y: Math.sin(angle)
+  }
+  projectiles.push(new Projectile(player.x + player.radius / 2, player.y + player.radius / 2, 5, 'red', velocity));
+});
 
-function animate() {
-  requestAnimationFrame(animate);
-  c.clearRect(0, 0, canvas.width, canvas.height);
-  camera.update(player);
-  player.update();
-
-  // Update and draw projectiles
+  // Shoot projectiles
+function shoot() 
+{
+   // Update and draw projectiles
   projectiles.forEach((projectile, index) => 
   {
     projectile.update();
@@ -54,7 +51,15 @@ function animate() {
       }, 0);
     }
   });
+}
 
+function animate() {
+  requestAnimationFrame(animate);
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  camera.update(player);
+  player.update();
+  shoot();
+  
   // Draw a rectangle
   c.fillStyle = 'red';
   c.fillRect(50 - camera.x, 50 - camera.y, 100, 100);
