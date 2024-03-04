@@ -21,6 +21,7 @@ class Player
 
     update() 
     {
+        this.movement();
         this.x += this.dx;
         this.y += this.dy;
         this.draw();
@@ -48,5 +49,48 @@ class Player
 
     stopY() {
         this.dy = 0;
+    }
+
+    movement() 
+    {
+        // Event listeners for player movement
+        window.addEventListener('keydown', function(e) {
+            switch(e.key) {
+            case 'ArrowLeft':
+            case 'a':
+                player.moveLeft();
+                break;
+            case 'ArrowRight':
+            case 'd':
+                player.moveRight();
+                break;
+            case 'ArrowUp':
+            case 'w':
+                player.moveUp();
+                break;
+            case 'ArrowDown':
+            case 's':
+                player.moveDown();
+                break;
+            }
+        });
+        
+        window.addEventListener('keyup', function(e) {
+            switch(e.key) {
+            case 'ArrowLeft':
+            case 'ArrowRight':
+            case 'a':
+            case 'd':
+                player.stopX();
+                break;
+            case 'ArrowUp':
+            case 'ArrowDown':
+            case 'w':
+            case 's':
+                player.stopY();
+                break;
+            
+            }
+        });
     }
 }

@@ -33,7 +33,7 @@ let projectiles = [];
       x: Math.cos(angle),
       y: Math.sin(angle)
     }
-    projectiles.push(new Projectile(canvas.width / 2, canvas.height / 2, 5, 'red', velocity));
+    projectiles.push(new Projectile(player.x + player.radius / 2, player.y + player.radius / 2, 5, 'red', velocity));
   });
 
 function animate() {
@@ -60,43 +60,6 @@ function animate() {
   c.fillRect(50 - camera.x, 50 - camera.y, 100, 100);
 };
 
-// Event listeners for player movement
-window.addEventListener('keydown', function(e) {
-  switch(e.key) {
-    case 'ArrowLeft':
-    case 'a':
-      player.moveLeft();
-      break;
-    case 'ArrowRight':
-    case 'd':
-      player.moveRight();
-      break;
-    case 'ArrowUp':
-    case 'w':
-      player.moveUp();
-      break;
-    case 'ArrowDown':
-    case 's':
-      player.moveDown();
-      break;
-  }
-});
 
-window.addEventListener('keyup', function(e) {
-  switch(e.key) {
-    case 'ArrowLeft':
-    case 'ArrowRight':
-    case 'a':
-    case 'd':
-      player.stopX();
-      break;
-    case 'ArrowUp':
-    case 'ArrowDown':
-    case 'w':
-    case 's':
-      player.stopY();
-      break;
-  }
-});
 
 animate();
