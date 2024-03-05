@@ -33,28 +33,19 @@ addEventListener('click', (event) =>
     x: Math.cos(angle),
     y: Math.sin(angle)
   }
-  projectiles.push(new Projectile(player.x + player.radius / 2, player.y + player.radius / 2, 5, 'red', velocity));
+  projectiles.push(new Projectile(player.x + player.radius / 2, player.y + player.radius / 2, 5, 'red', velocity, Date.now()));
 });
 
   // Shoot projectiles
-function shoot() 
-{
-   // Update and draw projectiles
-  projectiles.forEach((projectile, index) => 
-  {
+function shoot() {
+  // Update and draw projectiles
+  projectiles.forEach((projectile, index) => {
     projectile.update();
-    if(projectile.x + projectile.radius < 0 || 
-      projectile.x - projectile.radius > canvas.width || 
-      projectile.y + projectile.radius < 0 || 
-      projectile.y - projectile.radius > canvas.height) 
-    {
-      setTimeout(() => 
-      {
-        projectiles.splice(index, 1);
-      }, 0);
+    if (Date.now() - projectile.timeStamp > 7000) { // Check if 9 seconds have passed
+      projectiles.splice(index, 1);
     }
   });
-}
+};
 
 function animate() {
   requestAnimationFrame(animate);
