@@ -33,7 +33,9 @@ addEventListener('click', (event) =>
     x: Math.cos(angle),
     y: Math.sin(angle)
   }
-  projectiles.push(new Projectile(player.x + player.radius / 2, player.y + player.radius / 2, 5, 'red', velocity, Date.now()));
+  projectiles.push(new Projectile(player.x + player.radius / 2,
+   player.y + player.radius / 2, 5,
+    'red', velocity, Date.now()));
 });
 
   // Shoot projectiles
