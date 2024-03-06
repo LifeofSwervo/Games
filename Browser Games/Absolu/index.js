@@ -22,6 +22,11 @@ let camera = {
   }
 };
 
+function spawnEnemies() 
+{
+  
+}
+
 // Projectile
 let projectiles = [];
   // Projectile event listener
@@ -35,7 +40,7 @@ addEventListener('click', (event) =>
   }
   projectiles.push(new Projectile(player.x + player.radius / 2,
    player.y + player.radius / 2, 5,
-    'red', velocity, Date.now()));
+    'white', velocity, Date.now()));
 });
 
   // Shoot projectiles
@@ -43,7 +48,7 @@ function shoot() {
   // Update and draw projectiles
   projectiles.forEach((projectile, index) => {
     projectile.update();
-    if (Date.now() - projectile.timeStamp > 7000) { // Check if 9 seconds have passed
+    if (Date.now() - projectile.timeStamp > 7000) { // Check if 7 seconds have passed
       projectiles.splice(index, 1);
     }
   });
