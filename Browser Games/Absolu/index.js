@@ -1,3 +1,7 @@
+// Becareful running this code, it's not optimized and may cause your browser to crash.
+
+
+
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
@@ -22,9 +26,33 @@ let camera = {
   }
 };
 
+const enemies = [];
+
 function spawnEnemies() 
 {
-  
+  setInterval(() => {
+    const radius = Math.random() * (15 - 7) + 7; // Enemies radius range from 7 to 15
+    let x;
+    let y;
+    // If random value is less than 0.5; Left edge (of screen) is x otherwise the Right edge is the spawn point.
+    if (Math.random() < 0.5) {
+      x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+      y = Math.random() * canvas.height; // Y will be a random value between 0 and bottom of screen
+      // (As the x value ensure's enemies spawn on the edge, the y value randomizes the game a bit)
+    } else {
+      // If Math.random() returns more than 0.5
+      x = Math.random() * canvas.width; // X will be a random value between 0 and right edge of screen
+      y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius; // If random is less than 0.5, the y will be (slightly above screen) or (slight below screen)
+    }
+    const color = `hsl(${Math.random() * 360}, 50%, 50%)`; // Random color
+    const angle = Math.atan2(player.y - y, player.x - x); // Angle of enemy to player
+    const velocity = 
+    {
+      x: Math.cos(angle),
+      y: Math.sin(angle)
+    }
+    enemies.push(new Enemy(x, y, radius, color, velocity));
+  }, 1000); // Spawn an enemy every second
 }
 
 // Projectile
@@ -64,6 +92,15 @@ function animate() {
   // Draw a rectangle
   c.fillStyle = 'red';
   c.fillRect(50 - camera.x, 50 - camera.y, 100, 100);
+  spawnEnemies();
+  enemies.forEach((enemy, index) => {
+    enemy.update();
+    const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+    if (distance - player.radius - enemy.radius < 1) {
+      console.log('Game Over');
+      enemies.splice(index, 1);
+    }
+  });
 };
 
 
