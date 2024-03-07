@@ -92,7 +92,6 @@ function animate() {
   // Draw a rectangle
   c.fillStyle = 'red';
   c.fillRect(50 - camera.x, 50 - camera.y, 100, 100);
-  spawnEnemies();
   enemies.forEach((enemy, index) => {
     enemy.update();
     const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
@@ -106,3 +105,4 @@ function animate() {
 
 
 animate();
+spawnEnemies();
