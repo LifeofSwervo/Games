@@ -10,6 +10,10 @@ const c = canvas.getContext('2d');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
+
+const startGameBtn = document.querySelector('#startGameBtn')
+const modalEl = document.querySelector('#modalEl')
+
 // Player info
 const player = new Player(0, 0, 30, 'white');
 
@@ -44,6 +48,10 @@ function spawnEnemies()
       x = Math.random() * canvas.width; // X will be a random value between 0 and right edge of screen
       y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius; // If random is less than 0.5, the y will be (slightly above screen) or (slight below screen)
     }
+
+    x += camera.x;
+    y += camera.y;
+
     const color = `hsl(${Math.random() * 360}, 50%, 50%)`; // Random color
     const angle = Math.atan2(player.y - y, player.x - x); // Angle of enemy to player
     const velocity = 
@@ -52,7 +60,7 @@ function spawnEnemies()
       y: Math.sin(angle)
     }
     enemies.push(new Enemy(x, y, radius, color, velocity));
-  }, 1000); // Spawn an enemy every second
+  }, 500); // Spawn an enemy every second
 }
 
 // Projectile
@@ -61,10 +69,11 @@ let projectiles = [];
 addEventListener('click', (event) => 
 {
   const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2);
+  const speed = 6;
   const velocity = 
   {
-    x: Math.cos(angle),
-    y: Math.sin(angle)
+    x: Math.cos(angle) * speed,
+    y: Math.sin(angle) * speed
   }
   projectiles.push(new Projectile(player.x + player.radius / 2,
    player.y + player.radius / 2, 5,
@@ -103,6 +112,8 @@ function animate() {
 };
 
 
-
-animate();
-spawnEnemies();
+startGameBtn.addEventListener('click', () => {
+  animate();
+  spawnEnemies();
+  modalEl.style.display = 'none';
+});
