@@ -14,6 +14,7 @@ canvas.height = innerHeight;
 const startGameBtn = document.querySelector('#startGameBtn')
 const modalEl = document.querySelector('#modalEl')
 
+
 // Player info
 const player = new Player(0, 0, 30, 'white');
 
@@ -54,10 +55,11 @@ function spawnEnemies()
 
     const color = `hsl(${Math.random() * 360}, 50%, 50%)`; // Random color
     const angle = Math.atan2(player.y - y, player.x - x); // Angle of enemy to player
+    const enemySpeed = 3; // Speed of enemy
     const velocity = 
     {
-      x: Math.cos(angle),
-      y: Math.sin(angle)
+      x: Math.cos(angle) * enemySpeed,
+      y: Math.sin(angle) * enemySpeed
     }
     enemies.push(new Enemy(x, y, radius, color, velocity));
   }, 500); // Spawn an enemy every second
@@ -97,6 +99,8 @@ function animate() {
   camera.update(player);
   player.update();
   shoot();
+
+  console.log(enemies);
   
   // Draw a rectangle
   c.fillStyle = 'red';
@@ -104,13 +108,34 @@ function animate() {
   enemies.forEach((enemy, index) => {
     enemy.update();
     const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+    // End game if player and enemy collide
     if (distance - player.radius - enemy.radius < 1) {
       console.log('Game Over');
       enemies.splice(index, 1);
     }
+
+    projectiles.forEach((projectile, projectileIndex) => {
+      const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
+      if (dist - enemy.radius - projectile.radius < 1) {
+        console.log('Hit');
+
+        // Min height check
+        if (enemy.radius - 10 > 5) 
+        {
+          gsap.to(enemy, {
+            radius: enemy.radius - 10
+          })
+        } else 
+        {
+          setTimeout(() => {
+            enemies.splice(index, 1);
+            projectiles.splice(projectileIndex, 1);
+          }, 0);
+        }
+      }
+    });
   });
 };
-
 
 startGameBtn.addEventListener('click', () => {
   animate();

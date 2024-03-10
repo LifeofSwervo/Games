@@ -6,7 +6,7 @@ class Player
         this.y = y;
         this.radius = radius;
         this.color = color;
-        this.speed = 3;
+        this.speed = 1;
         this.dx = 0; // Change in x
         this.dy = 0; // Change in y
 
