@@ -11,8 +11,16 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 
 
-const startGameBtn = document.querySelector('#startGameBtn')
-const modalEl = document.querySelector('#modalEl')
+const startGameBtn = document.querySelector('#startGameBtn');
+const modalEl = document.querySelector('#modalEl');
+const PauseEl = document.querySelector('#PauseEl');
+const resuemGameBtn = document.querySelector('#resumeGameBtn');
+
+window.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    PauseEl.style.display = 'flex';
+  }
+})
 
 
 // Player info
@@ -141,4 +149,8 @@ startGameBtn.addEventListener('click', () => {
   animate();
   spawnEnemies();
   modalEl.style.display = 'none';
+});
+
+resuemGameBtn.addEventListener('click', () => {
+  pauseEl.style.display = 'none';
 });
