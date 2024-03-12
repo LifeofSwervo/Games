@@ -70,8 +70,8 @@ function spawnEnemies()
     const enemySpeed = 3; // Speed of enemy
     const velocity = 
     {
-      x: Math.cos(angle) * enemySpeed,
-      y: Math.sin(angle) * enemySpeed
+      x: Math.cos(angle) * enemySpeed, // Cosine of angle determines the x velocity
+      y: Math.sin(angle) * enemySpeed // Sine of angle determines the y velocity
     }
     enemies.push(new Enemy(x, y, radius, color, velocity));
   }, 500); // Spawn an enemy every second
@@ -105,6 +105,8 @@ function shoot() {
   });
 };
 
+const particles = [];
+
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height);
@@ -126,10 +128,19 @@ function animate() {
       enemies.splice(index, 1);
     }
 
+    particles.forEach((particle, particleIndex) => {
+      particle.update();
+    })
+
     projectiles.forEach((projectile, projectileIndex) => {
       const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
       if (dist - enemy.radius - projectile.radius < 1) {
         console.log('Hit');
+
+        // Particle Explosion
+        for (let i = 0; i < enemy.radius * 2; i++) {
+          particles.push(new Particle(enemy.x - camera.x, enemy.y - camera.y, 3, enemy.color, {x: (Math.random() - 0.5) * (Math.random() * 7.6), y: (Math.random() - 0.5) * (Math.random() * 7.6)})) // Set Math.random() to create positive and negative numbers. 
+        }
 
         // Min height check
         if (enemy.radius - 10 > 5) 
