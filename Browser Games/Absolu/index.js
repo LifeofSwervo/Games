@@ -105,6 +105,7 @@ function shoot() {
   });
 };
 
+// Particles
 const particles = [];
 
 function animate() {
@@ -129,7 +130,11 @@ function animate() {
     }
 
     particles.forEach((particle, particleIndex) => {
-      particle.update();
+      if (particle.alpha <= 0) {
+        particles.splice(particleIndex, 1);
+      } else {
+        particle.update();
+      }
     })
 
     projectiles.forEach((projectile, projectileIndex) => {
@@ -139,7 +144,8 @@ function animate() {
 
         // Particle Explosion
         for (let i = 0; i < enemy.radius * 2; i++) {
-          particles.push(new Particle(enemy.x - camera.x, enemy.y - camera.y, 3, enemy.color, {x: (Math.random() - 0.5) * (Math.random() * 7.6), y: (Math.random() - 0.5) * (Math.random() * 7.6)})) // Set Math.random() to create positive and negative numbers. 
+          particles.push(new Particle(enemy.x - camera.x, enemy.y - camera.y, 3, enemy.color,
+             {x: (Math.random() - 0.5) * (Math.random() * 7.6), y: (Math.random() - 0.5) * (Math.random() * 7.6)})) // Set Math.random() to create positive and negative numbers. 
         }
 
         // Min height check
