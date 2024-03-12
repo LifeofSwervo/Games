@@ -13,12 +13,16 @@ canvas.height = innerHeight;
 
 const startGameBtn = document.querySelector('#startGameBtn');
 const modalEl = document.querySelector('#modalEl');
-const PauseEl = document.querySelector('#PauseEl');
+const pauseEl = document.querySelector('#PauseEl');
 const resuemGameBtn = document.querySelector('#resumeGameBtn');
 
 window.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    PauseEl.style.display = 'flex';
+    if (pauseEl.style.display !== 'none') { // If game is running
+      pauseEl.style.display = 'none';
+    } else {
+      pauseEl.style.display = 'flex';
+    }
   }
 })
 
@@ -108,7 +112,7 @@ function animate() {
   player.update();
   shoot();
 
-  console.log(enemies);
+  //console.log(enemies);
   
   // Draw a rectangle
   c.fillStyle = 'red';
