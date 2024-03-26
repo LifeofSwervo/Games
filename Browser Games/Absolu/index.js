@@ -16,14 +16,22 @@ const modalEl = document.querySelector('#modalEl');
 const pauseEl = document.querySelector('#PauseEl');
 const resuemGameBtn = document.querySelector('#resumeGameBtn');
 
+let isRunning = true;
+
 window.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     if (pauseEl.style.display === 'none') { // If game is running
+      // Pause the game
       pauseEl.style.display = 'flex';
-      //cancelAnimationFrame(animationId);
+      cancelAnimationFrame(animationId);
+      isRunning = false;
     } else {
       pauseEl.style.display = 'none';
-      //animationId = requestAnimationFrame(animate); // Resume the game
+      // Resume the game
+      if (!isRunning) {
+        animationId = requestAnimationFrame(animate); 
+        isRunning = true;
+      }
     }
   }
 });
@@ -119,7 +127,6 @@ function animate() {
   camera.update(player);
   player.update();
   shoot();
-  console.log(window.getComputedStyle(pauseEl).display);
 
   //console.log(enemies);
   
@@ -136,7 +143,7 @@ function animate() {
     }
 
     particles.forEach((particle, particleIndex) => {
-      if (particle.alpha <= 0) {
+      if (Date.now() - particle.timeStamp > 300) {
         particles.splice(particleIndex, 1);
       } else {
         particle.update();
@@ -176,6 +183,8 @@ startGameBtn.addEventListener('click', () => {
   animate();
   spawnEnemies();
   modalEl.style.display = 'none';
+  console.log(window.getComputedStyle(pauseEl).display);
+
 });
 
 resuemGameBtn.addEventListener('click', () => {

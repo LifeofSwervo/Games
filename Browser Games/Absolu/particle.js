@@ -1,4 +1,4 @@
-const friction = 0.99;
+const friction = 0.994;
 class Particle {
     constructor(x, y, radius, color, velocity) {
         this.x = x;
@@ -6,7 +6,7 @@ class Particle {
         this.radius = radius;
         this.color = color;
         this.velocity = velocity;
-        this.alpha = 1;
+        this.timeStamp = Date.now();
     }
 
     draw() {
