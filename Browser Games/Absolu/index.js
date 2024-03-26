@@ -18,13 +18,17 @@ const resuemGameBtn = document.querySelector('#resumeGameBtn');
 
 window.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    if (pauseEl.style.display !== 'none') { // If game is running
-      pauseEl.style.display = 'none';
-    } else {
+    if (pauseEl.style.display === 'none') { // If game is running
       pauseEl.style.display = 'flex';
+      //cancelAnimationFrame(animationId);
+    } else {
+      pauseEl.style.display = 'none';
+      //animationId = requestAnimationFrame(animate); // Resume the game
     }
   }
-})
+});
+
+console.log(pauseEl.style.display);
 
 
 // Player info
@@ -108,12 +112,14 @@ function shoot() {
 // Particles
 const particles = [];
 
+let animationId;
 function animate() {
-  requestAnimationFrame(animate);
+  animationId = requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height);
   camera.update(player);
   player.update();
   shoot();
+  console.log(window.getComputedStyle(pauseEl).display);
 
   //console.log(enemies);
   
@@ -174,4 +180,5 @@ startGameBtn.addEventListener('click', () => {
 
 resuemGameBtn.addEventListener('click', () => {
   pauseEl.style.display = 'none';
+  
 });
