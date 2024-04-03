@@ -116,6 +116,52 @@ function shoot() {
   });
 };
 
+/*
+  - Particle Code
+*/
+function particleCode() {
+  particles.forEach((particle, particleIndex) => {
+    if (Date.now() - particle.timeStamp > 300) {
+      particles.splice(particleIndex, 1);
+    } else {
+      particle.update();
+    }
+  });
+}
+
+/*
+  - Projectile code
+*/
+function projectileLogic() {
+  projectiles.forEach((projectile, projectileIndex) => {
+    const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
+    if (dist - enemy.radius - projectile.radius < 1) {
+      console.log('Hit');
+
+      const PARTICLE_VELOCITY = 7.2;
+      // Particle Explosion
+      for (let i = 0; i < enemy.radius * 2; i++) {
+        particles.push(new Particle(enemy.x - camera.x, enemy.y - camera.y, 3, enemy.color,
+           {x: (Math.random() - 0.5) * (Math.random() * PARTICLE_VELOCITY), y: (Math.random() - 0.5) * (Math.random() * PARTICLE_VELOCITY)})) // Set Math.random() to create positive and negative numbers. 
+      }
+
+      // Min height check
+      if (enemy.radius - 10 > 5) 
+      {
+        gsap.to(enemy, {
+          radius: enemy.radius - 10
+        })
+      } else 
+      {
+        setTimeout(() => {
+          enemies.splice(index, 1);
+          projectiles.splice(projectileIndex, 1);
+        }, 0);
+      }
+    }
+  });
+}
+
 function enemyCode() {
   enemies.forEach((enemy, index) => {
     enemy.update();
@@ -126,24 +172,19 @@ function enemyCode() {
       enemies.splice(index, 1);
     }
 
-    particles.forEach((particle, particleIndex) => {
-      if (Date.now() - particle.timeStamp > 300) {
-        particles.splice(particleIndex, 1);
-      } else {
-        particle.update();
-      }
-    })
+    particleCode();
 
     projectiles.forEach((projectile, projectileIndex) => {
       const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
       if (dist - enemy.radius - projectile.radius < 1) {
         console.log('Hit');
 
-        // Particle Explosion
-        for (let i = 0; i < enemy.radius * 2; i++) {
-          particles.push(new Particle(enemy.x - camera.x, enemy.y - camera.y, 3, enemy.color,
-             {x: (Math.random() - 0.5) * (Math.random() * 7.6), y: (Math.random() - 0.5) * (Math.random() * 7.6)})) // Set Math.random() to create positive and negative numbers. 
-        }
+      const PARTICLE_VELOCITY = 7.2;
+      // Particle Explosion
+      for (let i = 0; i < enemy.radius * 2; i++) {
+        particles.push(new Particle(enemy.x - camera.x, enemy.y - camera.y, 3, enemy.color,
+           {x: (Math.random() - 0.5) * (Math.random() * PARTICLE_VELOCITY), y: (Math.random() - 0.5) * (Math.random() * PARTICLE_VELOCITY)})) // Set Math.random() to create positive and negative numbers. 
+      }
 
         // Min height check
         if (enemy.radius - 10 > 5) 
