@@ -10,7 +10,6 @@ const c = canvas.getContext('2d');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-
 const startGameBtn = document.querySelector('#startGameBtn');
 const modalEl = document.querySelector('#modalEl');
 const pauseEl = document.querySelector('#PauseEl');
@@ -18,6 +17,7 @@ const resuemGameBtn = document.querySelector('#resumeGameBtn');
 
 let isRunning = true;
 
+// Pause Game on Escape key
 window.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     if (pauseEl.style.display === 'none') { // If game is running
@@ -38,7 +38,6 @@ window.addEventListener('keydown', function(e) {
 
 console.log(pauseEl.style.display);
 
-
 // Player info
 const player = new Player(0, 0, 30, 'white');
 
@@ -56,7 +55,6 @@ let camera = {
 };
 
 const enemies = [];
-
 function spawnEnemies() 
 {
   setInterval(() => {
@@ -91,7 +89,8 @@ function spawnEnemies()
 
 // Projectile
 let projectiles = [];
-  // Projectile event listener
+
+// Projectile event listener
 addEventListener('click', (event) => 
 {
   const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2);
@@ -117,22 +116,7 @@ function shoot() {
   });
 };
 
-// Particles
-const particles = [];
-
-let animationId;
-function animate() {
-  animationId = requestAnimationFrame(animate);
-  c.clearRect(0, 0, canvas.width, canvas.height);
-  camera.update(player);
-  player.update();
-  shoot();
-
-  //console.log(enemies);
-  
-  // Draw a rectangle
-  c.fillStyle = 'red';
-  c.fillRect(50 - camera.x, 50 - camera.y, 100, 100);
+function enemyCode() {
   enemies.forEach((enemy, index) => {
     enemy.update();
     const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
@@ -177,8 +161,32 @@ function animate() {
       }
     });
   });
+}
+
+// Particles
+const particles = [];
+
+let animationId;
+function animate() {
+  animationId = requestAnimationFrame(animate);
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  camera.update(player);
+  player.update();
+  shoot();
+
+
+  //console.log(enemies);
+  
+  // Draw a rectangle
+  c.fillStyle = 'red';
+  c.fillRect(50 - camera.x, 50 - camera.y, 100, 100);
+
+  enemyCode();
+
+  
 };
 
+// Start Game button
 startGameBtn.addEventListener('click', () => {
   animate();
   spawnEnemies();
@@ -187,7 +195,7 @@ startGameBtn.addEventListener('click', () => {
 
 });
 
+// Resume Game button
 resuemGameBtn.addEventListener('click', () => {
   pauseEl.style.display = 'none';
-  
 });
