@@ -162,7 +162,7 @@ function projectileLogic() {
   });
 }
 
-function enemyCode() {
+function enemyLogic() {
   enemies.forEach((enemy, index) => {
     enemy.update();
     const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
@@ -222,7 +222,7 @@ function animate() {
   c.fillStyle = 'red';
   c.fillRect(50 - camera.x, 50 - camera.y, 100, 100);
 
-  enemyCode();
+  enemyLogic();
 
   
 };
