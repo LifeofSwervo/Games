@@ -8,7 +8,7 @@ pg.init()
 screen = pg.display.set_mode((width,height))
 pg.display.set_caption('Pong')
 clock = pg.time.Clock()
-font = pg.font.Font('font\Pixeltype.ttf', 50)
+font = pg.font.Font('font/Pixeltype.ttf', 50)
 gameActive = False
 
 

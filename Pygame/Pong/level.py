@@ -13,7 +13,7 @@ class Level:
         self.setupLevel() 
         self.enemyScore = 0
         self.playerScore = 0
-        self.font = pg.font.Font('font\Pixeltype.ttf', 50)
+        self.font = pg.font.Font('font/Pixeltype.ttf', 50)
 
         # Sprites
         playerSprite = Player(height)
@@ -38,7 +38,9 @@ class Level:
 
     def ballRestart(self):
         # Ball Restart
-        self.ballSprite.rect.center = (width / 2, height / 2)
+        self.ballSprite.rect.center = (width / 2, height / 2) # Place ball in center of screen
+        pg.time.delay(500) # Delay before ball starts moving again for 5 seconds
+        # Randomize ball trajectory
         self.ballSpeed_x *= random.choice((1, -1))
         self.ballSpeed_y *= random.choice((1, -1))
 
@@ -123,4 +125,3 @@ class Level:
         self.ballMovement()
 
         pg.draw.aaline(self.displaySurface, (200, 200, 200), (width / 2, 0), (width / 2, height))
-        

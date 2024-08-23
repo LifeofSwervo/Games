@@ -6,7 +6,7 @@ class Ball(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.ballSize = 20
-        self.ballColor = (200, 200, 200)
+        self.ballColor = (200, 200, 200) # White
         self.image = pg.Surface((self.ballSize, self.ballSize))
         #self.image.fill('white')
         pg.draw.ellipse(self.image, self.ballColor, [0, 0, self.ballSize, self.ballSize])
