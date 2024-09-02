@@ -5,6 +5,7 @@ from enemy import Enemy
 from ball import Ball
 from centerLine import CenterLine
 import random
+import math
 
 class Level:
     def __init__(self, surface):
@@ -72,6 +73,9 @@ class Level:
         self.displaySurface.blit(self.eScore, self.eScoreRect)
 
 
+
+        self.ballCollision()
+        '''
         # Ball Collisions
             # Player
         if self.ballSprite.rect.colliderect(self.player.sprite.rect) and self.ballSpeed_x < 0:
@@ -84,8 +88,45 @@ class Level:
         for enemySprites in self.enemy.sprites():
             if self.ballSprite.rect.colliderect(enemySprites.rect):                                           
                 self.ballSpeed_x *= -1
+        '''
 
+    # NEW BALL COLLISION CODE
+    def ballCollision(self):
+        PADDLEOFFSET = 4
+        MAXBOUNCEANGLE = math.pi / 4  # Similar to JS `Math.PI / 12`, adjust this value as needed
+
+        # Player Paddle Collision
+        if self.ballSprite.rect.colliderect(self.player.sprite.rect) and self.ballSpeed_x < 0:
+            # Calculate relative intersection with player paddle
+            paddle_center_y = self.player.sprite.rect.centery
+            relative_intersect_y = paddle_center_y - self.ballSprite.rect.centery
+            normalized_intersect_y = relative_intersect_y / (self.player.sprite.rect.height / 2)
+            
+            # Calculate bounce angle
+            bounce_angle = normalized_intersect_y * MAXBOUNCEANGLE
+
+            # Calculate new velocities based on bounce angle
+            ball_speed = math.sqrt(self.ballSpeed_x**2 + self.ballSpeed_y**2)
+            self.ballSpeed_x = ball_speed * -math.cos(bounce_angle)
+            self.ballSpeed_y = ball_speed * math.sin(bounce_angle)
+
+            # Ensure ball moves away from the paddle
+            self.ballSpeed_x *= -1
+
+        # Enemy Paddle Collision
+        for enemySprites in self.enemy.sprites():
+            if self.ballSprite.rect.colliderect(enemySprites.rect) and self.ballSpeed_x > 0:
+                paddle_center_y = enemySprites.rect.centery
+                relative_intersect_y = paddle_center_y - self.ballSprite.rect.centery
+                normalized_intersect_y = relative_intersect_y / (enemySprites.rect.height / 2)
+
+                # Calculate bounce angle for enemy paddle
+                bounce_angle = normalized_intersect_y * MAXBOUNCEANGLE
+                ball_speed = math.sqrt(self.ballSpeed_x**2 + self.ballSpeed_y**2)
+                self.ballSpeed_x = ball_speed * -math.cos(bounce_angle)
+                self.ballSpeed_y = ball_speed * math.sin(bounce_angle)
         # Ball Restart
+    
         
 
     def enemyAI(self):
