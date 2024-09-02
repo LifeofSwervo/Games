@@ -26,7 +26,7 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     gameActive = False
     startTime = 0
-    font = pygame.font.Font('font\Pixeltype.ttf', 50)
+    font = pygame.font.Font('font/Pixeltype.ttf', 50)
     score = 0
     bgMusic = pygame.mixer.Sound('Audio/Runaway_-Decibel_Lyrical.wav')
     bgMusic.play()
