@@ -1,0 +1,9 @@
+﻿  Test 2.cpp
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Test 2\Test 2\Test 2.cpp(18,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Test 2\Test 2\Test 2.cpp(18,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Test 2\Test 2\Test 2.cpp(18,20): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Test 2\Test 2\Test 2.cpp(44,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Test 2\Test 2\Test 2.cpp(45,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Test 2.vcxproj -> C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Test 2\x64\Debug\Test 2.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
