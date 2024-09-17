@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/paulthomas/Desktop/Dev/GitHub/Games/StarterGame/C++/Pong/MacOS",
+      "program": "/Users/paulthomas/Desktop/Dev/GitHub/Games/StarterGame/C++/Pong/MacOS/build/Debug/outDebug"
+    }
+  ]
+}
