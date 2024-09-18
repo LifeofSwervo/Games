@@ -1,0 +1,1 @@
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\x64\Debug\Pong.vcxproj.CopyComplete

@@ -1,0 +1,15 @@
+﻿  Pong.cpp
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(38,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(38,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(38,20): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(69,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(70,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(94,1): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(140,106): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(140,48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(233,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(236,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\Pong\Pong.cpp(240,65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Pong.vcxproj -> C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Pong\Windows\ConsoleApplication1\x64\Debug\Pong.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
