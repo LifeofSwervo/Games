@@ -1,10 +1,3 @@
-//
-//  main.cpp
-//  Test3
-//
-//  Created by Paul Thomas on 9/16/24.
-//
-
 #include <iostream>
 #include <raylib.h>
 
@@ -18,11 +11,19 @@ typedef enum GameScreen
     ENDING
 } GameScreen;
 
-// Screen Variables
+// Constants
+    // Screen Variables
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 800;
 const int MIDDLE_OF_SCREEN_X = SCREEN_WIDTH / 2;
 const int MIDDLE_OF_SCREEN_Y = SCREEN_HEIGHT / 2;
+
+    // Speed Variables
+const int BALL_SPEED = 11;
+const int PADDLE_SPEEDS = 9;
+
+int playerScore = 0;
+int cpuScore = 0;
 
 class Ball
 {
@@ -30,6 +31,7 @@ public:
     float x, y;
     int speedX, speedY;
     int radius;
+
 
     void Draw()
     {
@@ -50,14 +52,14 @@ public:
         // CPU Wins
         if (x + radius >= GetScreenWidth())
         {
-            // CpuScore++;
+            cpuScore++;
             ResetBall();
         }
 
         // Player Wins
         if (x - radius <= 0)
         {
-            // CpuScore++;
+            playerScore++;
             ResetBall();
         }
     }
@@ -67,15 +69,15 @@ public:
         x = GetScreenWidth() / 2;
         y = GetScreenHeight() / 2;
 
-        int speedChoices[2] = {-1, 1};
-        speedX = 7 * speedChoices[GetRandomValue(0, 1)];
-        speedY = 7 * speedChoices[GetRandomValue(0, 1)];
+        int speedChoices[2] = { -1, 1 };
+        speedX *= speedChoices[GetRandomValue(0, 1)];
+        speedY *= speedChoices[GetRandomValue(0, 1)];
     }
 };
 
 class Paddle {
-    protected:
-    void LimitMovement(){
+protected:
+    void LimitMovement() {
         if (y <= 0) {
             y = 0;
         }
@@ -83,29 +85,29 @@ class Paddle {
             y = GetScreenHeight() - height;
         }
     }
-    public:
-        float x, y;
-        float width, height;
-        int speed;
-    
+public:
+    float x, y;
+    float width, height;
+    int speed;
+
     void Draw() {
-        DrawRectangleRounded(Rectangle{x, y, width, height}, 0.8, 0, WHITE);
+        DrawRectangleRounded(Rectangle{ x, y, width, height }, 0.8, 0, WHITE);
     }
-    
+
     void Movement() {
-        if (IsKeyDown(KEY_UP)){
+        if (IsKeyDown(KEY_UP)) {
             y = y - speed;
         }
         if (IsKeyDown(KEY_DOWN)) {
             y = y + speed;
         }
     }
-    
+
     void Update() {
         Movement();
         LimitMovement();
     }
-    
+
 };
 
 class CpuPaddle : public Paddle {
@@ -127,7 +129,7 @@ Paddle player; // Player Paddle
 CpuPaddle cpu;
 
 // Menu Buttons
-bool DrawButton(Rectangle bounds, const char *text)
+bool DrawButton(Rectangle bounds, const char* text)
 {
     // Check if mouse is over the button
     bool isMouseOver = CheckCollisionPointRec(GetMousePosition(), bounds);
@@ -140,14 +142,24 @@ bool DrawButton(Rectangle bounds, const char *text)
     // Check if the button is pressed
     return isMouseOver && IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
 }
-Rectangle buttonBounds = {MIDDLE_OF_SCREEN_X - 50, MIDDLE_OF_SCREEN_Y + 100, 100, 50};
+Rectangle buttonBounds = { MIDDLE_OF_SCREEN_X - 50, MIDDLE_OF_SCREEN_Y + 100, 100, 50 };
+
+void DrawBisector() {
+    DrawLine(MIDDLE_OF_SCREEN_X, 0, MIDDLE_OF_SCREEN_X, SCREEN_HEIGHT, WHITE);
+}
+
+void DrawScores() {
+    DrawText(TextFormat("%i", playerScore), 3 * SCREEN_WIDTH / 4 - 20, 20, 80, WHITE);
+    DrawText(TextFormat("%i", cpuScore), SCREEN_WIDTH / 4 - 20, 20, 80, WHITE);
+}
+
 
 int main()
 {
     cout << "Starting the game...";
     // Screen Configurations
 
-    const char *SCREEN_TITLE = "Test Title";
+    const char* SCREEN_TITLE = "Test Title";
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE);
     SetTargetFPS(60);
     GameScreen currentScreen = LOGO;
@@ -157,7 +169,7 @@ int main()
     int framesCounter = 0;
 
     // Menu Variables
-    const char *menuOptions[] = {"Start Game"};
+    const char* menuOptions[] = { "Start Game" };
     int menuOptionsCount = sizeof(menuOptions) / sizeof(menuOptions[0]); // Get the number of options in the menu
     int selectedOption = 0;
 
@@ -165,22 +177,23 @@ int main()
     ball.radius = 20;
     ball.x = SCREEN_WIDTH / 2;
     ball.y = SCREEN_HEIGHT / 2;
-    ball.speedX = 7;
-    ball.speedY = 7;
-    
+    ball.speedX = BALL_SPEED;
+    ball.speedY = BALL_SPEED;
+
     // Player Variables
-    player.width = 25;
+    player.width = 15;
     player.height = 120;
     player.x = SCREEN_WIDTH - player.width - 10;
     player.y = SCREEN_HEIGHT / 2 - player.height / 2;
-    player.speed = 6;
-    
+    player.speed = PADDLE_SPEEDS;
+
     // CPU Variables
     cpu.height = 120;
-    cpu.width = 25;
+    cpu.width = 15;
     cpu.x = 10;
     cpu.y = SCREEN_HEIGHT / 2 - cpu.height / 2;
-    cpu.speed = 6;
+    cpu.speed = PADDLE_SPEEDS;
+
 
     // Game Loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -218,6 +231,15 @@ int main()
             ball.Update();
             player.Update();
             cpu.Update(ball.y);
+
+            // Collisions
+            if (CheckCollisionCircleRec({ ball.x,ball.y }, ball.radius, { player.x, player.y, player.width, player.height })) {
+                ball.speedX *= -1;
+            }
+
+            if (CheckCollisionCircleRec({ ball.x, ball.y }, ball.radius, { cpu.x, cpu.y, cpu.width, cpu.height })) {
+                ball.speedX *= -1;
+            }
 
             // Press enter to change to ENDING screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -272,12 +294,13 @@ int main()
         case GAMEPLAY:
         {
             // TODO: Draw GAMEPLAY screen here!
-            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, PURPLE);
+            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
             DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-            DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+            DrawBisector();
             ball.Draw();
             cpu.Draw();
             player.Draw();
+            DrawScores();
         }
         break;
         case ENDING:
@@ -305,5 +328,5 @@ int main()
     //--------------------------------------------------------------------------------------
 
     return 0;
-    
+
 }
