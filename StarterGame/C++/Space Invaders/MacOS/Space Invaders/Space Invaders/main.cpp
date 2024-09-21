@@ -125,11 +125,12 @@ int main(void)
             case GAMEPLAY:
             {
                 // TODO: Update GAMEPLAY screen variables here!
+                UpdateDrawFrame();
 
                 // Press enter to change to ENDING screen
                 if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
                 {
-                    currentScreen = ENDING;
+            
                 }
             } break;
             case ENDING:
@@ -171,10 +172,8 @@ int main(void)
                 } break;
                 case GAMEPLAY:
                 {
-                    // TODO: Draw GAMEPLAY screen here!
-                    DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, PURPLE);
-                    DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-                    DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+                    // TODO: Draw GAMEPLAY screen here
+    
 
                 } break;
                 case ENDING:
@@ -201,6 +200,56 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
     return 0;
+}
+
+void InitGame(void)
+{
+    // Initilize game variables
+    shootRate = 0;
+    pause = false;
+    gameOver = false;
+    victory  = false;
+    smooth = false;
+    wave = FIRST;
+    activeEnemies = FIRST_WAVE;
+    enemiesKill = 0;
+    score = 0;
+    alpha = 0;
+    
+    // Initilize Player
+    player.rec.x = 20;
+    player.rec.y = 50;
+    player.rec.width = 20;
+    player.rec.height = 20;
+    player.speed.x = 5;
+    player.speed.y = 5;
+    player.color = BLACK;
+    
+    // Intilize Enemies
+    for (int i = 0; i < NUM_MAX_ENEMIES; i++)
+    {
+        enemy[i].rec.width = 18;
+        enemy[i].rec.height = 18;
+        enemy[i].rec.x = GetRandomValue(SCREEN_WIDTH, SCREEN_WIDTH + 1000);
+        enemy[i].rec.y = GetRandomValue(0, SCREEN_HEIGHT - enemy[i].rec.height);
+        enemy[i].speed.x = 5;
+        enemy[i].speed.y = 5;
+        enemy[i].active = true;
+        enemy[i].color = GRAY;
+    }
+    
+    // Initilize Shooting logic
+    for (int i = 0; i < NUM_SHOOTS; i++)
+    {
+        shoot[i].rec.x = player.rec.x;
+        shoot[i].rec.y = player.rec.y + player.rec.height / 4;
+        shoot[i].rec.width = 10;
+        shoot[i].rec.height = 5;
+        shoot[i].speed.x = 7;
+        shoot[i].speed.y = 0;
+        shoot[i].active = false;
+        shoot[i].color = MAROON;
+    }
 }
 
 void UpdateGame()
@@ -378,7 +427,7 @@ void UpdateGame()
 
 void DrawGame(void)
 {
-    BeginDrawing();
+    
         ClearBackground(RAYWHITE);
         if (!gameOver)
         {
@@ -404,7 +453,7 @@ void DrawGame(void)
             if (pause) DrawText("GAME PAUSED", SCREEN_WIDTH/2 - MeasureText("GAME PAUSED", 40)/2, SCREEN_HEIGHT/2 - 40, 40, GRAY);
         }
         else DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth()/2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
-    EndDrawing();
+    
 }
 
 
