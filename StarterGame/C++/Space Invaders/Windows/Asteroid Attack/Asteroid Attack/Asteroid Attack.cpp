@@ -5,6 +5,8 @@
 *************************************************************************************************************************************************/
 
 #include "raylib.h"
+#include <vector>
+#include <cstdlib>
 
 //---------------------------------------------------------------------------------------
 // Define Wave Info
@@ -46,7 +48,33 @@ typedef struct Shoot {
 } Shoot;
 
 class Particle {
+    public:
+        Vector2 position;
+        Vector2 velocity;
+        float radius;
+        Color color;
+        float opacity;
+        bool fades;
 
+        // Default constructor
+        Particle() : position({ 0, 0 }), velocity({ 0, 0 }), radius(0), color(WHITE), opacity(1.0f), fades(false) {}
+
+        // Constructor
+        Particle(Vector2 pos, Vector2 vel, float rad, Color col, bool fade)
+            : position(pos), velocity(vel), radius(rad), color(col), opacity(1.0f), fades(fade) {}
+
+        // Draw method
+        void Draw() {
+            DrawCircleV(position, radius, Fade(color, opacity));
+        }
+
+        void Update()
+        {
+            Draw();
+            position.x += velocity.x;
+            position.y += velocity.y;
+            if (fades) opacity -= 0.01f;
+        }
 };
 //---------------------------------------------------------------------------------------
 // Global Variables Declaration
@@ -61,6 +89,7 @@ static Player player = { 0 };
 static Enemy enemy[NUM_MAX_ENEMIES] = { 0 };
 static Shoot shoot[NUM_SHOOTS] = { 0 };
 static EnemyWave wave = { FIRST };
+std::vector<Particle> particles(100); // Array storing particles (for stars)
 
 // Variables
 static bool gameOver = false;
@@ -74,13 +103,15 @@ static int enemiesKill = 0;
 static bool smooth = false;
 
 //---------------------------------------------------------------------------------------
-// Module Functions Declaation
+// Module Functions Declaration
 //---------------------------------------------------------------------------------------
 static void InitGame(void);
 static void UpdateGame(void);
 static void DrawGame(void);
 static void UnloadGame(void);
 static void UpdateDrawFrame(void);
+static void SpawnStars(void);
+static void StarLogic(void);
 //---------------------------------------------------------------------------------------
 // Program main entry point
 //---------------------------------------------------------------------------------------
@@ -133,7 +164,9 @@ int main(void)
             //----------------------------------------------------------------------------------
             // TODO: Update GAMEPLAY screen variables here!
             //----------------------------------------------------------------------------------
-            DrawGame();
+            UpdateGame();
+            SpawnStars();
+            StarLogic();
 
             // Press enter to change to ENDING screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -187,7 +220,7 @@ int main(void)
         {   //----------------------------------------------------------------------------------
             // TODO: Draw GAMEPLAY screen here
             //----------------------------------------------------------------------------------
-            UpdateGame();
+            DrawGame();
 
         } break;
         case ENDING:
@@ -214,8 +247,48 @@ int main(void)
     return 0;
 }
 
+void SpawnStars(void)
+{
+    int particlesToAdd = 0;
+
+    for (int i = 0; i < particles.size(); i++)
+    {
+        if (particles[i].position.y > SCREEN_HEIGHT || particles[i].opacity <= 0)
+        {
+            Vector2 position = { static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH, -particles[i].radius };
+            Vector2 velocity = { 0.0f, 0.3f };
+            float radius = static_cast<float>(rand()) / RAND_MAX * 2;
+            Color color = WHITE;
+
+            particles[i] = Particle(position, velocity, radius, color, false);
+        }
+    }
+}
+
+void StarLogic(void)
+{
+    for (size_t i = 0; i < particles.size(); i++) {
+        Particle& particle = particles[i];
+
+        if (particle.position.y - particle.radius >= SCREEN_HEIGHT) {
+            particle.position.x = static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH;
+            particle.position.y = -particle.radius;
+        }
+
+        if (particle.opacity <= 0) {
+            particles.erase(particles.begin() + i);
+            --i; // Adjust index after removal
+        }
+        else {
+            particle.Update();
+        }
+    }
+}
+
 void InitGame(void)
 {
+    particles.clear();
+
     // Initilize game variables
     shootRate = 0;
     pause = false;
@@ -235,7 +308,7 @@ void InitGame(void)
     player.rec.height = 20;
     player.speed.x = 5;
     player.speed.y = 5;
-    player.color = BLACK;
+    player.color = PURPLE;
 
     // Intilize Enemies
     for (int i = 0; i < NUM_MAX_ENEMIES; i++)
@@ -262,10 +335,22 @@ void InitGame(void)
         shoot[i].active = false;
         shoot[i].color = MAROON;
     }
+
+    // Initialize Stars
+    for (int i = 0; i < 100; i++)
+    {
+        Vector2 position = { static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH, static_cast<float>(rand()) / RAND_MAX * SCREEN_HEIGHT };
+        Vector2 velocity = { 0.0f, 0.3f };
+        float radius = static_cast<float>(rand()) / RAND_MAX * 2;
+        Color color = WHITE;
+
+        particles.push_back(Particle(position, velocity, radius, color, false));
+    }
 }
 
 void UpdateGame()
 {
+
     if (!gameOver)
     {
         if (IsKeyPressed('P')) pause = !pause;
@@ -440,7 +525,7 @@ void UpdateGame()
 void DrawGame(void)
 {
 
-    ClearBackground(RAYWHITE);
+    ClearBackground(BLACK);
     if (!gameOver)
     {
 
