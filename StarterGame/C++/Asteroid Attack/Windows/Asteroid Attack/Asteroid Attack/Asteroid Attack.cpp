@@ -118,7 +118,7 @@ int main(void)
     //---------------------------------------------------------------------------------------
     // Initilization
     //---------------------------------------------------------------------------------------
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib [core] example - basic screen manager");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Asteroid Attack");
     GameScreen currentScreen = LOGO;
     InitGame();
     int framesCounter = 0;          // Useful to count frames
@@ -139,7 +139,6 @@ int main(void)
             // TODO: Update LOGO screen variables here!
             //----------------------------------------------------------------------------------
             framesCounter++;    // Count frames
-
             // Wait for 1 second (60 frames) before jumping to TITLE screen
             if (framesCounter > 60)
             {
@@ -245,10 +244,11 @@ int main(void)
     return 0;
 }
 
+//----------------------------------------------------------------------------------
+// Spawn Stars function: 
+//----------------------------------------------------------------------------------
 void SpawnStars(void)
 {
-    int particlesToAdd = 0;
-
     for (int i = 0; i < particles.size(); i++)
     {
         if (particles[i].position.y > SCREEN_HEIGHT || particles[i].opacity <= 0)
@@ -263,6 +263,9 @@ void SpawnStars(void)
     }
 }
 
+//----------------------------------------------------------------------------------
+// Star Logic function: 
+//----------------------------------------------------------------------------------
 void StarLogic(void)
 {
     for (size_t i = 0; i < particles.size(); i++) {
@@ -271,11 +274,14 @@ void StarLogic(void)
         if (particle.position.y - particle.radius >= SCREEN_HEIGHT) {
             particle.position.x = static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH;
             particle.position.y = -particle.radius;
+            particle.opacity = 1.0f; // Reset opacity if needed
         }
 
         if (particle.opacity <= 0) {
-            particles.erase(particles.begin() + i);
-            --i; // Adjust index after removal
+            // Reset particle instead of erasing
+            particle.position.x = static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH;
+            particle.position.y = -particle.radius;
+            particle.opacity = 1.0f; // Reset opacity
         }
         else {
             particle.Update();

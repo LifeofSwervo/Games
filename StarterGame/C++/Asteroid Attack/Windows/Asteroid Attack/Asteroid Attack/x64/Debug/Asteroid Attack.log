@@ -1,13 +1,13 @@
 ﻿  Asteroid Attack.cpp
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(316,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(317,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(317,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(450,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(451,74): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(451,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(495,64): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(496,82): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(496,64): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Asteroid Attack.vcxproj -> C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\x64\Debug\Asteroid Attack.exe
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(322,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(323,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(323,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(456,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(457,74): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(457,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(501,64): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(502,82): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\Asteroid Attack.cpp(502,64): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Asteroid Attack.vcxproj -> C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\x64\Debug\Asteroid Attack.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.
