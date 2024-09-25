@@ -110,6 +110,7 @@ static void UpdateGame(void);
 static void DrawGame(void);
 static void SpawnStars(void);
 static void StarLogic(void);
+static void CreateParticles(void);
 //---------------------------------------------------------------------------------------
 // Program main entry point
 //---------------------------------------------------------------------------------------
@@ -245,7 +246,7 @@ int main(void)
 }
 
 //----------------------------------------------------------------------------------
-// Spawn Stars function: 
+// Spawn Stars function: Respawns the particles when they move out the screen or opacity reaches 0.
 //----------------------------------------------------------------------------------
 void SpawnStars(void)
 {
@@ -286,6 +287,22 @@ void StarLogic(void)
         else {
             particle.Update();
         }
+    }
+}
+
+void CreateParticles(Enemy enemy, bool fades)
+{
+    for (int i = 0; i < 15; i++)
+    {
+        Vector2 position = { enemy.rec.x + enemy.rec.width / 2, enemy.rec.y + enemy.rec.height / 2};
+        Vector2 velocity = { (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2, (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2 };
+        float radius = static_cast<float>(rand()) / RAND_MAX * 3;
+        particle[i] = particle;
+        particle.Update();
+
+        Color color = WHITE;
+        particles.push_back(Particle(position, velocity, radius, color, fades));
+        
     }
 }
 
@@ -503,6 +520,7 @@ void UpdateGame()
                                 shootRate = 0;
                                 enemiesKill++;
                                 score += 100;
+                                CreateParticles(enemy[j], false);
                             }
 
                             if (shoot[i].rec.x + shoot[i].rec.width >= SCREEN_WIDTH)
