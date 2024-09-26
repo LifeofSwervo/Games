@@ -7,6 +7,9 @@
 #include "raylib.h"
 #include <vector>
 #include <cstdlib>
+#include <iostream>
+
+using namespace std;
 
 //---------------------------------------------------------------------------------------
 // Define Wave Info
@@ -89,7 +92,9 @@ static Player player = { 0 };
 static Enemy enemy[NUM_MAX_ENEMIES] = { 0 };
 static Shoot shoot[NUM_SHOOTS] = { 0 };
 static EnemyWave wave = { FIRST };
-std::vector<Particle> particles(100); // Array storing particles (for stars)
+vector<Particle> particles(100); // Array storing particles (for stars)
+vector<Particle> particleExplosion(15);
+
 
 // Variables
 static bool gameOver = false;
@@ -110,7 +115,8 @@ static void UpdateGame(void);
 static void DrawGame(void);
 static void SpawnStars(void);
 static void StarLogic(void);
-static void CreateParticles(void);
+static void CreateParticleExplosion(void);
+static void ParticleExplosionLogic(void);
 //---------------------------------------------------------------------------------------
 // Program main entry point
 //---------------------------------------------------------------------------------------
@@ -165,6 +171,7 @@ int main(void)
             UpdateGame();
             SpawnStars();
             StarLogic();
+            
 
             // Press enter to change to ENDING screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -290,19 +297,26 @@ void StarLogic(void)
     }
 }
 
-void CreateParticles(Enemy enemy, bool fades)
+void CreateParticleExplosion(Shoot enemy, bool fades)
 {
     for (int i = 0; i < 15; i++)
     {
         Vector2 position = { enemy.rec.x + enemy.rec.width / 2, enemy.rec.y + enemy.rec.height / 2};
         Vector2 velocity = { (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2, (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2 };
         float radius = static_cast<float>(rand()) / RAND_MAX * 3;
-        particle[i] = particle;
-        particle.Update();
+        
 
         Color color = WHITE;
-        particles.push_back(Particle(position, velocity, radius, color, fades));
+        particleExplosion.push_back(Particle(position, velocity, radius, color, fades));
         
+    }
+}
+
+void ParticleExplosionLogic(void)
+{
+    for (Particle& particleExplo : particleExplosion)
+    {
+        particleExplo.Update();
     }
 }
 
@@ -367,6 +381,7 @@ void InitGame(void)
 
         particles.push_back(Particle(position, velocity, radius, color, false));
     }
+
 }
 
 void UpdateGame()
@@ -520,7 +535,7 @@ void UpdateGame()
                                 shootRate = 0;
                                 enemiesKill++;
                                 score += 100;
-                                CreateParticles(enemy[j], false);
+                                CreateParticleExplosion(shoot[i], false);
                             }
 
                             if (shoot[i].rec.x + shoot[i].rec.width >= SCREEN_WIDTH)
@@ -550,7 +565,7 @@ void DrawGame(void)
     ClearBackground(BLACK);
     if (!gameOver)
     {
-
+        ParticleExplosionLogic();
         DrawRectangleRec(player.rec, player.color);
         if (wave == FIRST) DrawText("FIRST WAVE", SCREEN_WIDTH / 2 - MeasureText("FIRST WAVE", 40) / 2, SCREEN_HEIGHT / 2 - 40, 40, Fade(BLACK, alpha));
         else if (wave == SECOND) DrawText("SECOND WAVE", SCREEN_WIDTH / 2 - MeasureText("SECOND WAVE", 40) / 2, SCREEN_HEIGHT / 2 - 40, 40, Fade(BLACK, alpha));
@@ -565,6 +580,8 @@ void DrawGame(void)
         {
             if (shoot[i].active) DrawRectangleRec(shoot[i].rec, shoot[i].color);
         }
+
+
 
         DrawText(TextFormat("%04i", score), 20, 20, 40, GRAY);
 
