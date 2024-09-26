@@ -9,8 +9,6 @@
 #include <cstdlib>
 #include <iostream>
 
-using namespace std;
-
 //---------------------------------------------------------------------------------------
 // Define Wave Info
 //---------------------------------------------------------------------------------------
@@ -92,8 +90,8 @@ static Player player = { 0 };
 static Enemy enemy[NUM_MAX_ENEMIES] = { 0 };
 static Shoot shoot[NUM_SHOOTS] = { 0 };
 static EnemyWave wave = { FIRST };
-vector<Particle> particles(100); // Array storing particles (for stars)
-vector<Particle> particleExplosion(15);
+std::vector<Particle> particles(100); // Array storing particles (for stars)
+std::vector<Particle> particleExplosion(15);
 
 
 // Variables
