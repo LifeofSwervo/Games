@@ -115,6 +115,7 @@ static void SpawnStars(void);
 static void StarLogic(void);
 static void CreateParticleExplosion(void);
 static void ParticleExplosionLogic(void);
+static void DrawStartMenu(void);
 //---------------------------------------------------------------------------------------
 // Program main entry point
 //---------------------------------------------------------------------------------------
@@ -214,9 +215,9 @@ int main(void)
             //----------------------------------------------------------------------------------
             // TODO: Draw TITLE screen here!
             //----------------------------------------------------------------------------------
-            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
+            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
             DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-            DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+            DrawStartMenu();
 
         } break;
         case GAMEPLAY:
@@ -321,6 +322,10 @@ void ParticleExplosionLogic(void)
 void InitGame(void)
 {
     particles.clear();
+
+    // Start Menu
+    
+
 
     // Initilize game variables
     shootRate = 0;
@@ -559,7 +564,6 @@ void UpdateGame()
 
 void DrawGame(void)
 {
-
     ClearBackground(BLACK);
     if (!gameOver)
     {
@@ -588,4 +592,11 @@ void DrawGame(void)
     }
     else DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
 
+}
+
+void DrawStartMenu()
+{
+    DrawText("Press any key to start the game!", (SCREEN_WIDTH / 4) - 130, (SCREEN_HEIGHT / 2) + SCREEN_HEIGHT / 3, 50, WHITE);
+    DrawText("Asteroid Attack", (SCREEN_WIDTH / 2) - MeasureText("Asteroid Attack", 40) / 2, (SCREEN_HEIGHT / 2) - 290, 40, BLACK);
+    DrawText("Escape from the asteroids!!", (SCREEN_WIDTH / 2) - MeasureText("Escape from the asteroids!!", 40) / 2, (SCREEN_HEIGHT / 2) - 240, 40, BLACK);
 }

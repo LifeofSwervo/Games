@@ -1,2 +1,1 @@
 C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\Asteroid Attack\Asteroid Attack\x64\Debug\Asteroid Attack.vcxproj.CopyComplete
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Asteroid Attack\Windows\Asteroid Attack\Asteroid Attack\x64\Debug\Asteroid Attack.vcxproj.CopyComplete
