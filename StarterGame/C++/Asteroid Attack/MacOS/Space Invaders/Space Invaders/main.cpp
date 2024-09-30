@@ -27,8 +27,6 @@ int main(void)
     //------------------------------------------------------------------------------------------
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Game");
     GameScreen currentScreen = LOGO;
-    
-    
     int framesCounter = 0;
     SetTargetFPS(60);
     
@@ -45,9 +43,7 @@ int main(void)
                 case LOGO:
                 {
                     // TODO: Update LOGO screen variables here!
-
                     framesCounter++;    // Count frames
-
                     // Wait for 2 seconds (120 frames) before jumping to TITLE screen
                     if (framesCounter > 120)
                     {
@@ -87,7 +83,6 @@ int main(void)
                 default: break;
             }
             //----------------------------------------------------------------------------------
-
             // Draw
             //----------------------------------------------------------------------------------
             BeginDrawing();
@@ -129,17 +124,13 @@ int main(void)
                     } break;
                 default: break;
             }
-
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
-
     // De-Initialization
     //--------------------------------------------------------------------------------------
     // TODO: Unload all loaded data (textures, fonts, audio) here!
-
     CloseWindow();   // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
-
     return 0;
 }
