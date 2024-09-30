@@ -9,17 +9,19 @@
 /* Begin PBXBuildFile section */
 		444A81162C9B3AE80069055F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 444A81152C9B3AE80069055F /* main.cpp */; };
 		444A811E2C9B3B090069055F /* libraylib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 444A811D2C9B3B090069055F /* libraylib.a */; };
+		446A85132CAB169D0054D2AA /* logoShip.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 446A85122CAB169D0054D2AA /* logoShip.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		444A81102C9B3AE80069055F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 7;
 			files = (
+				446A85132CAB169D0054D2AA /* logoShip.png in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -27,6 +29,7 @@
 		444A81122C9B3AE80069055F /* Space Invaders */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Space Invaders"; sourceTree = BUILT_PRODUCTS_DIR; };
 		444A81152C9B3AE80069055F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		444A811D2C9B3B090069055F /* libraylib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libraylib.a; path = ../../../../../../../../../../../opt/homebrew/Cellar/raylib/5.0/lib/libraylib.a; sourceTree = "<group>"; };
+		446A85122CAB169D0054D2AA /* logoShip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logoShip.png; path = "Space Invaders/logoShip.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +47,7 @@
 		444A81092C9B3AE80069055F = {
 			isa = PBXGroup;
 			children = (
+				446A85122CAB169D0054D2AA /* logoShip.png */,
 				444A81142C9B3AE80069055F /* Space Invaders */,
 				444A81132C9B3AE80069055F /* Products */,
 				444A811C2C9B3B090069055F /* Frameworks */,

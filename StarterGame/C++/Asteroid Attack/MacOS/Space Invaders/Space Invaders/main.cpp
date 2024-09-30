@@ -68,12 +68,15 @@ class Particle {
         void Draw() {
             DrawCircleV(position, radius, Fade(color, opacity));
         }
-
-        void Update()
+    
+        void Movement()
         {
-            Draw();
             position.x += velocity.x;
             position.y += velocity.y;
+        }
+    
+        void FadeLogic()
+        {
             if (fades && opacity > 0.0f)
             {
                 opacity -= 0.01f;
@@ -82,6 +85,14 @@ class Particle {
                     opacity = 0.0f;
                 }
             }
+        }
+
+        void Update()
+        {
+            Draw();
+            Movement();
+            FadeLogic();
+            
         }
 };
 //---------------------------------------------------------------------------------------
@@ -132,6 +143,14 @@ int main(void)
     // Initilization
     //---------------------------------------------------------------------------------------
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Asteroid Attack");
+    
+    Texture2D logoShip = LoadTexture("logoShip.png");
+    if (logoShip.id == 0) {
+        std::cout << "Failed to load texture logoShip!" << std::endl;
+    } else
+    {
+        std::cout << "Successfully loaded texture";
+    }
     GameScreen currentScreen = LOGO;
     InitGame();
     int framesCounter = 0;          // Useful to count frames
@@ -225,6 +244,7 @@ int main(void)
             DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
             DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
             DrawStartMenu();
+            DrawTexture(logoShip, SCREEN_WIDTH / 2 - logoShip.width / 2, SCREEN_HEIGHT / 2 - logoShip.height / 2, WHITE);
 
         } break;
         case GAMEPLAY:
@@ -252,6 +272,7 @@ int main(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     // TODO: Unload all loaded data (textures, fonts, audio) here!
+    UnloadTexture(logoShip);
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
@@ -374,7 +395,7 @@ void InitGame(void)
         shoot[i].rec.x = player.rec.x;
         shoot[i].rec.y = player.rec.y + player.rec.height / 4;
         shoot[i].rec.width = 10;
-        shoot[i].rec.height = 5;
+        shoot[i].rec.height = 10;
         shoot[i].speed.x = 7;
         shoot[i].speed.y = 0;
         shoot[i].active = false;
@@ -603,7 +624,7 @@ void DrawGame(void)
 
 void DrawStartMenu()
 {
-    DrawText("Press any key to start the game!", (SCREEN_WIDTH / 4) - 130, (SCREEN_HEIGHT / 2) + SCREEN_HEIGHT / 3, 50, WHITE);
+    DrawText("Press any key to start the game!", (SCREEN_WIDTH / 2) - MeasureText("Press any key to start the game!", 50) / 2, (SCREEN_HEIGHT / 2) + SCREEN_HEIGHT / 3, 50, WHITE);
     DrawText("Asteroid Attack", (SCREEN_WIDTH / 2) - MeasureText("Asteroid Attack", 40) / 2, (SCREEN_HEIGHT / 2) - 290, 40, BLACK);
     DrawText("Escape from the asteroids!!", (SCREEN_WIDTH / 2) - MeasureText("Escape from the asteroids!!", 40) / 2, (SCREEN_HEIGHT / 2) - 240, 40, BLACK);
 }
