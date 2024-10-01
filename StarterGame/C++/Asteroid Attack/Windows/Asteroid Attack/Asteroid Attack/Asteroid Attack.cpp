@@ -49,33 +49,51 @@ typedef struct Shoot {
 } Shoot;
 
 class Particle {
-    public:
-        Vector2 position;
-        Vector2 velocity;
-        float radius;
-        Color color;
-        float opacity;
-        bool fades;
+public:
+    Vector2 position;
+    Vector2 velocity;
+    float radius;
+    Color color;
+    float opacity;
+    bool fades;
 
-        // Default constructor
-        Particle() : position({ 0, 0 }), velocity({ 0, 0 }), radius(0), color(WHITE), opacity(1.0f), fades(false) {}
+    // Default constructor
+    Particle() : position({ 0, 0 }), velocity({ 0, 0 }), radius(0), color(WHITE), opacity(1.0f), fades(false) {}
 
-        // Constructor
-        Particle(Vector2 pos, Vector2 vel, float rad, Color col, bool fade)
-            : position(pos), velocity(vel), radius(rad), color(col), opacity(1.0f), fades(fade) {}
+    // Constructor
+    Particle(Vector2 pos, Vector2 vel, float rad, Color col, bool fade)
+        : position(pos), velocity(vel), radius(rad), color(col), opacity(1.0f), fades(fade) {}
 
-        // Draw method
-        void Draw() {
-            DrawCircleV(position, radius, Fade(color, opacity));
-        }
+    // Draw method
+    void Draw() {
+        DrawCircleV(position, radius, Fade(color, opacity));
+    }
 
-        void Update()
+    void Movement()
+    {
+        position.x += velocity.x;
+        position.y += velocity.y;
+    }
+
+    void FadeLogic()
+    {
+        if (fades && opacity > 0.0f)
         {
-            Draw();
-            position.x += velocity.x;
-            position.y += velocity.y;
-            if (fades) opacity -= 0.01f;
+            opacity -= 0.01f;
+            if (opacity <= 0.0f)
+            {
+                opacity = 0.0f;
+            }
         }
+    }
+
+    void Update()
+    {
+        Draw();
+        Movement();
+        FadeLogic();
+
+    }
 };
 //---------------------------------------------------------------------------------------
 // Global Variables Declaration
@@ -125,6 +143,15 @@ int main(void)
     // Initilization
     //---------------------------------------------------------------------------------------
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Asteroid Attack");
+
+    Texture2D logoShip = LoadTexture("logoShip.png");
+    if (logoShip.id == 0) {
+        std::cout << "Failed to load texture logoShip!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Successfully loaded texture";
+    }
     GameScreen currentScreen = LOGO;
     InitGame();
     int framesCounter = 0;          // Useful to count frames
@@ -157,6 +184,7 @@ int main(void)
             // TODO: Update TITLE screen variables here!
             //----------------------------------------------------------------------------------
             // Press enter to change to GAMEPLAY screen
+
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
             {
                 currentScreen = GAMEPLAY;
@@ -170,7 +198,7 @@ int main(void)
             UpdateGame();
             SpawnStars();
             StarLogic();
-            
+
 
             // Press enter to change to ENDING screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -218,6 +246,15 @@ int main(void)
             DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
             DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
             DrawStartMenu();
+            //DrawTexture(logoShip, SCREEN_WIDTH / 2 - logoShip.width / 2, SCREEN_HEIGHT / 2 - logoShip.height / 2, WHITE);
+            
+            float logoShipScale = 0.50f;
+            // Center of the screen
+            Vector2 screenCenter = { SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f };
+            // Adjusted position to center the texture
+            Vector2 texturePosition = { screenCenter.x - (logoShip.width * logoShipScale) / 2.0f, screenCenter.y - (logoShip.height * logoShipScale) / 2.0f };
+            // Drawing the texture centered on the screen
+            DrawTextureEx(logoShip, texturePosition, 0.0f, logoShipScale, WHITE);
 
         } break;
         case GAMEPLAY:
@@ -245,6 +282,7 @@ int main(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     // TODO: Unload all loaded data (textures, fonts, audio) here!
+    UnloadTexture(logoShip);
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
@@ -271,7 +309,7 @@ void SpawnStars(void)
 }
 
 //----------------------------------------------------------------------------------
-// Star Logic function: 
+// Star Logic function:
 //----------------------------------------------------------------------------------
 void StarLogic(void)
 {
@@ -300,14 +338,14 @@ void CreateParticleExplosion(Shoot enemy, bool fades)
 {
     for (int i = 0; i < 15; i++)
     {
-        Vector2 position = { enemy.rec.x + enemy.rec.width / 2, enemy.rec.y + enemy.rec.height / 2};
+        Vector2 position = { enemy.rec.x + enemy.rec.width / 2, enemy.rec.y + enemy.rec.height / 2 };
         Vector2 velocity = { (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2, (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2 };
         float radius = static_cast<float>(rand()) / RAND_MAX * 3;
-        
+
 
         Color color = WHITE;
         particleExplosion.push_back(Particle(position, velocity, radius, color, fades));
-        
+
     }
 }
 
@@ -324,7 +362,7 @@ void InitGame(void)
     particles.clear();
 
     // Start Menu
-    
+
 
 
     // Initilize game variables
@@ -367,7 +405,7 @@ void InitGame(void)
         shoot[i].rec.x = player.rec.x;
         shoot[i].rec.y = player.rec.y + player.rec.height / 4;
         shoot[i].rec.width = 10;
-        shoot[i].rec.height = 5;
+        shoot[i].rec.height = 10;
         shoot[i].speed.x = 7;
         shoot[i].speed.y = 0;
         shoot[i].active = false;
@@ -538,7 +576,7 @@ void UpdateGame()
                                 shootRate = 0;
                                 enemiesKill++;
                                 score += 100;
-                                CreateParticleExplosion(shoot[i], false);
+                                CreateParticleExplosion(shoot[i], true);
                             }
 
                             if (shoot[i].rec.x + shoot[i].rec.width >= SCREEN_WIDTH)
@@ -596,7 +634,7 @@ void DrawGame(void)
 
 void DrawStartMenu()
 {
-    DrawText("Press any key to start the game!", (SCREEN_WIDTH / 4) - 130, (SCREEN_HEIGHT / 2) + SCREEN_HEIGHT / 3, 50, WHITE);
+    DrawText("Press any key to start the game!", (SCREEN_WIDTH / 2) - MeasureText("Press any key to start the game!", 50) / 2, (SCREEN_HEIGHT / 2) + SCREEN_HEIGHT / 3, 50, WHITE);
     DrawText("Asteroid Attack", (SCREEN_WIDTH / 2) - MeasureText("Asteroid Attack", 40) / 2, (SCREEN_HEIGHT / 2) - 290, 40, BLACK);
     DrawText("Escape from the asteroids!!", (SCREEN_WIDTH / 2) - MeasureText("Escape from the asteroids!!", 40) / 2, (SCREEN_HEIGHT / 2) - 240, 40, BLACK);
 }
