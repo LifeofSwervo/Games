@@ -49,51 +49,51 @@ typedef struct Shoot {
 } Shoot;
 
 class Particle {
-    public:
-        Vector2 position;
-        Vector2 velocity;
-        float radius;
-        Color color;
-        float opacity;
-        bool fades;
+public:
+    Vector2 position;
+    Vector2 velocity;
+    float radius;
+    Color color;
+    float opacity;
+    bool fades;
 
-        // Default constructor
-        Particle() : position({ 0, 0 }), velocity({ 0, 0 }), radius(0), color(WHITE), opacity(1.0f), fades(false) {}
+    // Default constructor
+    Particle() : position({ 0, 0 }), velocity({ 0, 0 }), radius(0), color(WHITE), opacity(1.0f), fades(false) {}
 
-        // Constructor
-        Particle(Vector2 pos, Vector2 vel, float rad, Color col, bool fade)
-            : position(pos), velocity(vel), radius(rad), color(col), opacity(1.0f), fades(fade) {}
+    // Constructor
+    Particle(Vector2 pos, Vector2 vel, float rad, Color col, bool fade)
+        : position(pos), velocity(vel), radius(rad), color(col), opacity(1.0f), fades(fade) {}
 
-        // Draw method
-        void Draw() {
-            DrawCircleV(position, radius, Fade(color, opacity));
-        }
-    
-        void Movement()
+    // Draw method
+    void Draw() {
+        DrawCircleV(position, radius, Fade(color, opacity));
+    }
+
+    void Movement()
+    {
+        position.x += velocity.x;
+        position.y += velocity.y;
+    }
+
+    void FadeLogic()
+    {
+        if (fades && opacity > 0.0f)
         {
-            position.x += velocity.x;
-            position.y += velocity.y;
-        }
-    
-        void FadeLogic()
-        {
-            if (fades && opacity > 0.0f)
+            opacity -= 0.01f;
+            if (opacity <= 0.0f)
             {
-                opacity -= 0.01f;
-                if (opacity <= 0.0f)
-                {
-                    opacity = 0.0f;
-                }
+                opacity = 0.0f;
             }
         }
+    }
 
-        void Update()
-        {
-            Draw();
-            Movement();
-            FadeLogic();
-            
-        }
+    void Update()
+    {
+        Draw();
+        Movement();
+        FadeLogic();
+
+    }
 };
 //---------------------------------------------------------------------------------------
 // Global Variables Declaration
@@ -143,11 +143,12 @@ int main(void)
     // Initilization
     //---------------------------------------------------------------------------------------
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Asteroid Attack");
-    
+
     Texture2D logoShip = LoadTexture("logoShip.png");
     if (logoShip.id == 0) {
         std::cout << "Failed to load texture logoShip!" << std::endl;
-    } else
+    }
+    else
     {
         std::cout << "Successfully loaded texture";
     }
@@ -183,6 +184,7 @@ int main(void)
             // TODO: Update TITLE screen variables here!
             //----------------------------------------------------------------------------------
             // Press enter to change to GAMEPLAY screen
+
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
             {
                 currentScreen = GAMEPLAY;
@@ -196,7 +198,7 @@ int main(void)
             UpdateGame();
             SpawnStars();
             StarLogic();
-            
+
 
             // Press enter to change to ENDING screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -244,7 +246,15 @@ int main(void)
             DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
             DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
             DrawStartMenu();
-            DrawTexture(logoShip, SCREEN_WIDTH / 2 - logoShip.width / 2, SCREEN_HEIGHT / 2 - logoShip.height / 2, WHITE);
+            //DrawTexture(logoShip, SCREEN_WIDTH / 2 - logoShip.width / 2, SCREEN_HEIGHT / 2 - logoShip.height / 2, WHITE);
+            
+            float logoShipScale = 0.50f;
+            // Center of the screen
+            Vector2 screenCenter = { SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f };
+            // Adjusted position to center the texture
+            Vector2 texturePosition = { screenCenter.x - (logoShip.width * logoShipScale) / 2.0f, screenCenter.y - (logoShip.height * logoShipScale) / 2.0f };
+            // Drawing the texture centered on the screen
+            DrawTextureEx(logoShip, texturePosition, 0.0f, logoShipScale, WHITE);
 
         } break;
         case GAMEPLAY:
@@ -328,14 +338,14 @@ void CreateParticleExplosion(Shoot enemy, bool fades)
 {
     for (int i = 0; i < 15; i++)
     {
-        Vector2 position = { enemy.rec.x + enemy.rec.width / 2, enemy.rec.y + enemy.rec.height / 2};
+        Vector2 position = { enemy.rec.x + enemy.rec.width / 2, enemy.rec.y + enemy.rec.height / 2 };
         Vector2 velocity = { (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2, (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2 };
         float radius = static_cast<float>(rand()) / RAND_MAX * 3;
-        
+
 
         Color color = WHITE;
         particleExplosion.push_back(Particle(position, velocity, radius, color, fades));
-        
+
     }
 }
 
@@ -350,9 +360,10 @@ void ParticleExplosionLogic(void)
 void InitGame(void)
 {
     particles.clear();
+    particleExplosion.clear();
 
     // Start Menu
-    
+
 
 
     // Initilize game variables
