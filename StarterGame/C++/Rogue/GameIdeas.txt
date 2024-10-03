@@ -1,0 +1,31 @@
+Roguelike
+
+Enemies spawn all around the screen (Like a survivors game)
+	Difficulty is based on Player Level
+
+
+Player Spawns in middle of screen
+	Player shoots where the mouse is in groupings of shots.
+	Map is large and open
+
+
+
+
+Code - 
+
+Add Entity Class
+
+Add Player Class
+	health
+	size
+	color
+	speed
+
+
+Add Enemy Class
+
+
+Add moving player to the screen
+
+	
+	
