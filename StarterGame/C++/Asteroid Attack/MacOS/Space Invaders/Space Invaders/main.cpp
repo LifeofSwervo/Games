@@ -234,8 +234,10 @@ int main(void)
             //----------------------------------------------------------------------------------
             // TODO: Draw LOGO screen here!
             //----------------------------------------------------------------------------------
-            DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-            DrawText("WAIT for 1 SECOND...", 290, 220, 20, GRAY);
+            
+            DrawRectangle(SCREEN_WIDTH/2 - 128, SCREEN_HEIGHT/2 - 128, 256, 256, BLACK);
+            DrawRectangle(SCREEN_WIDTH/2 - 112, SCREEN_HEIGHT/2 - 112, 224, 224, RAYWHITE);
+            DrawText("raylib", SCREEN_WIDTH/2 - 44, SCREEN_HEIGHT/2 + 48, 50, BLACK);
 
         } break;
         case TITLE:
@@ -244,7 +246,6 @@ int main(void)
             // TODO: Draw TITLE screen here!
             //----------------------------------------------------------------------------------
             DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
-            DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
             DrawStartMenu();
             //DrawTexture(logoShip, SCREEN_WIDTH / 2 - logoShip.width / 2, SCREEN_HEIGHT / 2 - logoShip.height / 2, WHITE);
             
@@ -629,7 +630,17 @@ void DrawGame(void)
         if (victory) DrawText("YOU WIN", SCREEN_WIDTH / 2 - MeasureText("YOU WIN", 40) / 2, SCREEN_HEIGHT / 2 - 40, 40, BLACK);
         if (pause) DrawText("GAME PAUSED", SCREEN_WIDTH / 2 - MeasureText("GAME PAUSED", 40) / 2, SCREEN_HEIGHT / 2 - 40, 40, GRAY);
     }
-    else DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
+    else
+    {
+        // Draw You Lost Screen
+        std::string scoreText = "Your Score: " + std::to_string(score);
+        int lostScreenTextFont = 30;
+        int lostScreenTextWidth = MeasureText(scoreText.c_str(), lostScreenTextFont);
+        
+        DrawText(scoreText.c_str(), SCREEN_WIDTH/2 - lostScreenTextWidth/2, SCREEN_HEIGHT/2 - 100, lostScreenTextFont, GRAY);
+        DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
+    }
+    
 
 }
 
@@ -639,3 +650,5 @@ void DrawStartMenu()
     DrawText("Asteroid Attack", (SCREEN_WIDTH / 2) - MeasureText("Asteroid Attack", 40) / 2, (SCREEN_HEIGHT / 2) - 290, 40, BLACK);
     DrawText("Escape from the asteroids!!", (SCREEN_WIDTH / 2) - MeasureText("Escape from the asteroids!!", 40) / 2, (SCREEN_HEIGHT / 2) - 240, 40, BLACK);
 }
+
+
