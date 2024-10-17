@@ -1,0 +1,339 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		44FBAB992CB6BFC40032C234 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBAB982CB6BFC40032C234 /* main.cpp */; };
+		44FBABAB2CB6C98D0032C234 /* libraylib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FBABA92CB6C9800032C234 /* libraylib.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		44FBAB932CB6BFC40032C234 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		44FBAB952CB6BFC40032C234 /* SpaceInvaders */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SpaceInvaders; sourceTree = BUILT_PRODUCTS_DIR; };
+		44FBAB982CB6BFC40032C234 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		44FBABA12CB6C9800032C234 /* libraylib.450.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libraylib.450.dylib; sourceTree = "<group>"; };
+		44FBABA32CB6C9800032C234 /* raylib.pc */ = {isa = PBXFileReference; lastKnownFileType = text; path = raylib.pc; sourceTree = "<group>"; };
+		44FBABA62CB6C9800032C234 /* raylib-config-version.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = "raylib-config-version.cmake"; sourceTree = "<group>"; };
+		44FBABA72CB6C9800032C234 /* raylib-config.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = "raylib-config.cmake"; sourceTree = "<group>"; };
+		44FBABA82CB6C9800032C234 /* libraylib.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libraylib.4.5.0.dylib; sourceTree = "<group>"; };
+		44FBABA92CB6C9800032C234 /* libraylib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libraylib.a; sourceTree = "<group>"; };
+		44FBABAA2CB6C9800032C234 /* libraylib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libraylib.dylib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		44FBAB922CB6BFC40032C234 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44FBABAB2CB6C98D0032C234 /* libraylib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		44FBAB8C2CB6BFC40032C234 = {
+			isa = PBXGroup;
+			children = (
+				44FBAB972CB6BFC40032C234 /* SpaceInvaders */,
+				44FBAB962CB6BFC40032C234 /* Products */,
+				44FBAB9F2CB6C9800032C234 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		44FBAB962CB6BFC40032C234 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				44FBAB952CB6BFC40032C234 /* SpaceInvaders */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		44FBAB972CB6BFC40032C234 /* SpaceInvaders */ = {
+			isa = PBXGroup;
+			children = (
+				44FBAB982CB6BFC40032C234 /* main.cpp */,
+			);
+			path = SpaceInvaders;
+			sourceTree = "<group>";
+		};
+		44FBAB9F2CB6C9800032C234 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				44FBABA02CB6C9800032C234 /* lib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		44FBABA02CB6C9800032C234 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				44FBABA12CB6C9800032C234 /* libraylib.450.dylib */,
+				44FBABA22CB6C9800032C234 /* pkgconfig */,
+				44FBABA42CB6C9800032C234 /* cmake */,
+				44FBABA82CB6C9800032C234 /* libraylib.4.5.0.dylib */,
+				44FBABA92CB6C9800032C234 /* libraylib.a */,
+				44FBABAA2CB6C9800032C234 /* libraylib.dylib */,
+			);
+			name = lib;
+			path = ../../../../../../../../../../../opt/homebrew/Cellar/raylib/5.0/lib;
+			sourceTree = "<group>";
+		};
+		44FBABA22CB6C9800032C234 /* pkgconfig */ = {
+			isa = PBXGroup;
+			children = (
+				44FBABA32CB6C9800032C234 /* raylib.pc */,
+			);
+			path = pkgconfig;
+			sourceTree = "<group>";
+		};
+		44FBABA42CB6C9800032C234 /* cmake */ = {
+			isa = PBXGroup;
+			children = (
+				44FBABA52CB6C9800032C234 /* raylib */,
+			);
+			path = cmake;
+			sourceTree = "<group>";
+		};
+		44FBABA52CB6C9800032C234 /* raylib */ = {
+			isa = PBXGroup;
+			children = (
+				44FBABA62CB6C9800032C234 /* raylib-config-version.cmake */,
+				44FBABA72CB6C9800032C234 /* raylib-config.cmake */,
+			);
+			path = raylib;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		44FBAB942CB6BFC40032C234 /* SpaceInvaders */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44FBAB9C2CB6BFC40032C234 /* Build configuration list for PBXNativeTarget "SpaceInvaders" */;
+			buildPhases = (
+				44FBAB912CB6BFC40032C234 /* Sources */,
+				44FBAB922CB6BFC40032C234 /* Frameworks */,
+				44FBAB932CB6BFC40032C234 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpaceInvaders;
+			productName = SpaceInvaders;
+			productReference = 44FBAB952CB6BFC40032C234 /* SpaceInvaders */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		44FBAB8D2CB6BFC40032C234 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					44FBAB942CB6BFC40032C234 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 44FBAB902CB6BFC40032C234 /* Build configuration list for PBXProject "SpaceInvaders" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 44FBAB8C2CB6BFC40032C234;
+			productRefGroup = 44FBAB962CB6BFC40032C234 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				44FBAB942CB6BFC40032C234 /* SpaceInvaders */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		44FBAB912CB6BFC40032C234 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44FBAB992CB6BFC40032C234 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		44FBAB9A2CB6BFC40032C234 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		44FBAB9B2CB6BFC40032C234 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		44FBAB9D2CB6BFC40032C234 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/include;
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		44FBAB9E2CB6BFC40032C234 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/include;
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		44FBAB902CB6BFC40032C234 /* Build configuration list for PBXProject "SpaceInvaders" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44FBAB9A2CB6BFC40032C234 /* Debug */,
+				44FBAB9B2CB6BFC40032C234 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44FBAB9C2CB6BFC40032C234 /* Build configuration list for PBXNativeTarget "SpaceInvaders" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44FBAB9D2CB6BFC40032C234 /* Debug */,
+				44FBAB9E2CB6BFC40032C234 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 44FBAB8D2CB6BFC40032C234 /* Project object */;
+}

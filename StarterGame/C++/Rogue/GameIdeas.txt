@@ -9,6 +9,8 @@ Player Spawns in middle of screen
 	Map is large and open
 
 
+Add Open Map
+
 
 
 Code - 
@@ -20,12 +22,18 @@ Add Player Class
 	size
 	color
 	speed
+  level
 
 
 Add Enemy Class
-
+  health
+  size
+  color
+  speed
 
 Add moving player to the screen
 
-	
+Add enemy spawning pattern
+
+
 	
