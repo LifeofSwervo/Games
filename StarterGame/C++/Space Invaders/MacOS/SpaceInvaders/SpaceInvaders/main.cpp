@@ -28,13 +28,9 @@ typedef enum GameScreen
     GAMEPLAY,
     ENDING
 } GameScreen;
-
-
-
 //------------------------------------------------------------------------------------------
 // Classes
 //------------------------------------------------------------------------------------------
-
 class Entity
 {
 public:
@@ -96,7 +92,7 @@ class Shot
         x = startX;
         y = startY;
         active = true;
-        speed = -10.0f;
+        speed = -10.0f; // Negative speed to move up
     }
     
     void Movement(void)
@@ -120,14 +116,12 @@ class Shot
 //------------------------------------------------------------------------------------
 // Functions
 //------------------------------------------------------------------------------------
-std::vector<Shot> shots;
+std::vector<Shot> shots; // Dynamic Array
 void Shooting(Player& player)
 {
     Shot newShot;
-    newShot.Shoot(player.position.x, player.position.y);
+    newShot.Shoot(player.position.x + (player.size.x / 2), player.position.y);
     shots.push_back(newShot);
-    std::cout << "test";
-    
 };
 
 void UpdateAndDrawShots(void)
@@ -140,10 +134,10 @@ void UpdateAndDrawShots(void)
         if (shots[i].active)
         {
             shots[i].Draw();
-            std::cout << "Should be drawing" << std::endl;
-        } else
+        } else // Remove shot if inactive
         {
             shots.erase(shots.begin() + i);
+            --i; // Adjust index after erasing
         }
     }
         
@@ -277,8 +271,9 @@ int main(void)
             break;
         }
         EndDrawing();
-        //----------------------------------------------------------------------------------
+        
     }
+    //--------------------------------------------------------------------------------------
     // De-Initialization
     //--------------------------------------------------------------------------------------
     // TODO: Unload all loaded data (textures, fonts, audio) here!
