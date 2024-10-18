@@ -1,0 +1,1 @@
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\SpaceInvaders\Space Invaders\Space Invaders\x64\Debug\Space Invaders.vcxproj.CopyComplete
