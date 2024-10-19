@@ -24,7 +24,7 @@ int TOTAL_OPTIONS = 2;
 
 // Player Init
 Vector2 PLAYER_SIZE = { 25.0f, 25.0f };
-Vector2 PLAYER_POS = { SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 1.05f };
+Vector2 PLAYER_POS = { SCREEN_WIDTH / 2.0f - PLAYER_SIZE.x / 2, SCREEN_HEIGHT - PLAYER_SIZE.y - 10 };
 
 
 //------------------------------------------------------------------------------------------
@@ -79,11 +79,11 @@ public:
 
     void Movement(void)
     {
-        if (IsKeyDown(KEY_LEFT))
+        if (IsKeyDown(KEY_LEFT) && position.x > 0)
         {
             position.x = position.x - speed;
         };
-        if (IsKeyDown(KEY_RIGHT))
+        if (IsKeyDown(KEY_RIGHT) && position.x < SCREEN_WIDTH - size.x)
         {
             position.x = position.x + speed;
         };
