@@ -10,12 +10,28 @@
  //------------------------------------------------------------------------------------------
  // Constants
  //------------------------------------------------------------------------------------------
+
 int SCREEN_WIDTH = 1280;
 int SCREEN_HEIGHT = 800;
 
+const char* MENU_OPTIONS[] = { "Start Game", "Close Game"};
+int TOTAL_OPTIONS = 2;
+
+
+
+
+
+
 // Player Init
-Vector2 PLAYER_SIZE = { 25.0f, 25.0f};
-Vector2 PLAYER_POS = { SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 1.05f };
+Vector2 PLAYER_SIZE = { 25.0f, 25.0f };
+Vector2 PLAYER_POS = { SCREEN_WIDTH / 2.0f - PLAYER_SIZE.x / 2, SCREEN_HEIGHT - PLAYER_SIZE.y - 10 };
+
+
+//------------------------------------------------------------------------------------------
+// Declare Vars
+//------------------------------------------------------------------------------------------
+int selectedOption = 0;
+
 
 
 //------------------------------------------------------------------------------------------
@@ -28,6 +44,8 @@ typedef enum GameScreen
     GAMEPLAY,
     ENDING
 } GameScreen;
+GameScreen currentScreen = LOGO;
+
 //------------------------------------------------------------------------------------------
 // Classes
 //------------------------------------------------------------------------------------------
@@ -51,71 +69,223 @@ public:
 
 class Player : public Entity
 {
-    public:
-        int health;
-        int speed;
+public:
+    int health;
+    int speed;
 
-        // Constructor
-        Player(Vector2 pos, Vector2 size, Color col, int hp, int spd)
-            : Entity(pos, size, col), health(hp), speed(spd) {}
+    // Constructor
+    Player(Vector2 pos, Vector2 size, Color col, int hp, int spd)
+        : Entity(pos, size, col), health(hp), speed(spd) {}
 
-        void Movement(void)
+    void Movement(void)
+    {
+        if (IsKeyDown(KEY_LEFT) && position.x > 0)
         {
-            if (IsKeyDown(KEY_LEFT))
-            {
-                position.x = position.x - speed;
-            };
-            if (IsKeyDown(KEY_RIGHT))
-            {
-                position.x = position.x + speed;
-            };
+            position.x = position.x - speed;
         };
-        
-        void Update(void)
+        if (IsKeyDown(KEY_RIGHT) && position.x < SCREEN_WIDTH - size.x)
         {
-            Movement();
-            Draw();
-        }
+            position.x = position.x + speed;
+        };
+    };
+
+    void Update(void)
+    {
+        Movement();
+        Draw();
+    }
 };
 
+class Invader : public Entity
+{
+public:
+    int offsetX, offsetY, speed;
+    bool isAlive, movingRight, movingLeft;
+    
+    // Constructor
+    Invader(Vector2 pos, Vector2 size, Color col, int speed, int offsetX, int offsetY, bool movingR, bool movingL, bool isAlive)
+    : Entity(pos, size, col), speed(speed), offsetX(offsetX), offsetY(offsetY), movingRight(movingR), movingLeft(movingL), isAlive(isAlive) {}
+    
+    void Movement(void)
+    {
+        if (movingRight)
+        {
+            // Move Right until on right side of screen
+            position.x = position.x + speed;
+            if (position.x + size == SCREEN_WIDTH)
+            {
+                // If right side of screen has been reached
+            }
+        }
+        else if (movingLeft)
+        {
+            position.x = position.x - speed;
+        }
+    }
+};
 
+std::vector<std::vector<Invader>> invaders;
 class Shot
 {
-    public:
-        float x, y;
-        int speed;
-        bool active;
-    
+public:
+    float x, y;
+    int speed;
+    bool active;
+
     // Function
-    void Shoot(float startX,float startY)
+    void Shoot(float startX, float startY)
     {
         x = startX;
         y = startY;
         active = true;
         speed = -10.0f; // Negative speed to move up
     }
-    
+
     void Movement(void)
     {
         y += speed;
     }
-    
+
     void Update(void)
     {
-        if (y<0)
+        if (y < 0)
         {
             active = false;
         }
     }
-    
+
     void Draw(void)
     {
         DrawRectangle(x, y, 5, 10, WHITE);
     }
 };
+
+class Particle {
+public:
+    Vector2 position;
+    Vector2 velocity;
+    float radius;
+    Color color;
+    float opacity;
+    bool fades;
+
+    // Default constructor
+    Particle() : position({ 0, 0 }), velocity({ 0, 0 }), radius(0), color(WHITE), opacity(1.0f), fades(false) {}
+
+    // Constructor
+    Particle(Vector2 pos, Vector2 vel, float rad, Color col, bool fade)
+        : position(pos), velocity(vel), radius(rad), color(col), opacity(1.0f), fades(fade) {}
+
+    // Draw method
+    void Draw() {
+        DrawCircleV(position, radius, Fade(color, opacity));
+    }
+
+    void Movement()
+    {
+        position.x += velocity.x;
+        position.y += velocity.y;
+    }
+
+    void FadeLogic()
+    {
+        if (fades && opacity > 0.0f)
+        {
+            opacity -= 0.01f;
+            if (opacity <= 0.0f)
+            {
+                opacity = 0.0f;
+            }
+        }
+    }
+
+    void Update()
+    {
+        Draw();
+        Movement();
+        FadeLogic();
+    }
+};
+std::vector<Particle> particles(100); // Array storing particles (for stars)
+std::vector<Particle> particleExplosion(15);
+
+
 //------------------------------------------------------------------------------------
 // Functions
 //------------------------------------------------------------------------------------
+void InitStars(void)
+{
+    // Initialize Stars
+    for (int i = 0; i < 100; i++)
+    {
+        Vector2 position = { static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH, static_cast<float>(rand()) / RAND_MAX * SCREEN_HEIGHT };
+        Vector2 velocity = { 0.0f, 0.3f };
+        float radius = static_cast<float>(rand()) / RAND_MAX * 2;
+        Color color = WHITE;
+
+        particles.push_back(Particle(position, velocity, radius, color, false));
+    }
+}
+
+void SpawnStars(void)
+{
+    for (int i = 0; i < particles.size(); i++)
+    {
+        if (particles[i].position.y > SCREEN_HEIGHT || particles[i].opacity <= 0)
+        {
+            Vector2 position = { static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH, -particles[i].radius };
+            Vector2 velocity = { 0.0f, 0.3f };
+            float radius = static_cast<float>(rand()) / RAND_MAX * 2;
+            Color color = WHITE;
+
+            particles[i] = Particle(position, velocity, radius, color, false);
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------
+// Star Logic function:
+//----------------------------------------------------------------------------------
+void StarLogic(void)
+{
+    for (size_t i = 0; i < particles.size(); i++) {
+        Particle& particle = particles[i];
+
+        if (particle.position.y - particle.radius >= SCREEN_HEIGHT) {
+            particle.position.x = static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH;
+            particle.position.y = -particle.radius;
+            particle.opacity = 1.0f; // Reset opacity if needed
+        }
+ 
+        if (particle.opacity <= 0) {
+            // Reset particle instead of erasing
+            particle.position.x = static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH;
+            particle.position.y = -particle.radius;
+            particle.opacity = 1.0f; // Reset opacity
+        }
+        else {
+            particle.Update();
+        }
+    }
+}
+
+
+void TitleMenu(void)
+{
+    ClearBackground(BLACK);
+    for (int i = 0; i < TOTAL_OPTIONS; i++) {
+        Color color = (i == selectedOption) ? RED : DARKGREEN;
+        DrawText(MENU_OPTIONS[i], SCREEN_WIDTH / 2 - MeasureText(MENU_OPTIONS[i], 30)/2, SCREEN_HEIGHT/2 + (i * 50), 30, color);
+    }
+}
+
+void TitleMenuLogic(void)
+{
+    if (IsKeyPressed(KEY_DOWN)) selectedOption = (selectedOption + 1) % TOTAL_OPTIONS;
+    if (IsKeyPressed(KEY_UP)) selectedOption = (selectedOption - 1 + TOTAL_OPTIONS) % TOTAL_OPTIONS;
+
+}
+
 std::vector<Shot> shots; // Dynamic Array
 void Shooting(Player& player)
 {
@@ -130,17 +300,18 @@ void UpdateAndDrawShots(void)
     {
         shots[i].Movement();
         shots[i].Update();
-        
+
         if (shots[i].active)
         {
             shots[i].Draw();
-        } else // Remove shot if inactive
+        }
+        else // Remove shot if inactive
         {
             shots.erase(shots.begin() + i);
             --i; // Adjust index after erasing
         }
     }
-        
+
 };
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -152,10 +323,10 @@ int main(void)
     // Initialization
     //------------------------------------------------------------------------------------------
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Game");
-    GameScreen currentScreen = LOGO;
+    InitStars();
     int framesCounter = 0;
     SetTargetFPS(60);
-    
+
     Player player(PLAYER_POS, PLAYER_SIZE, GRAY, 10, 5);
 
     //------------------------------------------------------------------------------------------
@@ -182,11 +353,22 @@ int main(void)
         case TITLE:
         {
             // TODO: Update TITLE screen variables here!
+            TitleMenuLogic();
+            StarLogic();
+            SpawnStars();
+            
 
-            // Press enter to change to GAMEPLAY screen
-            if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+            if (IsKeyPressed(KEY_ENTER))
             {
-                currentScreen = GAMEPLAY;
+                if (selectedOption == 0)
+                {
+                    currentScreen = GAMEPLAY;
+                }
+                else if (selectedOption == 1)
+                {
+                    CloseWindow(); //Exit
+                    return 0;
+                }
             }
         }
         break;
@@ -194,17 +376,17 @@ int main(void)
         {
             // TODO: Update GAMEPLAY screen variables here!
             player.Update();
-            
+
             if (IsKeyPressed(KEY_SPACE))
             {
                 Shooting(player);
             }
-            
+
 
             // Press enter to change to ENDING screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
             {
-                
+
             }
         }
         break;
@@ -241,22 +423,18 @@ int main(void)
         case TITLE:
         {
             // TODO: Draw TITLE screen here!
-            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
-            DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-            DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+            TitleMenu();
         }
         break;
         case GAMEPLAY:
         {
             // TODO: Draw GAMEPLAY screen here!
-            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, PURPLE);
-            DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-            DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
 
             player.Draw();
             UpdateAndDrawShots();
-            
-            
+
+
         }
         break;
         case ENDING:
@@ -271,7 +449,7 @@ int main(void)
             break;
         }
         EndDrawing();
-        
+
     }
     //--------------------------------------------------------------------------------------
     // De-Initialization
