@@ -14,8 +14,9 @@
 int SCREEN_WIDTH = 1280;
 int SCREEN_HEIGHT = 800;
 
-const char* MENU_OPTIONS[] = { "Start Game", "Close Game"};
+const char* MENU_OPTIONS[] = { "Start Game", "Close Game" };
 int TOTAL_OPTIONS = 2;
+int INVADER_SPEED = 5;
 
 
 
@@ -96,6 +97,39 @@ public:
     }
 };
 
+class Invader : public Entity
+{
+public:
+    int offsetX, offsetY, speed;
+    bool isAlive, movingRight, movingLeft;
+
+    // Constructor
+    Invader(Vector2 pos, Vector2 size, Color col, int speed, int offsetX, int offsetY, bool movingR, bool movingL, bool isAlive)
+        : Entity(pos, size, col), speed(speed), offsetX(offsetX), offsetY(offsetY), movingRight(movingR), movingLeft(movingL), isAlive(isAlive) {}
+
+    void InitInvaders(void)
+    {
+
+    }
+
+    void Movement(void)
+    {
+        if (movingRight)
+        {
+            // Move Right until on right side of screen
+            position.x = position.x + speed;
+            if (position.x + size == SCREEN_WIDTH)
+            {
+                // If right side of screen has been reached
+            }
+        }
+        if (movingLeft)
+        {
+            position.x = position.x - speed;
+        }
+    }
+};
+std::vector<std::vector<Invader>> invaders;
 
 class Shot
 {
@@ -199,6 +233,19 @@ void InitStars(void)
     }
 }
 
+void InitInvaders(void)
+{
+    for (int row = 0; row < 5; ++row)
+    {
+        std::vector<Invader> invaderRow;
+        for (int col = 0; col < 12; ++col)
+        {
+            Vector2 pos = { 50 + col * 50, 50 + row * 50 };
+            invaderRow.push_back(Invader(pos, { 40, 40 }, PURPLE, INVADER_SPEED, 50, 0, true, false, true));
+        }
+    }
+}
+
 void SpawnStars(void)
 {
     for (int i = 0; i < particles.size(); i++)
@@ -215,9 +262,6 @@ void SpawnStars(void)
     }
 }
 
-//----------------------------------------------------------------------------------
-// Star Logic function:
-//----------------------------------------------------------------------------------
 void StarLogic(void)
 {
     for (size_t i = 0; i < particles.size(); i++) {
@@ -228,7 +272,7 @@ void StarLogic(void)
             particle.position.y = -particle.radius;
             particle.opacity = 1.0f; // Reset opacity if needed
         }
- 
+
         if (particle.opacity <= 0) {
             // Reset particle instead of erasing
             particle.position.x = static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH;
@@ -247,7 +291,7 @@ void TitleMenu(void)
     ClearBackground(BLACK);
     for (int i = 0; i < TOTAL_OPTIONS; i++) {
         Color color = (i == selectedOption) ? RED : DARKGREEN;
-        DrawText(MENU_OPTIONS[i], SCREEN_WIDTH / 2 - MeasureText(MENU_OPTIONS[i], 30)/2, SCREEN_HEIGHT/2 + (i * 50), 30, color);
+        DrawText(MENU_OPTIONS[i], SCREEN_WIDTH / 2 - MeasureText(MENU_OPTIONS[i], 30) / 2, SCREEN_HEIGHT / 2 + (i * 50), 30, color);
     }
 }
 
@@ -328,7 +372,7 @@ int main(void)
             TitleMenuLogic();
             StarLogic();
             SpawnStars();
-            
+
 
             if (IsKeyPressed(KEY_ENTER))
             {
@@ -401,9 +445,7 @@ int main(void)
         case GAMEPLAY:
         {
             // TODO: Draw GAMEPLAY screen here!
-            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, PURPLE);
-            DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-            DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
 
             player.Draw();
             UpdateAndDrawShots();

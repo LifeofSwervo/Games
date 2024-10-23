@@ -1,7 +1,5 @@
 ﻿  Space Invaders.cpp
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\SpaceInvaders\Space Invaders\Space Invaders\Space Invaders.cpp(113,18): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\SpaceInvaders\Space Invaders\Space Invaders\Space Invaders.cpp(131,26): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\SpaceInvaders\Space Invaders\Space Invaders\Space Invaders.cpp(131,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Space Invaders.vcxproj -> C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\SpaceInvaders\Space Invaders\x64\Debug\Space Invaders.exe
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\SpaceInvaders\Space Invaders\Space Invaders\Space Invaders.cpp(115,28): error C2677: binary '+': no global operator found which takes type 'Vector2' (or there is no acceptable conversion)
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\SpaceInvaders\Space Invaders\Space Invaders\Space Invaders.cpp(141,18): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\SpaceInvaders\Space Invaders\Space Invaders\Space Invaders.cpp(159,26): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Swervo\Documents\GitHub\Games\StarterGame\C++\Space Invaders\Windows\SpaceInvaders\Space Invaders\Space Invaders\Space Invaders.cpp(159,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
