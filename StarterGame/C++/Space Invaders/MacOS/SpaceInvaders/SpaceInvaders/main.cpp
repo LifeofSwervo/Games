@@ -6,6 +6,7 @@
 #include <raylib.h>
 #include <vector>
 #include <iostream>
+#include <array>
 
  //------------------------------------------------------------------------------------------
  // Constants
@@ -14,8 +15,11 @@
 int SCREEN_WIDTH = 1280;
 int SCREEN_HEIGHT = 800;
 
-const char* MENU_OPTIONS[] = { "Start Game", "Close Game"};
+const char* MENU_OPTIONS[] = { "Start Game", "Close Game" };
 int TOTAL_OPTIONS = 2;
+int INVADER_SPEED = 2;
+const int ROWS = 5;
+const int COLUMNS = 12;
 
 
 
@@ -31,6 +35,7 @@ Vector2 PLAYER_POS = { SCREEN_WIDTH / 2.0f - PLAYER_SIZE.x / 2, SCREEN_HEIGHT - 
 // Declare Vars
 //------------------------------------------------------------------------------------------
 int selectedOption = 0;
+Vector2 pos;
 
 
 
@@ -102,29 +107,47 @@ public:
     int offsetX, offsetY, speed;
     bool isAlive, movingRight, movingLeft;
     
+    // Default Constructor
+    Invader()
+    : Entity(pos, {25, 25}, WHITE), speed(INVADER_SPEED), offsetX(50), offsetY(0), movingRight(true), movingLeft(false), isAlive(true) {}
+
     // Constructor
     Invader(Vector2 pos, Vector2 size, Color col, int speed, int offsetX, int offsetY, bool movingR, bool movingL, bool isAlive)
-    : Entity(pos, size, col), speed(speed), offsetX(offsetX), offsetY(offsetY), movingRight(movingR), movingLeft(movingL), isAlive(isAlive) {}
+        : Entity(pos, size, col), speed(speed), offsetX(offsetX), offsetY(offsetY), movingRight(movingR), movingLeft(movingL), isAlive(isAlive) {}
     
-    void Movement(void)
+    
+    
+    //invaderRow.push_back(Invader(pos, { 25, 25 }, WHITE, INVADER_SPEED, 50, 0, true, false, true));
+
+    void MoveHorizontally(void)
     {
-        if (movingRight)
+        if (movingRight) // Moving Right
         {
-            // Move Right until on right side of screen
-            position.x = position.x + speed;
-            if (position.x + size == SCREEN_WIDTH)
-            {
-                // If right side of screen has been reached
-            }
+            position.x += speed;
         }
-        else if (movingLeft)
+        else // Moving Left
         {
-            position.x = position.x - speed;
+            position.x -= speed;
         }
+    }
+    void MoveDown(void)
+    {
+        position.y += 25;
+    }
+    
+    void Draw(void)
+    {
+        DrawRectangleV(position, size, color);
     }
 };
 
-std::vector<std::vector<Invader>> invaders;
+// Invader variables
+using InvaderRow = std::array<Invader, 12>;
+std::array<InvaderRow, 5> invaders; // Init 5 rows of 12 invaders
+
+//std::vector<std::vector<Invader>> invaders;
+//std::array<Invader, 60> invaders;
+
 class Shot
 {
 public:
@@ -227,6 +250,74 @@ void InitStars(void)
     }
 }
 
+void InitInvaders(void)
+{
+    for (int row = 0; row < 5; ++row)
+    {
+        std::vector<Invader> invaderRow;
+        for (int col = 0; col < 12; ++col)
+        {
+            Vector2 pos = { 50.0f + col * 50, 50.0f + row * 50 };
+            //invaderRow.push_back(Invader(pos, { 25, 25 }, WHITE, INVADER_SPEED, 50, 0, true, false, true));
+            invaders[row][col] = Invader(pos, { 25, 25 }, WHITE, INVADER_SPEED, 50, 0, true, false, true);
+
+        }
+        //invaders.push_back(invaderRow);
+    }
+}
+
+void UpdateInvaders(void)
+{
+    bool reachedEdge = false;
+    
+    // Check if invader grid has hit edge
+    for (const auto& row : invaders)
+    {
+        // If end of row (right side) touched right side of screen OR front of row (left side) touched the left side of the screen
+        if (row.back().position.x + row.back().size.x >= SCREEN_WIDTH || row.front().position.x <= 0)
+        {
+            reachedEdge = true;
+            break;
+        }
+        
+    }
+    
+    // Once an edge of the screen has been reached
+    if (reachedEdge)
+    {
+        for (auto& row : invaders) // For every row in invaders
+        {
+            for (auto& invader : row) // For every invader in a row
+            {
+                invader.MoveDown();
+                invader.movingRight = !invader.movingRight; // Invert moving right function
+            }
+        }
+    }
+    
+    for (auto& row : invaders)
+    {
+        for (auto& invader : row)
+        {
+            invader.MoveHorizontally();
+        }
+    }
+}
+
+void DrawInvaders(void)
+{
+    for (auto& row : invaders)
+    {
+        for (auto& invader : row)
+        {
+            if (invader.isAlive)
+            {
+                invader.Draw();
+            }
+        }
+    }
+}
+
 void SpawnStars(void)
 {
     for (int i = 0; i < particles.size(); i++)
@@ -243,9 +334,6 @@ void SpawnStars(void)
     }
 }
 
-//----------------------------------------------------------------------------------
-// Star Logic function:
-//----------------------------------------------------------------------------------
 void StarLogic(void)
 {
     for (size_t i = 0; i < particles.size(); i++) {
@@ -256,7 +344,7 @@ void StarLogic(void)
             particle.position.y = -particle.radius;
             particle.opacity = 1.0f; // Reset opacity if needed
         }
- 
+
         if (particle.opacity <= 0) {
             // Reset particle instead of erasing
             particle.position.x = static_cast<float>(rand()) / RAND_MAX * SCREEN_WIDTH;
@@ -275,7 +363,7 @@ void TitleMenu(void)
     ClearBackground(BLACK);
     for (int i = 0; i < TOTAL_OPTIONS; i++) {
         Color color = (i == selectedOption) ? RED : DARKGREEN;
-        DrawText(MENU_OPTIONS[i], SCREEN_WIDTH / 2 - MeasureText(MENU_OPTIONS[i], 30)/2, SCREEN_HEIGHT/2 + (i * 50), 30, color);
+        DrawText(MENU_OPTIONS[i], SCREEN_WIDTH / 2 - MeasureText(MENU_OPTIONS[i], 30) / 2, SCREEN_HEIGHT / 2 + (i * 50), 30, color);
     }
 }
 
@@ -313,6 +401,32 @@ void UpdateAndDrawShots(void)
     }
 
 };
+
+void CheckCollision(void)
+{
+    for (size_t i = 0; i < shots.size(); ++i)
+    {
+        if (!shots[i].active) continue;
+        
+        // Loop through invader rows
+        for (auto& row : invaders)
+        {
+            for (auto& invader : row)
+            {
+                // Only check collision for alive invaders
+                if (invader.isAlive && CheckCollisionRecs({shots[i].x, shots[i].y, 5, 10},
+                                                          {invader.position.x, invader.position.y, invader.size.x, invader.size.y}))
+                {
+                    // Collision detected
+                    invader.isAlive = false;
+                    shots[i].active = false;
+                    
+                    break; // Stop detecting collision
+                }
+            }
+        }
+    }
+}
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -324,11 +438,12 @@ int main(void)
     //------------------------------------------------------------------------------------------
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Game");
     InitStars();
+    InitInvaders();
+    
     int framesCounter = 0;
     SetTargetFPS(60);
 
     Player player(PLAYER_POS, PLAYER_SIZE, GRAY, 10, 5);
-
     //------------------------------------------------------------------------------------------
     // Main game loop
     //------------------------------------------------------------------------------------------
@@ -356,7 +471,7 @@ int main(void)
             TitleMenuLogic();
             StarLogic();
             SpawnStars();
-            
+
 
             if (IsKeyPressed(KEY_ENTER))
             {
@@ -381,6 +496,9 @@ int main(void)
             {
                 Shooting(player);
             }
+            
+            UpdateInvaders();
+            CheckCollision();
 
 
             // Press enter to change to ENDING screen
@@ -432,6 +550,7 @@ int main(void)
             DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
 
             player.Draw();
+            DrawInvaders();
             UpdateAndDrawShots();
 
 
