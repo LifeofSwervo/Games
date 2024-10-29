@@ -266,6 +266,7 @@ void InitInvaders(void)
     }
 }
 
+/*
 void UpdateInvaders(void)
 {
     bool reachedEdge = false;
@@ -303,6 +304,71 @@ void UpdateInvaders(void)
         }
     }
 }
+*/
+
+
+ void UpdateInvaders(void)
+ {
+    bool reachedEdge = false;
+    
+    // Checks if reached edge by scanning columns
+     for (int col = 0; col < COLUMNS; ++col)
+     {
+         const Invader* topAlive = nullptr;
+         const Invader* bottomAlive = nullptr;
+         
+         // Scan the column, finding top and bottom invaders
+         for (int row = 0; row < ROWS; ++row)
+         {
+             if (invaders[row][col].isAlive)
+             {
+                 if (!topAlive)
+                 {
+                     topAlive = &invaders[row][col];
+                     bottomAlive = &invaders[row][col];
+                 }
+             }
+         }
+         
+         // Skip if no invaders are alive in the column
+         if (!topAlive || !bottomAlive) continue;
+         
+         // Check if top or bottom invader column reaches the edge of the column
+         if (bottomAlive -> position.x + bottomAlive -> size.x >= SCREEN_WIDTH || topAlive -> position.x <= 0)
+         {
+             reachedEdge = true;
+             break;
+         }
+     }
+     
+     
+     if (reachedEdge)
+     {
+         for (auto& row : invaders)
+         {
+             for (auto& invader : row)
+             {
+                 if (invader.isAlive)
+                 {
+                     invader.MoveDown();
+                     invader.movingRight = !invader.movingRight;
+                 }
+             }
+         }
+     }
+     
+     for (auto& row : invaders)
+     {
+         for (auto& invader : row)
+         {
+             if (invader.isAlive)
+             {
+                 invader.MoveHorizontally();
+             }
+         }
+     }
+ }
+ 
 
 void DrawInvaders(void)
 {
