@@ -7,27 +7,26 @@
 #include <vector>
 #include <iostream>
 #include <array>
+#include <deque>
 
  //------------------------------------------------------------------------------------------
  // Constants
  //------------------------------------------------------------------------------------------
+// Settings
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 800;
 
-int SCREEN_WIDTH = 1280;
-int SCREEN_HEIGHT = 800;
-
+// Menu Settings
 const char* MENU_OPTIONS[] = { "Start Game", "Close Game" };
-int TOTAL_OPTIONS = 2;
-int INVADER_SPEED = 2;
+const int TOTAL_OPTIONS = std::size(MENU_OPTIONS); // 2 options
+
+// Invader Settings
+const int INVADER_SPEED = 2;
 const int ROWS = 5;
 const int COLUMNS = 12;
 
-
-
-
-
-
 // Player Init
-Vector2 PLAYER_SIZE = { 25.0f, 25.0f };
+const Vector2 PLAYER_SIZE = { 25.0f, 25.0f };
 Vector2 PLAYER_POS = { SCREEN_WIDTH / 2.0f - PLAYER_SIZE.x / 2, SCREEN_HEIGHT - PLAYER_SIZE.y - 10 };
 
 
@@ -229,7 +228,8 @@ public:
         FadeLogic();
     }
 };
-std::vector<Particle> particles(100); // Array storing particles (for stars)
+//std::vector<Particle> particles(100); // Array storing particles (for stars)
+std::array<Particle, 100> particles;
 std::vector<Particle> particleExplosion(15);
 
 
@@ -246,7 +246,8 @@ void InitStars(void)
         float radius = static_cast<float>(rand()) / RAND_MAX * 2;
         Color color = WHITE;
 
-        particles.push_back(Particle(position, velocity, radius, color, false));
+        //particles.push_back(Particle(position, velocity, radius, color, false));
+        particles[i] = Particle(position, velocity, radius, color, false);
     }
 }
 
@@ -266,47 +267,57 @@ void InitInvaders(void)
     }
 }
 
-/*
 void UpdateInvaders(void)
 {
     bool reachedEdge = false;
     
-    // Check if invader grid has hit edge
-    for (const auto& row : invaders)
+    // Check if edge has been reached
+    for (int col = 0; col < COLUMNS; ++col)
     {
-        // If end of row (right side) touched right side of screen OR front of row (left side) touched the left side of the screen
-        if (row.back().position.x + row.back().size.x >= SCREEN_WIDTH || row.front().position.x <= 0)
+        for (int row = 0; row < ROWS; ++row)
         {
-            reachedEdge = true;
-            break;
+            if (invaders[row][col].isAlive)
+            {
+                if (invaders[row][col].position.x + invaders[row][col].size.x >= SCREEN_WIDTH || invaders[row][col].position.x <= 0)
+                {
+                    reachedEdge = true;
+                }
+                break; // Stop Checking after an alive invader has been found in this column
+            }
         }
-        
+        if (reachedEdge) break; // If an edge was hit, stop checking columns
     }
     
-    // Once an edge of the screen has been reached
+    // If edge has been reached
     if (reachedEdge)
     {
-        for (auto& row : invaders) // For every row in invaders
+        for (auto& row : invaders)
         {
-            for (auto& invader : row) // For every invader in a row
+            for (auto& invader : row)
             {
-                invader.MoveDown();
-                invader.movingRight = !invader.movingRight; // Invert moving right function
+                if (invader.isAlive)
+                {
+                    invader.MoveDown();
+                    invader.movingRight = !invader.movingRight;
+                }
             }
         }
     }
     
+    // Invader MovementI
     for (auto& row : invaders)
     {
         for (auto& invader : row)
         {
-            invader.MoveHorizontally();
+            if (invader.isAlive)
+            {
+                invader.MoveHorizontally();
+            }
         }
     }
 }
-*/
 
-
+/*
  void UpdateInvaders(void)
  {
     bool reachedEdge = false;
@@ -341,7 +352,7 @@ void UpdateInvaders(void)
          }
      }
      
-     
+     // Once the edge has been reached
      if (reachedEdge)
      {
          for (auto& row : invaders)
@@ -357,6 +368,7 @@ void UpdateInvaders(void)
          }
      }
      
+     // Iterate through invaders grid and tell them to move
      for (auto& row : invaders)
      {
          for (auto& invader : row)
@@ -368,6 +380,7 @@ void UpdateInvaders(void)
          }
      }
  }
+ */
  
 
 void DrawInvaders(void)
@@ -440,7 +453,8 @@ void TitleMenuLogic(void)
 
 }
 
-std::vector<Shot> shots; // Dynamic Array
+//std::vector<Shot> shots; // Dynamic Array
+std::deque<Shot> shots; // Dynamic Array
 void Shooting(Player& player)
 {
     Shot newShot;
