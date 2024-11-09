@@ -1,9 +1,11 @@
 /*******************************************************************************************
- * Geometry Shooter
+ * Main Screen Manager.
  * Author: Clarence Thomas
  * Description - Provides a blank template of code containing different game states.
  *************************************************************************************************************************************************/
 #include <raylib.h>
+#include <iostream>
+#include "Game.hpp"
 
 //------------------------------------------------------------------------------------------
 // Constants
@@ -22,6 +24,124 @@ typedef enum GameScreen
     ENDING
 } GameScreen;
 
+
+//------------------------------------------------------------------------------------------
+// Classes
+//------------------------------------------------------------------------------------------
+class Game
+{
+public:
+    bool m_running = true;
+    bool m_paused = false;
+    int m_score = 0;
+
+
+
+    // Default Constructor
+
+    // Constructor
+
+    void Init(void)
+    {
+
+    }
+
+    void Update(void)
+    {
+
+    }
+
+    // System Functions
+
+    void sUserInput(void)
+    {
+
+    }
+
+    void sRender(void)
+    {
+
+    }
+
+    void sEnemySpawner(void)
+    {
+
+    }
+
+    void sCollision(void)
+    {
+
+    }
+};
+
+class EntityManager
+{
+public:
+    Vector2 m_toAdd;
+
+
+
+    void init(void)
+    {
+
+    }
+
+    void update(void)
+    {
+
+    }
+
+    void addEntity(void)
+    {
+
+    }
+
+    void getEntities(void)
+    {
+
+    }
+
+    // getEntities(s) function
+};
+
+class Entity
+{
+public:
+    std::string m_tag;
+    bool m_active;
+    size_t m_id;
+
+
+
+    // Default Constructor
+
+    // Constructor
+
+
+    void destroy(void)
+    {
+
+    }
+
+    bool isActive(void)
+    {
+
+    }
+
+    std::string& tag(void)
+    {
+
+    }
+
+    size_t id(void)
+    {
+
+    }
+
+};
+
+
+
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -30,10 +150,10 @@ int main(void)
     //------------------------------------------------------------------------------------------
     // Initialization
     //------------------------------------------------------------------------------------------
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Game");
+    //InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Game");
     GameScreen currentScreen = LOGO;
     int framesCounter = 0;
-    SetTargetFPS(60);
+    //SetTargetFPS(60);
 
     //------------------------------------------------------------------------------------------
     // Main game loop
@@ -145,3 +265,4 @@ int main(void)
     //--------------------------------------------------------------------------------------
     return 0;
 }
+

@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		44FBABD32CDBBAF10032C234 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBABD22CDBBAF10032C234 /* main.cpp */; };
+		44FBABE62CDD05B50032C234 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBABE52CDD05B50032C234 /* main.cpp */; };
+		44FBABEE2CDD0A350032C234 /* libraylib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FBABED2CDD0A350032C234 /* libraylib.a */; };
+		44FBABF22CDD177E0032C234 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBABF02CDD177E0032C234 /* Game.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		44FBABCD2CDBBAF10032C234 /* CopyFiles */ = {
+		44FBABE02CDD05B50032C234 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -23,55 +25,72 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		44FBABCF2CDBBAF10032C234 /* GeometryShooter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GeometryShooter; sourceTree = BUILT_PRODUCTS_DIR; };
-		44FBABD22CDBBAF10032C234 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		44FBABE22CDD05B50032C234 /* GeometryShooter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GeometryShooter; sourceTree = BUILT_PRODUCTS_DIR; };
+		44FBABE52CDD05B50032C234 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		44FBABED2CDD0A350032C234 /* libraylib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libraylib.a; path = ../../../../../../../../../../../../opt/homebrew/Cellar/raylib/5.0/lib/libraylib.a; sourceTree = "<group>"; };
+		44FBABF02CDD177E0032C234 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		44FBABF12CDD177E0032C234 /* Game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
+		44FBABF32CDED32D0032C234 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		44FBABCC2CDBBAF10032C234 /* Frameworks */ = {
+		44FBABDF2CDD05B50032C234 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44FBABEE2CDD0A350032C234 /* libraylib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		44FBABC62CDBBAF10032C234 = {
+		44FBABD92CDD05B50032C234 = {
 			isa = PBXGroup;
 			children = (
-				44FBABD12CDBBAF10032C234 /* GeometryShooter */,
-				44FBABD02CDBBAF10032C234 /* Products */,
+				44FBABE42CDD05B50032C234 /* GeometryShooter */,
+				44FBABE32CDD05B50032C234 /* Products */,
+				44FBABEC2CDD0A350032C234 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		44FBABD02CDBBAF10032C234 /* Products */ = {
+		44FBABE32CDD05B50032C234 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				44FBABCF2CDBBAF10032C234 /* GeometryShooter */,
+				44FBABE22CDD05B50032C234 /* GeometryShooter */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		44FBABD12CDBBAF10032C234 /* GeometryShooter */ = {
+		44FBABE42CDD05B50032C234 /* GeometryShooter */ = {
 			isa = PBXGroup;
 			children = (
-				44FBABD22CDBBAF10032C234 /* main.cpp */,
+				44FBABE52CDD05B50032C234 /* main.cpp */,
+				44FBABF02CDD177E0032C234 /* Game.cpp */,
+				44FBABF12CDD177E0032C234 /* Game.hpp */,
+				44FBABF32CDED32D0032C234 /* Common.h */,
 			);
 			path = GeometryShooter;
+			sourceTree = "<group>";
+		};
+		44FBABEC2CDD0A350032C234 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				44FBABED2CDD0A350032C234 /* libraylib.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		44FBABCE2CDBBAF10032C234 /* GeometryShooter */ = {
+		44FBABE12CDD05B50032C234 /* GeometryShooter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 44FBABD62CDBBAF10032C234 /* Build configuration list for PBXNativeTarget "GeometryShooter" */;
+			buildConfigurationList = 44FBABE92CDD05B50032C234 /* Build configuration list for PBXNativeTarget "GeometryShooter" */;
 			buildPhases = (
-				44FBABCB2CDBBAF10032C234 /* Sources */,
-				44FBABCC2CDBBAF10032C234 /* Frameworks */,
-				44FBABCD2CDBBAF10032C234 /* CopyFiles */,
+				44FBABDE2CDD05B50032C234 /* Sources */,
+				44FBABDF2CDD05B50032C234 /* Frameworks */,
+				44FBABE02CDD05B50032C234 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -79,24 +98,24 @@
 			);
 			name = GeometryShooter;
 			productName = GeometryShooter;
-			productReference = 44FBABCF2CDBBAF10032C234 /* GeometryShooter */;
+			productReference = 44FBABE22CDD05B50032C234 /* GeometryShooter */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		44FBABC72CDBBAF10032C234 /* Project object */ = {
+		44FBABDA2CDD05B50032C234 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					44FBABCE2CDBBAF10032C234 = {
+					44FBABE12CDD05B50032C234 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
-			buildConfigurationList = 44FBABCA2CDBBAF10032C234 /* Build configuration list for PBXProject "GeometryShooter" */;
+			buildConfigurationList = 44FBABDD2CDD05B50032C234 /* Build configuration list for PBXProject "GeometryShooter" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -104,29 +123,30 @@
 				en,
 				Base,
 			);
-			mainGroup = 44FBABC62CDBBAF10032C234;
-			productRefGroup = 44FBABD02CDBBAF10032C234 /* Products */;
+			mainGroup = 44FBABD92CDD05B50032C234;
+			productRefGroup = 44FBABE32CDD05B50032C234 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				44FBABCE2CDBBAF10032C234 /* GeometryShooter */,
+				44FBABE12CDD05B50032C234 /* GeometryShooter */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		44FBABCB2CDBBAF10032C234 /* Sources */ = {
+		44FBABDE2CDD05B50032C234 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44FBABD32CDBBAF10032C234 /* main.cpp in Sources */,
+				44FBABE62CDD05B50032C234 /* main.cpp in Sources */,
+				44FBABF22CDD177E0032C234 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		44FBABD42CDBBAF10032C234 /* Debug */ = {
+		44FBABE72CDD05B50032C234 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -184,7 +204,7 @@
 			};
 			name = Debug;
 		};
-		44FBABD52CDBBAF10032C234 /* Release */ = {
+		44FBABE82CDD05B50032C234 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -235,44 +255,56 @@
 			};
 			name = Release;
 		};
-		44FBABD72CDBBAF10032C234 /* Debug */ = {
+		44FBABEA2CDD05B50032C234 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/raylib/5.0/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/paulthomas/Desktop/Dev/GitHub/Games/StarterGame/C++/COMP4300/Geometry/Mac/GeometryShooter/GeometryShooter";
 			};
 			name = Debug;
 		};
-		44FBABD82CDBBAF10032C234 /* Release */ = {
+		44FBABEB2CDD05B50032C234 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/raylib/5.0/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/paulthomas/Desktop/Dev/GitHub/Games/StarterGame/C++/COMP4300/Geometry/Mac/GeometryShooter/GeometryShooter";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		44FBABCA2CDBBAF10032C234 /* Build configuration list for PBXProject "GeometryShooter" */ = {
+		44FBABDD2CDD05B50032C234 /* Build configuration list for PBXProject "GeometryShooter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				44FBABD42CDBBAF10032C234 /* Debug */,
-				44FBABD52CDBBAF10032C234 /* Release */,
+				44FBABE72CDD05B50032C234 /* Debug */,
+				44FBABE82CDD05B50032C234 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		44FBABD62CDBBAF10032C234 /* Build configuration list for PBXNativeTarget "GeometryShooter" */ = {
+		44FBABE92CDD05B50032C234 /* Build configuration list for PBXNativeTarget "GeometryShooter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				44FBABD72CDBBAF10032C234 /* Debug */,
-				44FBABD82CDBBAF10032C234 /* Release */,
+				44FBABEA2CDD05B50032C234 /* Debug */,
+				44FBABEB2CDD05B50032C234 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 44FBABC72CDBBAF10032C234 /* Project object */;
+	rootObject = 44FBABDA2CDD05B50032C234 /* Project object */;
 }
