@@ -80,6 +80,7 @@ void Game::spawnEnemy()
 void Game::spawnSmallEnemies(std::shared_ptr<Entity> e)
 {
     // Todo: Spawns small enemies at the location of the input enemy e
+    //int vertices = e->cShape->circle.getPointCount();
     
     // - Spawn a small number of enemies equal to the vertices of the enemy
     // - Set each small enemy to the same color as the original, half the size
@@ -91,6 +92,45 @@ void Game::spawnBullet(std::shared_ptr<Entity> entity, const Vec2 & target)
 {
     
 }
+
+void Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity)
+{
+    // Implement special weapon
+}
+
+void Game::sMovement()
+{
+    // Sample movment and speed update
+    m_player->cTransform->pos.x += m_player->cTransform->velocity.x;
+    m_player->cTransform->pos.y += m_player->cTransform->velocity.y;
+}
+
+void Game::sLifespan()
+{
+    // Implement lifespan functionality
+}
+
+void Game::sCollision()
+{
+    // Integrate all proper collisions between entities.
+    // Use collision radius not shape radius
+}
+
+void Game::sEnemySpawner()
+{
+    // Integrate enemy spawning logic
+}
+
+void Game::sRender()
+{
+    
+}
+
+void Game::sUserInput()
+{
+    
+}
+
 
 /*
 Game::Game() : m_running(true)
