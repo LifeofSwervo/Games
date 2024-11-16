@@ -10,6 +10,9 @@
 		44FBABE62CDD05B50032C234 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBABE52CDD05B50032C234 /* main.cpp */; };
 		44FBABEE2CDD0A350032C234 /* libraylib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FBABED2CDD0A350032C234 /* libraylib.a */; };
 		44FBABF22CDD177E0032C234 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBABF02CDD177E0032C234 /* Game.cpp */; };
+		44FBABF62CDFED260032C234 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBABF42CDFED260032C234 /* Entity.cpp */; };
+		44FBABFB2CE170A50032C234 /* Vec2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBABF92CE170A50032C234 /* Vec2.cpp */; };
+		44FBABFE2CE17A3C0032C234 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBABFC2CE17A3C0032C234 /* EntityManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +34,13 @@
 		44FBABF02CDD177E0032C234 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		44FBABF12CDD177E0032C234 /* Game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		44FBABF32CDED32D0032C234 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		44FBABF42CDFED260032C234 /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		44FBABF52CDFED260032C234 /* Entity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Entity.hpp; sourceTree = "<group>"; };
+		44FBABF82CDFF1150032C234 /* Components.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Components.h; sourceTree = "<group>"; };
+		44FBABF92CE170A50032C234 /* Vec2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vec2.cpp; sourceTree = "<group>"; };
+		44FBABFA2CE170A50032C234 /* Vec2.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vec2.hpp; sourceTree = "<group>"; };
+		44FBABFC2CE17A3C0032C234 /* EntityManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
+		44FBABFD2CE17A3C0032C234 /* EntityManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EntityManager.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +79,13 @@
 				44FBABF02CDD177E0032C234 /* Game.cpp */,
 				44FBABF12CDD177E0032C234 /* Game.hpp */,
 				44FBABF32CDED32D0032C234 /* Common.h */,
+				44FBABF42CDFED260032C234 /* Entity.cpp */,
+				44FBABF52CDFED260032C234 /* Entity.hpp */,
+				44FBABF82CDFF1150032C234 /* Components.h */,
+				44FBABF92CE170A50032C234 /* Vec2.cpp */,
+				44FBABFA2CE170A50032C234 /* Vec2.hpp */,
+				44FBABFC2CE17A3C0032C234 /* EntityManager.cpp */,
+				44FBABFD2CE17A3C0032C234 /* EntityManager.hpp */,
 			);
 			path = GeometryShooter;
 			sourceTree = "<group>";
@@ -139,6 +156,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				44FBABE62CDD05B50032C234 /* main.cpp in Sources */,
+				44FBABFB2CE170A50032C234 /* Vec2.cpp in Sources */,
+				44FBABF62CDFED260032C234 /* Entity.cpp in Sources */,
+				44FBABFE2CE17A3C0032C234 /* EntityManager.cpp in Sources */,
 				44FBABF22CDD177E0032C234 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
