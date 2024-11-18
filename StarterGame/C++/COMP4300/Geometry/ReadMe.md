@@ -43,6 +43,9 @@ File Descriptions
         - destroy():
             This method destroys the entity.
 
+    Game.cpp / Game.hpp
+        - Header file declares the config variables, along with the pause functionality and the system (functions) functions.
+
 Codebase Architecture:
     Player, Enemy and Bullet attributes are able to be configured using the Config Settings (detailed below). Attributes use the acronyms listed for ease of readibility. 
 
