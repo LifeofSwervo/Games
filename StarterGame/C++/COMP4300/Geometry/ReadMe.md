@@ -22,7 +22,8 @@ Vec2.hpp
 
 File Descriptions
     - Common.hpp:
-        This file holds all the "#include" statements needed for the the game. To avoid redundancy it is easier to import all the dependancies in this file once, then import this file on all other files that require those dependancies.
+        This file holds all the "#include" statements needed for the the game. To avoid redundancy it is easier to import all the dependancies in this file once, then import this file on all other files that require those dependancies.    
+
 
     - Components.hpp:
         This file holds individual classes that hold game data. Rather than having these scattered across the codebase, it is more organize to hold all classes of this theme together for maintainability.
@@ -43,8 +44,13 @@ File Descriptions
         - destroy():
             This method destroys the entity.
 
+
+    EntityManager.cpp / EntityManager.hpp
+        - Header file contains declaration for EntityVec and EntityMap, with EntityVec being a type alias for a vector of shared pointers to Entity objects. And EntityMap being
+
     Game.cpp / Game.hpp
-        - Header file declares the config variables, along with the pause functionality and the system (functions) functions.
+        - Header file declares the config variables, along with the pause functionality and the system (functions) functions. Controls spawning functionality, (for both player, enemy, bullets, and special weapons).
+        - C++ file implements logic for the mnetioned delarations, while also accepting the configuration provided by the .txt file. 
 
 Codebase Architecture:
     Player, Enemy and Bullet attributes are able to be configured using the Config Settings (detailed below). Attributes use the acronyms listed for ease of readibility. 
