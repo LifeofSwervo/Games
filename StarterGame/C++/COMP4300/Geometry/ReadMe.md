@@ -30,27 +30,18 @@ File Descriptions
         - CLifespan:
             This class relies on the "remaining" and "total" variables for tracking lifespans. As an example, if an enemy has 100 total lifespan and 30 frames of that is alive. The total variable would have the value of 'Total = 100' and remaining would have a value of 'Remaining = 70'.
 
-    Entity.cpp:
-        This file implements the logic that was declared in the Entity.hpp file. The entity constructor takes the id then the tag as arguments. 
 
-    Entity.hpp:
-        This file declares the Entity class, along with it's members and functions. 
-        - isActive():
-            This method checks to see if the entity has been destroyed, returns true if it is still active.
-        - m_tag():
-            This method returns the tag of this entity. Used for determining the type of entity. ("Player" entites, "Enemy" entities, etc...) 
-        - m_id():
-            This method returns the ID of the entity.
-        - destroy():
-            This method destroys the entity.
+    Entity.cpp / Entity.hpp
+        - Header file declares Entity methods, mainly just a tag to identify the type entity in questions, along with an ID, a boolean active indicator, along with a destroy() method.
+        - The C++ file implements the logic for these different Entity methods. Also places tag and id as arguments to the class.
 
 
     EntityManager.cpp / EntityManager.hpp
-        - Header file contains declaration for EntityVec and EntityMap, with EntityVec being a type alias for a vector of shared pointers to Entity objects. And EntityMap being
+        - Header file contains declaration for EntityVec and EntityMap, with EntityVec being a type alias for a vector of shared pointers to Entity objects, storing all entities managed by the EntityManager. And EntityMap being the Dynamic array grouping entities based off their tag. 
 
     Game.cpp / Game.hpp
         - Header file declares the config variables, along with the pause functionality and the system (functions) functions. Controls spawning functionality, (for both player, enemy, bullets, and special weapons).
-        - C++ file implements logic for the mnetioned delarations, while also accepting the configuration provided by the .txt file. 
+        - C++ file implements logic for the mnetioned delarations, while also accepting the configuration provided by the .txt file. The update function checks the entity tags for any entities to mark as dead.Also includes functionality for adding, returning, and removing entities.  
 
 Codebase Architecture:
     Player, Enemy and Bullet attributes are able to be configured using the Config Settings (detailed below). Attributes use the acronyms listed for ease of readibility. 

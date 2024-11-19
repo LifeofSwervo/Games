@@ -5,5 +5,6 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <map>
 
 template <class T> using ptr = std::shared_ptr<T>;

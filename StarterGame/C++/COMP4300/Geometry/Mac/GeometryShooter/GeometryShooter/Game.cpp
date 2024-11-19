@@ -9,8 +9,8 @@ Game::Game(const std::string & config)
 
 void Game::init(const std::string & path)
 {
+    // Import game config file
     std::ifstream fin(path);
-    
     fin >> m_playerConfig.SR >> m_playerConfig.CR >> m_playerConfig.S;
     
     // Set up default window parameter
@@ -88,7 +88,7 @@ void Game::spawnSmallEnemies(std::shared_ptr<Entity> e)
 }
 
 // Spawns a bullet from a given entity to a target location
-void Game::spawnBullet(std::shared_ptr<Entity> entity, const Vec2 & target)
+void Game::spawnBullet(std::shared_ptr<Entity> entity, const Vec2 & mousePos)
 {
     
 }
