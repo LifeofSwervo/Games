@@ -23,6 +23,7 @@ void Game::init(const std::string & path)
 
 void Game::run()
 {
+    /*
     while (m_running)
     {
         m_entities.update();
@@ -41,6 +42,26 @@ void Game::run()
         // Increment the frame
         
         m_currentFrame++;
+     */
+    
+    while (!WindowShouldClose())
+    {
+        m_entities.update();
+        
+        if (!m_paused)
+        {
+            
+        }
+        
+        sEnemySpawner();
+        sMovement();
+        sCollision();
+        sUserInput();
+        sRender();
+        
+        // Increment the Frame
+        m_currentFrame++;
+     
     }
 }
 

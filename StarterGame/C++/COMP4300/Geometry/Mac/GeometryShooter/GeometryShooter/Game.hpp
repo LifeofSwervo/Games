@@ -1,4 +1,6 @@
 // Game.hpp
+#pragma once
+
 #include "Common.h"
 #include "Entity.hpp"
 #include "EntityManager.hpp"

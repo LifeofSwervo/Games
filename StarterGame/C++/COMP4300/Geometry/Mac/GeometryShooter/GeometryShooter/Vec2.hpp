@@ -1,4 +1,6 @@
 // Vec2.hpp
+#pragma once
+
 class Vec2
 {
 public:

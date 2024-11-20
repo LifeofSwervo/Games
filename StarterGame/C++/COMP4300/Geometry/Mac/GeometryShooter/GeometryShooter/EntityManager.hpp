@@ -1,4 +1,5 @@
 // EntityManager.hpp
+#pragma once
 
 #include "Common.h"
 #include "Entity.hpp"

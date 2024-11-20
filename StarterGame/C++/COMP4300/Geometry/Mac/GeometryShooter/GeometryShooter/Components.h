@@ -1,5 +1,6 @@
+// Components.h
+#pragma once
 #include "Common.h"
-#include "Vec2.hpp"
 
 class CTransform
 {
@@ -15,15 +16,25 @@ public:
 
 class CShape
 {
-    // Import sf circle
+public:
+    Vector2 center;
+    float radius;
+    Color fillColor;
+    Color outlineColor;
+    float outlineThickness;
     
     // Default constructor
-    CShape(float radius, int points, const color, const outline, const thickness)
-        : circle(radius, points)
+    CShape(Vector2 center, float radius, Color fill, Color outline, float thickness)
+    : center(center), radius(radius), fillColor(fill), outlineColor(outline), outlineThickness(thickness) {}
+    
+    void Draw() const
     {
-        //circle.setFillColor(fill);
-        //ciecle.setOutlineColor(outline);
-        //circle.setOrgin(radius, radius);
+        DrawCircleV(center, radius, fillColor);
+        /*if (outlineThickness > 0)
+        {
+            DrawCircleLines(center.x, center.y, radius + outlineThickness, outlineColor);
+        }
+        */
     }
 };
 
