@@ -26,8 +26,8 @@ File Descriptions
 
 - Components.hpp:
   This file holds individual classes that hold game data. Rather than having these scattered across the codebase, it is more organize to hold all classes of this theme together for maintainability.
-  - CLifespan:
-    This class relies on the "remaining" and "total" variables for tracking lifespans. As an example, if an enemy has 100 total lifespan and 30 frames of that is alive. The total variable would have the value of 'Total = 100' and remaining would have a value of 'Remaining = 70'.
+- CLifespan:
+  This class relies on the "remaining" and "total" variables for tracking lifespans. As an example, if an enemy has 100 total lifespan and 30 frames of that is alive. The total variable would have the value of 'Total = 100' and remaining would have a value of 'Remaining = 70'.
 
 Entity.cpp / Entity.hpp - Header file declares Entity methods, mainly just a tag to identify the type entity in questions, along with an ID, a boolean active indicator, along with a destroy() method. - The C++ file implements the logic for these different Entity methods. Also places tag and id as arguments to the class.
 
