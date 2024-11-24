@@ -30,6 +30,7 @@
 		44FBAC132CF0F1FD0032C234 /* libraylib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libraylib.a; path = ../../../../../../../../../../../../opt/homebrew/Cellar/raylib/5.0/lib/libraylib.a; sourceTree = "<group>"; };
 		44FBAC152CF0F6680032C234 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		44FBAC162CF0F6680032C234 /* Game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
+		44FBAC182CF0FBB10032C234 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +68,7 @@
 				44FBAC0B2CF0E8E20032C234 /* main.cpp */,
 				44FBAC152CF0F6680032C234 /* Game.cpp */,
 				44FBAC162CF0F6680032C234 /* Game.hpp */,
+				44FBAC182CF0FBB10032C234 /* Common.h */,
 			);
 			path = GW;
 			sourceTree = "<group>";
