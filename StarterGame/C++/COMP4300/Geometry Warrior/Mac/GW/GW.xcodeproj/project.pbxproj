@@ -10,6 +10,7 @@
 		44FBAC0C2CF0E8E20032C234 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBAC0B2CF0E8E20032C234 /* main.cpp */; };
 		44FBAC142CF0F1FD0032C234 /* libraylib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FBAC132CF0F1FD0032C234 /* libraylib.a */; };
 		44FBAC172CF0F6680032C234 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBAC152CF0F6680032C234 /* Game.cpp */; };
+		44FBAC1B2CF4C0AE0032C234 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44FBAC192CF4C0AE0032C234 /* Entity.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		44FBAC152CF0F6680032C234 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		44FBAC162CF0F6680032C234 /* Game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		44FBAC182CF0FBB10032C234 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		44FBAC192CF4C0AE0032C234 /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		44FBAC1A2CF4C0AE0032C234 /* Entity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Entity.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,8 @@
 				44FBAC152CF0F6680032C234 /* Game.cpp */,
 				44FBAC162CF0F6680032C234 /* Game.hpp */,
 				44FBAC182CF0FBB10032C234 /* Common.h */,
+				44FBAC192CF4C0AE0032C234 /* Entity.cpp */,
+				44FBAC1A2CF4C0AE0032C234 /* Entity.hpp */,
 			);
 			path = GW;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44FBAC0C2CF0E8E20032C234 /* main.cpp in Sources */,
+				44FBAC1B2CF4C0AE0032C234 /* Entity.cpp in Sources */,
 				44FBAC172CF0F6680032C234 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
