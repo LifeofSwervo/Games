@@ -33,7 +33,7 @@ Entity.cpp / Entity.hpp - Header file declares Entity methods, mainly just a tag
 
 EntityManager.cpp / EntityManager.hpp - Header file contains declaration for EntityVec and EntityMap, with EntityVec being a type alias for a vector of shared pointers to Entity objects, storing all entities managed by the EntityManager. And EntityMap being the Dynamic array grouping entities based off their tag.
 
-Game.cpp / Game.hpp - Header file declares the config variables, along with the pause functionality and the system (functions) functions. Controls spawning functionality, (for both player, enemy, bullets, and special weapons). - C++ file implements logic for the mnetioned delarations, while also accepting the configuration provided by the .txt file. The update function checks the entity tags for any entities to mark as dead.Also includes functionality for adding, returning, and removing entities.
+Game.cpp / Game.hpp - Header file declares the config variables, along with the pause functionality and the system (logic) functions. Controls spawning functionality, (for both player, enemy, bullets, and special weapons). - C++ file implements logic for the mentioned delarations, while also accepting the configuration provided by the .txt file. The update function checks the entity tags for any entities to mark as dead. Also includes functionality for adding, returning, and removing entities.
 
 Vec2.cpp / Vec2.hpp - These files define how operations should be handled with Vec2 objects (typically entities). Attempts to cover all forms of opertaions.
 
